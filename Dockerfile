@@ -54,6 +54,7 @@ RUN yarn install --frozen-lockfile
 
 # Copy application code
 COPY . /rails
+RUN chmod +x ./bin/rails
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
