@@ -60,11 +60,11 @@ RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 
-# RUN chmod +x ./bin/rails
-# RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN chmod +x ./bin/rails
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
-RUN rm -rf node_modules
+# RUN rm -rf node_modules
 
 
 # Final stage for app image
