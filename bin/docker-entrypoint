@@ -10,6 +10,9 @@ fi
 # Remove a potentially pre-existing server.pid for Rails.
 rm -f /myapp/tmp/pids/server.pid
 
+# Ensure the rails script has execution permissions
+chmod +x ./bin/rails
+
 # If running the rails server, prepare the database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
     ./bin/rails db:prepare
