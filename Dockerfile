@@ -53,14 +53,14 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Copy application code
-COPY . /rails
-RUN chmod +x ./bin/rails
+COPY . .
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 
+RUN chmod +x ./bin/rails
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
