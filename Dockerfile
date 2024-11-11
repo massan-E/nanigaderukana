@@ -53,14 +53,13 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Copy application code
-COPY . .
+COPY . /myapp
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 
-RUN chmod +x ./bin/rails
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
@@ -73,26 +72,6 @@ FROM base
 # Copy built artifacts: gems, application
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
-
-# Run and own only the runtime files as a non-root user for security
-RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails /rails/db /rails/log /rails/storage /rails/tmp /rails/bin
-
-# Ensure entrypoint script has appropriate ownership and permissions
-RUN chown rails:rails /rails/bin/docker-entrypoint && \
-    chmod +x /rails/bin/docker-entrypoint
-
-# Ensure rails script has appropriate ownership and permissions
-RUN chown rails:rails /rails/bin/rails && \
-    chmod +x /rails/bin/rails
-
-# Ensure thrust script has appropriate ownership and permissions
-RUN chown rails:rails /rails/bin/thrust && \
-    chmod +x /rails/bin/thrust
-
-
-USER 1000:1000
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
