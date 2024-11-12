@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @letterbox %>
+
+<div>
+  <%= link_to "Edit this letterbox", edit_letterbox_path(@letterbox) %> |
+  <%= link_to "Back to letterboxes", letterboxes_path %>
+
+  <%= button_to "Destroy this letterbox", @letterbox, method: :delete %>
+</div>

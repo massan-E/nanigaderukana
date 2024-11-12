@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Letterboxes" %>
+
+<h1>Letterboxes</h1>
+
+<div id="letterboxes">
+  <% @letterboxes.each do |letterbox| %>
+    <%= render letterbox %>
+    <p>
+      <%= link_to "Show this letterbox", letterbox %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New letterbox", new_letterbox_path %>
