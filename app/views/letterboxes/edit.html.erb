@@ -1,0 +1,12 @@
+<% content_for :title, "Editing letterbox" %>
+
+<h1>Editing letterbox</h1>
+
+<%= render "form", letterbox: @letterbox %>
+
+<br>
+
+<div>
+  <%= link_to "Show this letterbox", @letterbox %> |
+  <%= link_to "Back to letterboxes", letterboxes_path %>
+</div>

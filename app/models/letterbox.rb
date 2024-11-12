@@ -1,0 +1,2 @@
+class Letterbox < ApplicationRecord
+end
