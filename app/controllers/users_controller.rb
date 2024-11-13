@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  # before_action :logged_in_user, only %i[ index edit update destroy ]
+  # before_action :correct_user,   only %i[ edit update]
+  # before_action :admin_user,     only %i[ destroy ]
 
-  # GET /users or /users.json
   def index
+    # ページネーション入れる予定
     @users = User.all
   end
 
@@ -65,6 +68,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :name ])
+      params.require(:user).permit(:name, :password, :password_confirmation)
     end
 end
