@@ -1,4 +1,4 @@
-# Render無料枠でrails cが使えないので一時的な記述。admninユーザーが本番で作成できたら削除すること！
+# Render無料枠でrails cが使えないので一時的な記述。adminユーザーが本番で作成できたら削除すること！
 
 class AdminController < ApplicationController
   before_action :restrict_ip_address, only: [:set_admin]
@@ -7,7 +7,7 @@ class AdminController < ApplicationController
     user = User.find(ENV['ADMIN_USER_ID'].to_i)
     user.admin = true
     if user.save
-      flash[:success] = "#{user.name}にadmnin権限を付与しました"
+      flash[:success] = "#{user.name}にadmin権限を付与しました"
     else
       flash[:error] = "admin権限付与に失敗しました"
     end
@@ -17,11 +17,12 @@ class AdminController < ApplicationController
   private
 
   def restrict_ip_address
-    puts request.remote_ip
-    allowed_ips = ENV['ALLOWED_IPS'].split(',')  # 環境変数からIPアドレスを取得
-    remote_ip = request.remote_ip
+    client_ip = request.headers['X-Forwarded-For']&.split(',')&.first || request.remote_ip
+    puts client_ip
 
-    unless allowed_ips.include?(remote_ip)
+    allowed_ips = ENV['ALLOWED_IPS'].split(',')  # 環境変数からIPアドレスを取得
+
+    unless allowed_ips.include?(client_ip)
       render plain: "アクセスが許可されていません", status: :unauthorized
     end
   end
