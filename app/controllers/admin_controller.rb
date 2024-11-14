@@ -11,15 +11,13 @@ class AdminController < ApplicationController
     else
       flash[:error] = "admin権限付与に失敗しました"
     end
-    puts request.remote_ip
-    p request.remote_ip
-
     redirect_to login_path
   end
 
   private
 
   def restrict_ip_address
+    puts request.remote_ip
     allowed_ips = ENV['ALLOWED_IPS'].split(',')  # 環境変数からIPアドレスを取得
     remote_ip = request.remote_ip
 
