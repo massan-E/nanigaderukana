@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
       # ユーザーログイン後にユーザー情報のページにリダイレクトする
       reset_session
       log_in @user
-      redirect_to current_user
+      redirect_to @user
     else
       # エラーメッセージを作成する
       flash.now[:danger] = 'Invalid email/password combination'
