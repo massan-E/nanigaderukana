@@ -18,7 +18,7 @@ class AdminController < ApplicationController
 
   def restrict_ip_address
     client_ip = request.headers['X-Forwarded-For']&.split(',')&.first || request.remote_ip
-    puts client_ip
+    puts "#{client_ip}がadmin権限付与を試みました"
 
     allowed_ips = ENV['ALLOWED_IPS'].split(',')  # 環境変数からIPアドレスを取得
 
