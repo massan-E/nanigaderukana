@@ -1,6 +1,5 @@
 class UserSessionsController < ApplicationController
   def new
-
   end
 
   def create
@@ -12,8 +11,8 @@ class UserSessionsController < ApplicationController
       redirect_to @user
     else
       # エラーメッセージを作成する
-      flash.now[:danger] = 'Invalid email/password combination'
-      render 'new', status: :unprocessable_entity
+      flash.now[:danger] = "Invalid email/password combination"
+      render "new", status: :unprocessable_entity
     end
   end
 
@@ -22,4 +21,3 @@ class UserSessionsController < ApplicationController
     redirect_to login_path, status: :see_other
   end
 end
-z
