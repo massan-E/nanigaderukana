@@ -6,14 +6,17 @@
   <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>
 
-  <% if @user == current_user || current_user.admin %>
-    <%= button_to "Destroy this user", @user, method: :delete %>
+  <% if current_user %>
+    <% if @user == current_user || current_user.admin %>
+      <%= button_to "Destroy this user", @user, method: :delete %>
+    <% end %>
   <% end %>
 
-  <% if current_user.admin && Rails.env.production? %>
-    <%= "current_user: #{current_user.name}" %>
-
-    <%# Render無料枠でrails cが使えないので一時的な記述。admninユーザーが本番で作成できたら削除すること！ %>
-    <%= link_to 'admin_user権限付与', set_admin_path, method: :get, data: { confirm: '本当に管理者権限を与えますか？' } %>
+  <% if Rails.env.production? && current_user %>
+    <% if current_user.admin %>
+      <%= "current_user: #{current_user.name}" %>
+      <%# Render無料枠でrails cが使えないので一時的な記述。admninユーザーが本番で作成できたら削除すること！ %>
+      <%= link_to 'admin_user権限付与', set_admin_path, method: :get, data: { confirm: '本当に管理者権限を与えますか？' } %>
+    <% end %>
   <% end %>
 </div>
