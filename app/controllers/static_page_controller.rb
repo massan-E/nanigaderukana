@@ -1,3 +1,5 @@
 class StaticPageController < ApplicationController
-  def top; end
+  def top
+    @program = Program.last(6)
+  end
 end

@@ -10,24 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_16_043656) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_16_072425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "letterboxes", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "body"
+    t.bigint "program_id"
+    t.index ["program_id"], name: "index_letterboxes_on_program_id"
   end
 
   create_table "letters", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "body", null: false
+    t.boolean "is_read", default: false
+    t.boolean "publish", default: true
+    t.bigint "letterboxes_id"
+    t.bigint "users_id"
+    t.index ["letterboxes_id"], name: "index_letters_on_letterboxes_id"
+    t.index ["users_id"], name: "index_letters_on_users_id"
   end
 
   create_table "programs", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,14 +54,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_16_043656) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  add_foreign_key "letterboxes", "programs"
+  add_foreign_key "letters", "letterboxes", column: "letterboxes_id"
+  add_foreign_key "letters", "users", column: "users_id"
   add_foreign_key "user_programs", "programs"
   add_foreign_key "user_programs", "users"
 end
