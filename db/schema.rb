@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_13_125227) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_16_043656) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -26,6 +26,23 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_125227) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "programs", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_programs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "program_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["program_id"], name: "index_user_programs_on_program_id"
+    t.index ["user_id", "program_id"], name: "index_user_programs_on_user_id_and_program_id", unique: true
+    t.index ["user_id"], name: "index_user_programs_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -34,4 +51,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_125227) do
     t.string "remember_digest"
     t.boolean "admin", default: false
   end
+
+  add_foreign_key "user_programs", "programs"
+  add_foreign_key "user_programs", "users"
 end
