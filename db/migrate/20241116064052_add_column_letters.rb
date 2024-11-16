@@ -5,6 +5,6 @@ class AddColumnLetters < ActiveRecord::Migration[8.0]
     add_column :letters, :publish, :boolean, default: true
 
     add_reference :letters, :letterboxes, foreign_key: true
-    add_reference :letters, :users, foreign_key: true
+    add_reference :letters, :user, foreign_key: true
   end
 end

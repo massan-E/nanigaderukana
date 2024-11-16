@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_16_072425) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_16_103532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -31,26 +31,28 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_16_072425) do
     t.boolean "is_read", default: false
     t.boolean "publish", default: true
     t.bigint "letterboxes_id"
-    t.bigint "users_id"
+    t.bigint "user_id"
     t.index ["letterboxes_id"], name: "index_letters_on_letterboxes_id"
-    t.index ["users_id"], name: "index_letters_on_users_id"
+    t.index ["user_id"], name: "index_letters_on_user_id"
   end
 
   create_table "programs", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_programs_on_user_id"
   end
 
-  create_table "user_programs", force: :cascade do |t|
+  create_table "user_participations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "program_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["program_id"], name: "index_user_programs_on_program_id"
-    t.index ["user_id", "program_id"], name: "index_user_programs_on_user_id_and_program_id", unique: true
-    t.index ["user_id"], name: "index_user_programs_on_user_id"
+    t.index ["program_id"], name: "index_user_participations_on_program_id"
+    t.index ["user_id", "program_id"], name: "index_user_participations_on_user_id_and_program_id", unique: true
+    t.index ["user_id"], name: "index_user_participations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,7 +67,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_16_072425) do
 
   add_foreign_key "letterboxes", "programs"
   add_foreign_key "letters", "letterboxes", column: "letterboxes_id"
-  add_foreign_key "letters", "users", column: "users_id"
-  add_foreign_key "user_programs", "programs"
-  add_foreign_key "user_programs", "users"
+  add_foreign_key "letters", "users"
+  add_foreign_key "programs", "users"
+  add_foreign_key "user_participations", "programs"
+  add_foreign_key "user_participations", "users"
 end

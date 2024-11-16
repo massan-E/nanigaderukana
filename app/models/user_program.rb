@@ -1,2 +1,0 @@
-class UserProgram < ApplicationRecord
-end
