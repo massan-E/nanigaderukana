@@ -12,11 +12,9 @@
     <% end %>
   <% end %>
 
-  <% if Rails.env.production? && current_user %>
+  <% if current_user %>
     <% if current_user.admin %>
       <%= "current_user: #{current_user.name}" %>
-      <%# Render無料枠でrails cが使えないので一時的な記述。admninユーザーが本番で作成できたら削除すること！ %>
-      <%= link_to 'admin_user権限付与', set_admin_path, method: :get, data: { confirm: '本当に管理者権限を与えますか？' } %>
     <% end %>
   <% end %>
 </div>
