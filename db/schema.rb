@@ -30,14 +30,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_16_103532) do
     t.text "body", null: false
     t.boolean "is_read", default: false
     t.boolean "publish", default: true
-    t.bigint "letterboxes_id"
+    t.bigint "letterbox_id"
     t.bigint "user_id"
-    t.index ["letterboxes_id"], name: "index_letters_on_letterboxes_id"
+    t.index ["letterbox_id"], name: "index_letters_on_letterbox_id"
     t.index ["user_id"], name: "index_letters_on_user_id"
   end
 
   create_table "programs", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -66,7 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_16_103532) do
   end
 
   add_foreign_key "letterboxes", "programs"
-  add_foreign_key "letters", "letterboxes", column: "letterboxes_id"
+  add_foreign_key "letters", "letterboxes"
   add_foreign_key "letters", "users"
   add_foreign_key "programs", "users"
   add_foreign_key "user_participations", "programs"
