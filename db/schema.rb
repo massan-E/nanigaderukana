@@ -10,28 +10,65 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_13_125227) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_16_103532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "letterboxes", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "body"
+    t.bigint "program_id"
+    t.index ["program_id"], name: "index_letterboxes_on_program_id"
   end
 
   create_table "letters", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "body", null: false
+    t.boolean "is_read", default: false
+    t.boolean "publish", default: true
+    t.bigint "letterbox_id"
+    t.bigint "user_id"
+    t.index ["letterbox_id"], name: "index_letters_on_letterbox_id"
+    t.index ["user_id"], name: "index_letters_on_user_id"
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_programs_on_user_id"
+  end
+
+  create_table "user_participations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "program_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["program_id"], name: "index_user_participations_on_program_id"
+    t.index ["user_id", "program_id"], name: "index_user_participations_on_user_id_and_program_id", unique: true
+    t.index ["user_id"], name: "index_user_participations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
+
+  add_foreign_key "letterboxes", "programs"
+  add_foreign_key "letters", "letterboxes"
+  add_foreign_key "letters", "users"
+  add_foreign_key "programs", "users"
+  add_foreign_key "user_participations", "programs"
+  add_foreign_key "user_participations", "users"
 end
