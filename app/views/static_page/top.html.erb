@@ -1,5 +1,22 @@
 <h1>Music Hour</h1>
-
-<div>
-  
+<br>
+<h3><%= link_to "番組一覧", programs_path %></h3>
+<br>
+<% if @programs %>
+  <div>
+    <h2>最近追加された番組</h2><br>
+    <div id="programs">
+      <%= render @programs %>
+    </div>
+  </div>
+<% end %>
+<br>
+<br>
+<% if @letterboxes %>
+  <div>
+    <h2>最近追加されたお便り箱</h2><br>
+    <div id="letterboxes">
+      <%= render @letterboxes %>
+    </div>
 </div>
+<% end %>

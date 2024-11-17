@@ -1,7 +1,11 @@
 <div id="<%= dom_id letterbox %>">
-  <p>
+  <h4>
     <strong>Title:</strong>
-    <%= letterbox.title %>
+    <%= link_to letterbox.title, letterbox %>
+  </h4>
+  <%= link_to "番組：#{letterbox.program.title}", letterbox.program %>
+  <p>
+    <strong>Body:</strong><br>
+    <%= letterbox.body %>
   </p>
-
 </div>

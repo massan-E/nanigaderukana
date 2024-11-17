@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "番組一覧" %>
+
+<h1>programs</h1>
+
+<div id="programs">
+    <%= render @programs %>
+</div>
+
+<%= link_to "New program", new_program_path %>

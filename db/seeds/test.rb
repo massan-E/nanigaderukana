@@ -51,6 +51,6 @@ if Rails.env.development? || Rails.env.test?
     letterbox = Letterbox.find(letterbox_ids.sample)
     letterbox.letters.create!(title: "タイトル#{index}",
                               body: "本文#{Faker::Games::Overwatch.quote}",
-                              user_id: user_ids.sample )
+                              user_id: user_ids.sample)
   end
 end

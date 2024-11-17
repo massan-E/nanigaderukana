@@ -1,7 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @user %>
-
+<h1><%= @user.name %></h1>
+<br>
+<h3>制作に参加している番組</h3>
+<br>
+<%= render @user.joined_programs %>
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>

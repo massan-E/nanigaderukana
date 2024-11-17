@@ -1,5 +1,6 @@
 class StaticPageController < ApplicationController
   def top
-    @program = Program.last(6)
+    @programs = Program.last(3)
+    @letterboxes = Letterbox.last(3)
   end
 end

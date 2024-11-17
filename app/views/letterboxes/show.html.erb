@@ -1,7 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @letterbox %>
-
+<h1>Title:<%= @letterbox.title %></h1>
+<br>
+<h2>Body:<br><%= @letterbox.body %></h2>
+<br>
 <div>
   <%= link_to "Edit this letterbox", edit_letterbox_path(@letterbox) %> |
   <%= link_to "Back to letterboxes", letterboxes_path %>

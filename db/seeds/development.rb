@@ -22,8 +22,8 @@ if Rails.env.development? || Rails.env.test?
   # programs
   50.times do |index|
     user = User.find(user_ids.sample)
-    user.programs.create!(title: "タイトル#{index}",
-                          body: "本文#{Faker::Games::Overwatch.quote}")
+    user.programs.create!(title: "番組タイトル#{index}",
+                          body: "番組本文#{Faker::Games::Overwatch.quote}")
   end
 
   program_ids = Program.ids
@@ -31,8 +31,8 @@ if Rails.env.development? || Rails.env.test?
   # letterboxes
   100.times do |index|
     program = Program.find(program_ids.sample)
-    program.letterboxes.create!(title: "タイトル#{index}",
-                                body: "本文#{Faker::Games::Overwatch.quote}")
+    program.letterboxes.create!(title: "お便り箱タイトル#{index}",
+                                body: "お便り箱本文#{Faker::Games::Overwatch.quote}")
   end
 
   letterbox_ids = Letterbox.ids
@@ -40,8 +40,8 @@ if Rails.env.development? || Rails.env.test?
   # letters
   100.times do |index|
     letterbox = Letterbox.find(letterbox_ids.sample)
-    letterbox.letters.create!(title: "タイトル#{index}",
-                              body: "本文#{Faker::Games::Overwatch.quote}",
-                              user_id: user_ids.sample )
+    letterbox.letters.create!(title: "letterタイトル#{index}",
+                              body: "letter本文#{Faker::Games::Overwatch.quote}",
+                              user_id: user_ids.sample)
   end
 end

@@ -1,0 +1,12 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Title:<%= @program.title %></h1>
+<br>
+<h2>Body:<br><%= @program.body %></h2>
+<br>
+<div>
+  <%= render @program.letterboxes %>
+  <%= link_to "Edit this program", edit_program_path(@program) %> |
+  <%= link_to "Back to programs", programs_path %>
+  <%= button_to "Destroy this program", @program, method: :delete %>
+</div>
