@@ -1,15 +1,20 @@
 <p style="color: green"><%= notice %></p>
 
+<h4><%= link_to "番組：#{@letterbox.program.title}", @letterbox.program %></h4>
 <h1>Title:<%= @letterbox.title %></h1>
 <br>
 <h2>Body:<br><%= @letterbox.body %></h2>
 <br>
 <div>
-  <%= link_to 'このBOXに投稿する =>', new_letterbox_letter_path(@letterbox), onclick: "window.open(this.href, 'New letter', 'height=400, width=800');return false;" %>
+  <%= link_to 'お便りはこちらから =>', new_letterbox_letter_path(@letterbox), onclick: "window.open(this.href, 'New letter', 'height=400, width=800');return false;" %>
   <br>
   <br>
-  <%= link_to "Edit this letterbox", edit_letterbox_path(@letterbox) %> |
   <%= link_to "Back to letterboxes", program_path(@letterbox.program) %>
 
-  <%= button_to "Destroy this letterbox", @letterbox, method: :delete %>
+  <% if current_user %>
+    <% if producer?(current_user, @letterbox.program) || current_user.admin %>
+      <%= link_to "Edit this letterbox", edit_letterbox_path(@letterbox) %> |
+      <%= button_to "Destroy this letterbox", @letterbox, method: :delete %>
+    <% end %>
+  <% end %>
 </div>
