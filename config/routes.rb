@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   post   "/login",   to: "user_sessions#create"
   delete "/logout",  to: "user_sessions#destroy"
 
-  resources :letters
-  resources :letterboxes
+  resources :letterboxes do
+    resources :letters, shallow: true
+  end
   resources :users
   resources :programs
 
