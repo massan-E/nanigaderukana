@@ -1,4 +1,4 @@
-<%= form_with(model: letterbox) do |form| %>
+<%= form_with model: letterbox, url: program_letterboxes_path(program) do |form| %>
   <% if letterbox.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(letterbox.errors.count, "error") %> prohibited this letterbox from being saved:</h2>
@@ -14,6 +14,11 @@
   <div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :body, style: "display: block" %>
+    <%= form.text_area :body %>
   </div>
 
   <div>

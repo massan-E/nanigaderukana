@@ -4,6 +4,9 @@
 <br>
 <h2>Body:<%= @program.body %></h2>
 <br>
+<%= link_to "お便り箱 新規作成 =>" , new_program_letterbox_path(@program) %>
+<br>
+<br>
 <div>
   <%= render @program.letterboxes %>
   <%= link_to "Edit this program", edit_program_path(@program) %> |

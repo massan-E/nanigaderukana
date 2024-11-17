@@ -11,6 +11,7 @@ class LettersController < ApplicationController
 
   def new
     @letter = Letter.new
+    @letter.radio_name = current_user.name if current_user
   end
 
   def edit
@@ -20,7 +21,7 @@ class LettersController < ApplicationController
     @letter = @letterbox.letters.build(letter_params)
     @letter.user_id = current_user&.id
     if @letter.save
-      redirect_to letterbox_letters_path(@letterbox), notice: "Letter was successfully created."
+      redirect_to letter_sent_path, notice: "Letter was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -44,6 +45,8 @@ class LettersController < ApplicationController
       format.html { redirect_to letters_path, status: :see_other, notice: "Letter was successfully destroyed." }
     end
   end
+
+  def sent; end
 
   private
     def set_letter
