@@ -3,5 +3,5 @@ class Letterbox < ApplicationRecord
   validates :body, allow_nil: true, length: { maximum: 255 }
 
   belongs_to :program
-  has_many :letters, dependent: :destroy
+  has_many :letters
 end

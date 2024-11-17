@@ -5,12 +5,14 @@ Rails.application.routes.draw do
   post   "/login",   to: "user_sessions#create"
   delete "/logout",  to: "user_sessions#destroy"
 
-  resources :letters
-  resources :letterboxes
-  resources :users
+  get    "/letter_sent", to: "letters#sent"
 
-  # Render無料枠でrails cが使えないので一時的な記述。admninユーザーが本番で作成できたら削除すること！
-  get "set_admin", to: "admin#set_admin"
+  resources :programs do
+    resources :letterboxes , shallow: true do
+      resources :letters, shallow: true
+    end
+  end
+  resources :users
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

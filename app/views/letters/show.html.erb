@@ -4,7 +4,7 @@
 
 <div>
   <%= link_to "Edit this letter", edit_letter_path(@letter) %> |
-  <%= link_to "Back to letters", letters_path %>
+  <%= link_to "Back to letters", letterbox_letters_path(@letterbox) %>
 
   <%= button_to "Destroy this letter", @letter, method: :delete %>
 </div>

@@ -9,46 +9,38 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  # GET /users/1 or /users/1.json
   def show
+    @programs = @user.joined_programs.order(created_at: :desc)
   end
 
-  # GET /users/new
   def new
     @user = User.new
   end
 
-  # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /users or /users.json
   def create
     @user = User.new(user_params)
     if @user.save
       reset_session
       log_in @user
-      flash[:success] = "Welcome to なにがでるかな！？"
+      flash[:success] = "Welcome to Music Hour"
       redirect_to @user
     else
-      render "new", status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
+        redirect_to @user, notice: "User was successfully updated."
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        render :edit, status: :unprocessable_entity
       end
     end
   end
 
-  # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy!
 
@@ -59,12 +51,10 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def user_params
       # params.require(:user).permit(:name, :password, :password_confirmation)
       # ↓これがRails8.0以降の新しい書き方

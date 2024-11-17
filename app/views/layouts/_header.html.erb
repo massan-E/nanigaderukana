@@ -1,10 +1,11 @@
 <header>
   <div>
+    <li><%= link_to "TOP", root_path %></li>
     <% if current_user %>
-      <li><%= current_user.name %></li>
+      <li><%= link_to current_user.name, current_user %></li>
       <li><%= link_to "Log out" , logout_path ,data: { "turbo-method": :delete} %></li>
     <% else %>
-      <li>恋するうさぎちゃん</li>
+      <li>loving rabbit</li>
       <li><%= link_to "Log in", login_path %></li>
     <% end %>
   </div>

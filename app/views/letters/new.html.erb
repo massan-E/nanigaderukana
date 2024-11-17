@@ -1,11 +1,7 @@
-<% content_for :title, "New letter" %>
+<% content_for :title, "New Letter" %>
 
 <h1>New letter</h1>
 
-<%= render "form", letter: @letter %>
+<%= render "form", letter: @letter, letterbox: @letterbox %>
 
 <br>
-
-<div>
-  <%= link_to "Back to letters", letters_path %>
-</div>

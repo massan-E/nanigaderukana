@@ -1,11 +1,11 @@
-<% content_for :title, "New letterbox" %>
+<% content_for :title, "New Letterbox" %>
 
 <h1>New letterbox</h1>
 
-<%= render "form", letterbox: @letterbox %>
+<%= render "form", letterbox: @letterbox, program: @program %>
 
 <br>
 
 <div>
-  <%= link_to "Back to letterboxes", letterboxes_path %>
+  <%= link_to "Back to letterboxes", program_letterboxes_path(@program) %>
 </div>

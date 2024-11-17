@@ -1,7 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @user %>
-
+<h1><%= @user.name %></h1>
+<%= link_to "新しい番組を作成する=>", new_program_path %>
+<br>
+<br>
+<h3>制作に参加している番組</h3>
+<br>
+<%= render @programs %>
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>
@@ -12,11 +17,9 @@
     <% end %>
   <% end %>
 
-  <% if Rails.env.production? && current_user %>
+  <% if current_user %>
     <% if current_user.admin %>
       <%= "current_user: #{current_user.name}" %>
-      <%# Render無料枠でrails cが使えないので一時的な記述。admninユーザーが本番で作成できたら削除すること！ %>
-      <%= link_to 'admin_user権限付与', set_admin_path, method: :get, data: { confirm: '本当に管理者権限を与えますか？' } %>
     <% end %>
   <% end %>
 </div>
