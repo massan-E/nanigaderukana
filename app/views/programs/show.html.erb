@@ -4,12 +4,22 @@
 <br>
 <h2>Body:<%= @program.body %></h2>
 <br>
-<%= link_to "お便り箱 新規作成 =>" , new_program_letterbox_path(@program) %>
+<% if current_user %>
+  <% if producer?(current_user, @program) || current_user.admin %>
+    <%= link_to "お便り箱 新規作成 =>" , new_program_letterbox_path(@program) %>
+  <% end %>
+<% end %>
 <br>
 <br>
 <div>
   <%= render @program.letterboxes %>
-  <%= link_to "Edit this program", edit_program_path(@program) %> |
+
+  <% if current_user %>
+    <% if producer?(current_user, @program) || current_user.admin %>
+      <%= link_to "Edit this program", edit_program_path(@program) %>
+      <%= button_to "Destroy this program", @program, method: :delete %>
+    <% end %>
+  <% end %>
+
   <%= link_to "Back to programs", programs_path %>
-  <%= button_to "Destroy this program", @program, method: :delete %>
 </div>
