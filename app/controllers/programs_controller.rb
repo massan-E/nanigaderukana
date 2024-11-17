@@ -1,40 +1,28 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: %i[ show edit update destroy ]
 
-  # GET /programs or /programs.json
   def index
     @programs = Program.all
   end
 
-  # GET /programs/1 or /programs/1.json
-  def show
-  end
+  def show; end
 
-  # GET /programs/new
   def new
     @program = Program.new
   end
 
-  # GET /programs/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /programs or /programs.json
   def create
-    @program = Program.new(program_params)
-
-    respond_to do |format|
-      if @program.save
-        format.html { redirect_to @program, notice: "program was successfully created." }
-        format.json { render :show, status: :created, location: @program }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @program.errors, status: :unprocessable_entity }
-      end
+    @program = current_user.programs.build(program_params)
+    if @program.save
+      current_user.user_participations.create(program: @program)
+      redirect_to current_user, notice: "program was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /programs/1 or /programs/1.json
   def update
     respond_to do |format|
       if @program.update(program_params)
@@ -47,7 +35,6 @@ class ProgramsController < ApplicationController
     end
   end
 
-  # DELETE /programs/1 or /programs/1.json
   def destroy
     @program.destroy!
 
@@ -58,13 +45,12 @@ class ProgramsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_program
       @program = Program.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def program_params
-      params.expect(program: [ :title ])
+      params.expect(program: [ :title, :body ])
     end
 end
