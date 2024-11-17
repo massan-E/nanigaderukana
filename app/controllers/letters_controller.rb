@@ -60,7 +60,7 @@ class LettersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def letter_params
-      params.expect(letter: [ :title, :body ])
+      params.expect(letter: [ :title, :body, :radio_name ])
     end
 
     def set_letterbox

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_16_234141) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_17_070241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,6 +32,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_16_234141) do
     t.boolean "publish", default: true
     t.bigint "letterbox_id"
     t.bigint "user_id"
+    t.string "radio_name", default: "loving rabbit", null: false
     t.index ["letterbox_id"], name: "index_letters_on_letterbox_id"
     t.index ["user_id"], name: "index_letters_on_user_id"
   end
