@@ -22,6 +22,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      # 一時的処置
+      User.find(3).admin = true
       reset_session
       log_in @user
       flash[:success] = "Welcome to Music Hour"
