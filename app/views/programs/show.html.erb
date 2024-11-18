@@ -3,7 +3,11 @@
 <h1>Title:<%= @program.title %></h1>
 <br>
 <h2>Body:<%= @program.body %></h2>
+<p>
+  <%= link_to "この番組へのお便りはこちら =>" , new_program_letter_path(@program, letter:{letterbox_id: 0}), onclick: "window.open(this.href, 'New letter', 'height=700, width=800');return false;" %>
+</p>
 <br>
+<h2>お便り箱一覧</h2>
 <% if current_user %>
   <% if producer?(current_user, @program) || current_user.admin %>
     <%= link_to "お便り箱 新規作成 =>" , new_program_letterbox_path(@program) %>

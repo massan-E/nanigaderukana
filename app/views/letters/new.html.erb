@@ -1,7 +1,7 @@
 <% content_for :title, "New Letter" %>
 
 <h1>New Letter</h1>
-<h2>To：<%= @letterbox.program.title %><br><%= @letterbox.title %></h2>
-<%= render "form", letter: @letter, letterbox: @letterbox %>
+<h2>To:<%= @program.title %></h2>
+<%= render "form", letter: @letter, program: @program %>
 
 <br>
