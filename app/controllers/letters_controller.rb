@@ -1,9 +1,12 @@
 class LettersController < ApplicationController
   before_action :set_letter, only: %i[ show edit update destroy ]
-  before_action :set_letterbox, only: %i[ index show new create ]
+  before_action :set_program, only: %i[ index show new create ]
+  # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
-    @letters = @letterbox.letters.all
+    @letters = @letterbox&.letters.all
+    # @q = Person.ransack(params[:q])
+    # @people = @q.result(distinct: true)
   end
 
   def show
@@ -11,39 +14,36 @@ class LettersController < ApplicationController
 
   def new
     @letter = Letter.new
-    @letter.radio_name = current_user.name if current_user
+    @letter.radio_name = current_user&.name
+    @letter.letterbox_id = @letterbox&.id
   end
 
   def edit
   end
 
   def create
-    @letter = @letterbox.letters.build(letter_params)
+    @letter = Letter.new(letter_params)
     @letter.user_id = current_user&.id
+    # @letter.letterbox_id = @letterbox&.id
+    @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
     if @letter.save
-      redirect_to letter_sent_path, notice: "Letter was successfully created."
+      redirect_to @program, notice: "Letter was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      render "programs/show", status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @letter.update(letter_params)
-        format.html { redirect_to @letter, notice: "Letter was successfully updated." }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-
-      end
+    if @letter.update(letter_params)
+      redirect_to @letter, notice: "Letter was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @letter.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to letters_path, status: :see_other, notice: "Letter was successfully destroyed." }
-    end
+    redirect_to letters_path, status: :see_other, notice: "Letter was successfully destroyed."
   end
 
   def sent; end
@@ -54,10 +54,16 @@ class LettersController < ApplicationController
     end
 
     def letter_params
-      params.expect(letter: [ :title, :body, :radio_name ])
+      params.expect(letter: [ :body, :radio_name ])
     end
 
-    def set_letterbox
-      @letterbox = Letterbox.find(params[:letterbox_id])
+    # def set_letterbox
+    #   letterbox_id = params[:letter]&.dig(:letterbox_id)
+    #   @letterbox = Letterbox.find(letterbox_id) if letterbox_id
+    # end
+
+    def set_program
+      program_id = params[:program_id]
+      @program = Program.find(program_id) if program_id
     end
 end

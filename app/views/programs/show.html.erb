@@ -3,23 +3,23 @@
 <h1>Title:<%= @program.title %></h1>
 <br>
 <h2>Body:<%= @program.body %></h2>
+<%= render "/letters/form", letter: @letter, program: @program %>
 <br>
+<h2>お便り箱一覧</h2>
 <% if current_user %>
   <% if producer?(current_user, @program) || current_user.admin %>
-    <%= link_to "お便り箱 新規作成 =>" , new_program_letterbox_path(@program) %>
+    <p><%= link_to "お便り箱 新規作成 =>" , new_program_letterbox_path(@program) %></p>
   <% end %>
 <% end %>
 <br>
-<br>
 <div>
   <%= render @program.letterboxes %>
-
+  <br>
+  <p><%= link_to "Back to programs", programs_path %></p>
   <% if current_user %>
     <% if producer?(current_user, @program) || current_user.admin %>
-      <%= link_to "Edit this program", edit_program_path(@program) %>
-      <%= button_to "Destroy this program", @program, method: :delete %>
+      <p><%= link_to "Edit this program", edit_program_path(@program) %></p>
+      <p><%= button_to "Destroy this program", @program, method: :delete %></p>
     <% end %>
   <% end %>
-
-  <%= link_to "Back to programs", programs_path %>
 </div>

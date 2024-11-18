@@ -1,22 +1,27 @@
 <p style="color: green"><%= notice %></p>
 
 <h1><%= @user.name %></h1>
-<%= link_to "新しい番組を作成する=>", new_program_path %>
+<% if current_user %>
+  <% if current_user == @user || current_user.admin %>
+    <%= link_to "新しい番組を作成する=>", new_program_path %>
+  <% end %>
+<% end %>
 <br>
 <br>
 <h3>制作に参加している番組</h3>
 <br>
 <%= render @programs %>
 <div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>
 
   <% if current_user %>
     <% if @user == current_user || current_user.admin %>
+      <%= link_to "Edit this user", edit_user_path(@user) %>
       <%= button_to "Destroy this user", @user, method: :delete %>
     <% end %>
   <% end %>
-
+<br>
+<br>
   <% if current_user %>
     <% if current_user.admin %>
       <%= "current_user: #{current_user.name}" %>

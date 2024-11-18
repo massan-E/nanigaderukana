@@ -1,0 +1,12 @@
+<% content_for :title, "Editing program" %>
+
+<h1>番組情報編集</h1>
+
+<%= render "form", program: @program %>
+
+<br>
+
+<div>
+  <%= link_to "Show this program", @program %> |
+  <%= link_to "Back to programs", programs_path %>
+</div>
