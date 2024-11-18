@@ -4,7 +4,7 @@ class LettersController < ApplicationController
   # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
-    @letters = @letterbox&.letters.all
+    @letters = Letters.all
     # @q = Person.ransack(params[:q])
     # @people = @q.result(distinct: true)
   end
@@ -15,7 +15,7 @@ class LettersController < ApplicationController
   def new
     @letter = Letter.new
     @letter.radio_name = current_user&.name
-    @letter.letterbox_id = @letterbox&.id
+    @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
   end
 
   def edit
