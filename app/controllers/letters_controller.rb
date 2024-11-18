@@ -4,7 +4,7 @@ class LettersController < ApplicationController
   # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
-    @letters = Letters.all
+    @letters = Letter.all
     # @q = Person.ransack(params[:q])
     # @people = @q.result(distinct: true)
   end
@@ -24,8 +24,6 @@ class LettersController < ApplicationController
   def create
     @letter = Letter.new(letter_params)
     @letter.user_id = current_user&.id
-    # @letter.letterbox_id = @letterbox&.id
-    @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
     if @letter.save
       redirect_to @program, notice: "Letter was successfully created."
     else
@@ -54,7 +52,7 @@ class LettersController < ApplicationController
     end
 
     def letter_params
-      params.expect(letter: [ :body, :radio_name ])
+      params.expect(letter: [ :body, :radio_name, :letterbox_id ])
     end
 
     # def set_letterbox

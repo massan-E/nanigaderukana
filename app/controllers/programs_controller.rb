@@ -7,7 +7,7 @@ class ProgramsController < ApplicationController
 
   def show
     @letter = Letter.new
-    @letter.radio_name = current_user if current_user
+    @letter.radio_name = current_user.name if current_user
     @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
   end
 
