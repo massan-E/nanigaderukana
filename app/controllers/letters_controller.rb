@@ -19,7 +19,7 @@ class LettersController < ApplicationController
 
   def create
     @letter = @letterbox.letters.build(letter_params)
-    @letter.user_id = current_user&.id
+    @letter.user_id = current_user.id if current_user
     if @letter.save
       redirect_to letter_sent_path, notice: "Letter was successfully created."
     else
@@ -28,13 +28,10 @@ class LettersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @letter.update(letter_params)
-        format.html { redirect_to @letter, notice: "Letter was successfully updated." }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-
-      end
+    if @letter.update(letter_params)
+      redirect_to @letter, notice: "Letter was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
