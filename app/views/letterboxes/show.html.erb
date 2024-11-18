@@ -6,7 +6,7 @@
 <h2>Body:<br><%= @letterbox.body %></h2>
 <br>
 <div>
-  <%= link_to 'お便りはこちらから =>', new_program_letter_path(@letterbox.program), onclick: "window.open(this.href, 'New letter', 'height=700, width=800');return false;" %>
+  <%= link_to 'お便りはこちらから =>', program_path(@letterbox.program, letter:{letterbox_id: @letterbox.id})%>
   <br>
   <br>
   <p><%= link_to "Back to letterboxes", program_path(@letterbox.program) %></p>
