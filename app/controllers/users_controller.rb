@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       # 一時的処置
-      User.find_by(name: "Admin").update_attribute(:admin ,true)
+      User.find_by(name: "Admin").update_attribute(:admin, true)
       reset_session
       log_in @user
       flash[:success] = "Welcome to Music Hour"

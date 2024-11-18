@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get    "/letter_sent", to: "letters#sent"
 
   resources :programs do
-    resources :letterboxes , shallow: true do
+    resources :letterboxes, shallow: true do
       resources :letters, shallow: true
     end
   end

@@ -24,14 +24,10 @@ class ProgramsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @program.update(program_params)
-        format.html { redirect_to @program, notice: "program was successfully updated." }
-        format.json { render :show, status: :ok, location: @program }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @program.errors, status: :unprocessable_entity }
-      end
+    if @program.update(program_params)
+      redirect_to @program, notice: "program was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 

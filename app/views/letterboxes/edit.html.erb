@@ -2,11 +2,11 @@
 
 <h1>Editing letterbox</h1>
 
-<%= render "form", letterbox: @letterbox %>
+<%= render "form", letterbox: @letterbox, program: nil %>
 
 <br>
 
 <div>
   <%= link_to "Show this letterbox", @letterbox %> |
-  <%= link_to "Back to letterboxes", letterboxes_path %>
+  <%= link_to "Back to letterboxes", program_letterboxes_path(@letterbox.program) %>
 </div>
