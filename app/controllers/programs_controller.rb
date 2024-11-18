@@ -5,7 +5,11 @@ class ProgramsController < ApplicationController
     @programs = Program.all
   end
 
-  def show; end
+  def show
+    @letter ||= Letter.new
+    @letter.radio_name = current_user&.name
+    @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
+  end
 
   def new
     @program = Program.new

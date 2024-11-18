@@ -1,7 +1,7 @@
 class LettersController < ApplicationController
   before_action :set_letter, only: %i[ show edit update destroy ]
-  before_action :set_letterbox, only: %i[ index show new create ]
   before_action :set_program, only: %i[ index show new create ]
+  # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
     @letters = @letterbox&.letters.all
@@ -14,7 +14,7 @@ class LettersController < ApplicationController
 
   def new
     @letter = Letter.new
-    @letter.radio_name = current_user.name if current_user
+    @letter.radio_name = current_user&.name
     @letter.letterbox_id = @letterbox&.id
   end
 
@@ -22,12 +22,14 @@ class LettersController < ApplicationController
   end
 
   def create
-    @letter = @letterbox.letters.build(letter_params)
+    @letter = Letter.new(letter_params)
     @letter.user_id = current_user&.id
+    # @letter.letterbox_id = @letterbox&.id
+    @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
     if @letter.save
-      redirect_to letter_sent_path, notice: "Letter was successfully created."
+      redirect_to @program, notice: "Letter was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      render "programs/show", status: :unprocessable_entity
     end
   end
 
@@ -52,13 +54,13 @@ class LettersController < ApplicationController
     end
 
     def letter_params
-      params.expect(letter: [ :title, :body, :radio_name ])
+      params.expect(letter: [ :body, :radio_name ])
     end
 
-    def set_letterbox
-      letterbox_id = params[:letter][:letterbox_id].to_i
-      @letterbox = Letterbox.find(letterbox_id) unless letterbox_id == 0
-    end
+    # def set_letterbox
+    #   letterbox_id = params[:letter]&.dig(:letterbox_id)
+    #   @letterbox = Letterbox.find(letterbox_id) if letterbox_id
+    # end
 
     def set_program
       program_id = params[:program_id]
