@@ -41,11 +41,11 @@ class LetterboxesController < ApplicationController
   private
 
     def set_letterbox
-      @letterbox = Letterbox.find(params.expect(:id))
+      @letterbox = Letterbox.find(params[:id])
     end
 
     def letterbox_params
-      params.expect(letterbox: [ :title ])
+      params.require(:letterbox).permit(:title)
     end
 
     def set_program

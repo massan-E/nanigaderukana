@@ -48,11 +48,11 @@ class LettersController < ApplicationController
 
   private
     def set_letter
-      @letter = Letter.find(params.expect(:id))
+      @letter = Letter.find(params[:id])
     end
 
     def letter_params
-      params.expect(letter: [ :body, :radio_name, :letterbox_id ])
+      params.require(:letter).permit(:body, :radio_name, :letterbox_id)
     end
 
     # def set_letterbox
