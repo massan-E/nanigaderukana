@@ -1,6 +1,6 @@
 class LettersController < ApplicationController
   before_action :set_letter, only: %i[ show edit update destroy ]
-  before_action :set_program, only: %i[ index show new create random ]
+  before_action :set_program, only: %i[ index show new create random reset ]
   # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
@@ -46,11 +46,18 @@ class LettersController < ApplicationController
   def sent; end
 
   def random
-    letterbox_id = params[:letterbox_id].to_i
-    @letters = letterbox_id == 0 ? @program.letters : Letterbox.find(letterbox_id).letters
+    @letterbox_id = params[:letterbox_id].to_i
+    @letters = @letterbox_id == 0 ? @program.letters : Letterbox.find(@letterbox_id).letters
     return render "letters/nothing" unless @letters
     @letter = letter_sampling(@letters)
     @letter.present? ? @letter.update!(is_read: true) : (render "letters/nothing")
+  end
+
+  def reset
+    @letterbox_id = params[:letterbox_id].to_i
+    @letters = @letterbox_id == 0 ? @program.letters : Letterbox.find(@letterbox_id).letters
+    @letters.reset_is_read
+    redirect_to letter_random_path(letterbox_id: @letterbox_id, program_id: @program.id)
   end
 
   private

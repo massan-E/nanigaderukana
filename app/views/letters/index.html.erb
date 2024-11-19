@@ -12,12 +12,11 @@
   <%= f.submit '検索', class: 'btn btn-primary' %>
 <% end %>
 
-<%= link_to "なにがでるかな！？ super =>",
+<%= link_to "なにがでるかな！？",
   letter_random_path(letterbox_id: params[:q]&.dig(:letterbox_id_eq), program_id: @program.id),
-  onclick: "window.open(this.href,'New letter', 'height=400, width=800'); return false;",
+  onclick: "window.open(this.href,'New letter', 'height=700, width=800'); return false;",
   data: { turbo_prefetch: false } %>
 
-<%= link_to "テストリンク", letter_path(1) %>
   <% @letters.each do |letter| %>
     <%= render letter %>
     <p>
