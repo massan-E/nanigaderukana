@@ -5,6 +5,19 @@
 <h1>Letters</h1>
 
 <div id="letters">
+<%= search_form_for @q, url: program_letters_path(@program) do |f| %>
+  <%= f.search_field :body_cont, class: 'form-control', placeholder: '本文' %>
+  <%= f.collection_select :letterbox_id_eq, @program.letterboxes, :id, :title, include_blank: "選択して下さい" %>
+  <%=  %>
+  <%= f.submit '検索', class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to "なにがでるかな！？ super =>",
+  letter_random_path(letterbox_id: params[:q]&.dig(:letterbox_id_eq), program_id: @program.id),
+  onclick: "window.open(this.href,'New letter', 'height=400, width=800'); return false;",
+  data: { turbo_prefetch: false } %>
+
+<%= link_to "テストリンク", letter_path(1) %>
   <% @letters.each do |letter| %>
     <%= render letter %>
     <p>
@@ -12,4 +25,3 @@
     </p>
   <% end %>
 </div>
-

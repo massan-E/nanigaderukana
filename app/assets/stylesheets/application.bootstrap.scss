@@ -2,7 +2,7 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 header {
-  &.letters-new, &.letters-sent{
+  &.letters-new, &.letters-random, &.letters-sent{
     display: none;
   }
 }

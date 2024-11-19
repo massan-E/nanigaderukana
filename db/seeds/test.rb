@@ -18,6 +18,8 @@ if Rails.env.development? || Rails.env.test?
   end
 
   user_ids = User.ids
+  user = User.find(1)
+  user.update!(name: "massanE", admin: true)
 
   # programs
   50.times do |index|
@@ -44,6 +46,6 @@ if Rails.env.development? || Rails.env.test?
                               body: "letter本文#{Faker::Games::Overwatch.quote}",
                               user_id: user_ids.sample,
                               radio_name: Faker::Name.unique.first_name,
-                              program_id: program_ids.sample)
+                              program_id: letterbox.program.id)
   end
 end
