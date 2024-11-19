@@ -1,4 +1,4 @@
-class CreateLetters < ActiveRecord::Migration[8.0]
+class CreateLetters < ActiveRecord::Migration[7.2]
   def change
     create_table :letters do |t|
       t.string :title

@@ -1,4 +1,4 @@
-class CreateUserParticipations < ActiveRecord::Migration[8.0]
+class CreateUserParticipations < ActiveRecord::Migration[7.2]
   def change
     create_table :user_participations do |t|
       t.references :user, foreign_key: true

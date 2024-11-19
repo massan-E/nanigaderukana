@@ -1,4 +1,4 @@
-class AddColumnLetters < ActiveRecord::Migration[8.0]
+class AddColumnLetters < ActiveRecord::Migration[7.2]
   def change
     add_column :letters, :body, :text, null: false
     add_column :letters, :is_read, :boolean, default: false

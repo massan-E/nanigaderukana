@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_17_070241) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_19_024545) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
+  enable_extension "plpgsql"
 
   create_table "letterboxes", force: :cascade do |t|
     t.string "title", null: false
@@ -33,7 +33,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_17_070241) do
     t.bigint "letterbox_id"
     t.bigint "user_id"
     t.string "radio_name", default: "loving rabbit", null: false
+    t.bigint "program_id"
     t.index ["letterbox_id"], name: "index_letters_on_letterbox_id"
+    t.index ["program_id"], name: "index_letters_on_program_id"
     t.index ["user_id"], name: "index_letters_on_user_id"
   end
 
@@ -68,6 +70,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_17_070241) do
 
   add_foreign_key "letterboxes", "programs"
   add_foreign_key "letters", "letterboxes"
+  add_foreign_key "letters", "programs"
   add_foreign_key "letters", "users"
   add_foreign_key "programs", "users"
   add_foreign_key "user_participations", "programs"
