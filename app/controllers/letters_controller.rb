@@ -4,9 +4,9 @@ class LettersController < ApplicationController
   # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
-    @letters = Letter.all
-    # @q = Person.ransack(params[:q])
-    # @people = @q.result(distinct: true)
+    # @letters = @program.letters.all
+    @q = @program.letters.ransack(params[:q])
+    @letters = @q.result(distinct: true)
   end
 
   def show

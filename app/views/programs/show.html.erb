@@ -5,6 +5,12 @@
 <h2>Body:<%= @program.body %></h2>
 <%= render "letters/form", letter: @letter, program: @program %>
 <br>
+<% if current_user %>
+  <% if producer?(current_user, @program) || current_user.admin %>
+    <h2>この番組へのお便り一覧</h2>
+    <p><%= link_to "お便り一覧 =>", program_letters_path(@program) %></p>
+  <% end %>
+<% end %>
 <h2>お便り箱一覧</h2>
 <% if current_user %>
   <% if producer?(current_user, @program) || current_user.admin %>
