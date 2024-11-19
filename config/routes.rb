@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get    "/letter_sent", to: "letters#sent"
   get    "/letter_random", to: "letters#random"
+  get    "/letter_reset", to: "letters#reset"
 
   resources :programs do
     resources :letterboxes, shallow: true

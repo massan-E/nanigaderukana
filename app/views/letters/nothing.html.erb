@@ -1,2 +1,8 @@
 <h1>中に誰もいませんよ？</h1>
-<%= button_to "Close Window", "#", onclick: "window.close(); return false;", class: "close-button" %>
+
+<p>
+  <%= link_to "既読リセット", letter_reset_path(letterbox_id: @letterbox_id, program_id: @program.id ),
+      data: { turbo_prefetch: false } %>
+</p>
+
+<p><%= button_to "Close Window", "#", onclick: "window.close(); return false;", class: "close-button" %></p>

@@ -20,6 +20,6 @@ class Letter < ApplicationRecord
 
   def self.reset_is_read
     letters = self.where(is_read: true)
-    letters.map { |letter| letter.update!(is_read: false) }
+    letters.each { |letter| letter.update!(is_read: false) }
   end
 end

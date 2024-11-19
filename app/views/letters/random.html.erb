@@ -1,3 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @letter %>
+
+<%= link_to "なにがでるかな！？",
+  letter_random_path(letterbox_id: @letterbox_id, program_id: @program.id),
+  data: { turbo_prefetch: false } %>
+
+<%=  %>
