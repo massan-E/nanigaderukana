@@ -6,4 +6,5 @@ class Program < ApplicationRecord
   has_many :user_participations, dependent: :destroy
   has_many :participants, through: :user_participations, source: :user
   has_many :letterboxes, dependent: :destroy
+  has_many :letters
 end

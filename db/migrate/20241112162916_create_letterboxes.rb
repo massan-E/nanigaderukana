@@ -1,4 +1,4 @@
-class CreateLetterboxes < ActiveRecord::Migration[8.0]
+class CreateLetterboxes < ActiveRecord::Migration[7.2]
   def change
     create_table :letterboxes do |t|
       t.string :title

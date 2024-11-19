@@ -5,4 +5,5 @@ class Letter < ApplicationRecord
 
   belongs_to :user,  optional: true
   belongs_to :letterbox
+  belongs_to :program
 end
