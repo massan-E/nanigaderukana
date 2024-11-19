@@ -47,10 +47,10 @@ class ProgramsController < ApplicationController
   private
 
     def set_program
-      @program = Program.find(params.expect(:id))
+      @program = Program.find(params[:id])
     end
 
     def program_params
-      params.expect(program: [ :title, :body ])
+      params.require(:program).permit(:title, :body)
     end
 end
