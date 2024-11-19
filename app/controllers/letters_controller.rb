@@ -1,12 +1,11 @@
 class LettersController < ApplicationController
   before_action :set_letter, only: %i[ show edit update destroy ]
-  before_action :set_program, only: %i[ index show new create ]
+  before_action :set_program, only: %i[ index show new create random ]
   # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
-    @letters = Letter.all
-    # @q = Person.ransack(params[:q])
-    # @people = @q.result(distinct: true)
+    @q = @program.letters.includes(:letterbox).ransack(params[:q])
+    @letters = @q.result(distinct: true)
   end
 
   def show
@@ -46,6 +45,14 @@ class LettersController < ApplicationController
 
   def sent; end
 
+  def random
+    letterbox_id = params[:letterbox_id].to_i
+    @letters = letterbox_id == 0 ? @program.letters : Letterbox.find(letterbox_id).letters
+    return render "letters/nothing" unless @letters
+    @letter = letter_sampling(@letters)
+    @letter.present? ? @letter.update!(is_read: true) : (render "letters/nothing")
+  end
+
   private
     def set_letter
       @letter = Letter.find(params[:id])
@@ -63,5 +70,10 @@ class LettersController < ApplicationController
     def set_program
       program_id = params[:program_id]
       @program = Program.find(program_id) if program_id
+    end
+
+    def letter_sampling(letters)
+      random_letter_id = letters.where(publish: true, is_read: false).pluck(:id).sample
+      random_letter = random_letter_id ? Letter.find(random_letter_id) : nil
     end
 end

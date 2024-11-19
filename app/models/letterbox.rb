@@ -4,4 +4,8 @@ class Letterbox < ApplicationRecord
 
   belongs_to :program
   has_many :letters
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "id" ]
+  end
 end

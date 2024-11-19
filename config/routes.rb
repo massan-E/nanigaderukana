@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   delete "/logout",  to: "user_sessions#destroy"
 
   get    "/letter_sent", to: "letters#sent"
+  get    "/letter_random", to: "letters#random"
 
   resources :programs do
     resources :letterboxes, shallow: true

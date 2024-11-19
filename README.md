@@ -1,4 +1,4 @@
 # README
 
 ER図
-[![Image from Gyazo](https://i.gyazo.com/fd26d8113166d22c8af5de5a69c7ef29.png)](https://gyazo.com/fd26d8113166d22c8af5de5a69c7ef29)
+[![Image from Gyazo](https://i.gyazo.com/23744bc948ade8e6f57a8599b1ba8397.png)](https://gyazo.com/23744bc948ade8e6f57a8599b1ba8397)
