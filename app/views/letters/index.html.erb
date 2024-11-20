@@ -19,6 +19,7 @@
 
   <% @letters.each do |letter| %>
     <%= render letter %>
+    <p>user name:<%= letter.user&.name %></p>
     <p>
       <%= link_to "Show this letter", letter %>
     </p>
