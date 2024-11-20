@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
       log_in @user
       redirect_to @user
     else
-      flash.now[:danger] = "Invalid email/password combination"
+      flash.now[:danger] = "Invalid name/password combination"
       render "new", status: :unprocessable_entity
     end
   end

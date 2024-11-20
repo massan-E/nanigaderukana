@@ -6,6 +6,7 @@ body {
   position: relative;
   min-height: 100vh;
   background: linear-gradient(135deg, #1a1b26 0%, #24283b 100%);
+
   color: #c0caf5;
 }
 
@@ -29,7 +30,7 @@ header {
 // ホバーエフェクト
 .hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 30px rgba(192, 202, 245, 0.15);
@@ -94,7 +95,7 @@ header {
   background: rgba(26, 27, 38, 0.7);
   backdrop-filter: blur(10px);
   border-radius: 16px;
-  box-shadow: 
+  box-shadow:
     0 4px 30px rgba(192, 202, 245, 0.1),
     inset 0 0 0 1px rgba(192, 202, 245, 0.1);
   margin-bottom: 2rem;
@@ -123,7 +124,7 @@ a {
 
 // フォーム要素
 .form-control {
-  background: rgba(26, 27, 38, 0.5);
+  background: rgb(255, 255, 255);
   border: 1px solid rgba(192, 202, 245, 0.2);
   color: #c0caf5;
   padding: 0.75rem 1rem;
