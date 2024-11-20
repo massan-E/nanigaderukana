@@ -1,11 +1,23 @@
-<div id="<%= dom_id program %>">
-  <h4>
-    <strong>Title:</strong>
-    <%= link_to program.title, program %>
-  </h4>
-  <p>
-    <strong>Body:</strong><br>
-    <%= program.body %>
-  </p>
+<div id="<%= dom_id program %>" class="col-md-6 col-lg-4">
+  <div class="card glass-morphism h-100">
+    <div class="card-body p-4">
+      <h4 class="card-title mb-3">
+        <%= link_to program.title, program, class: "text-decoration-none stretched-link fw-bold text-primary" %>
+      </h4>
+      <p class="card-text text-muted">
+        <%= program.body %>
+      </p>
+    </div>
+  </div>
 </div>
-<br>
+
+<style>
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+</style>
