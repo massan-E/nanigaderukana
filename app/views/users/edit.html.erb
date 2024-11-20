@@ -1,12 +1,10 @@
-<% content_for :title, "Editing user" %>
+<div class="container py-5">
+  <div class="glass-morphism p-4 mb-4">
+    <h1 class="text-gradient h2 mb-4">
+      <i class="bi bi-pencil-square me-3"></i>
+      ユーザー情報編集
+    </h1>
 
-<h1>Editing user</h1>
-
-<%= render "form", user: @user %>
-
-<br>
-
-<div>
-  <%= link_to "Show this user", @user %> |
-  <%= link_to "Back to users", users_path %>
+    <%= render "form", user: @user %>
+  </div>
 </div>

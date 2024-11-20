@@ -1,7 +1,9 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>Name:</strong>
-    <%= user.name %>
-  </p>
-
+<div id="<%= dom_id user %>" class="glass-morphism p-4 mb-4">
+  <div class="d-flex align-items-center">
+    <i class="bi bi-person-circle fs-2 me-3 text-gradient"></i>
+    <div>
+      <h3 class="h5 mb-1 text-gradient"><%= user.name %></h3>
+      <small class="text-muted">Member since <%= user.created_at.strftime("%Y-%m-%d") %></small>
+    </div>
+  </div>
 </div>

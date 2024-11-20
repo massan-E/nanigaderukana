@@ -1,31 +1,81 @@
-<p style="color: green"><%= notice %></p>
+<div class="container py-5">
+  <% if notice %>
+    <div class="alert alert-success glass-morphism mb-4">
+      <%= notice %>
+    </div>
+  <% end %>
 
-<h1>Title:<%= @program.title %></h1>
-<br>
-<h2>Body:<%= @program.body %></h2>
-<%= render "letters/form", letter: @letter, program: @program %>
-<br>
-<% if current_user %>
-  <% if producer?(current_user, @program) || current_user.admin %>
-    <h2>この番組へのお便り一覧</h2>
-    <p><%= link_to "お便り一覧 =>", program_letters_path(@program) %></p>
+  <div class="glass-morphism p-4 mb-5">
+    <h1 class="text-gradient display-5 fw-bold mb-4">
+      <i class="bi bi-music-note-beamed me-3"></i>
+      <%= @program.title %>
+    </h1>
+    
+    <p class="lead card-text mb-4">
+      <%= @program.body %>
+    </p>
+  </div>
+
+  <div class="glass-morphism p-4 mb-5">
+    <%= render "letters/form", letter: @letter, program: @program %>
+  </div>
+
+  <% if current_user && (producer?(current_user, @program) || current_user.admin) %>
+    <div class="glass-morphism p-4 mb-5">
+      <h2 class="text-gradient h4 mb-4">
+        <i class="bi bi-envelope me-2"></i>
+        この番組へのお便り一覧
+      </h2>
+      
+      <%= link_to program_letters_path(@program), 
+          class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
+        <i class="bi bi-list-ul me-2"></i>
+        お便り一覧を見る
+      <% end %>
+    </div>
   <% end %>
-<% end %>
-<h2>お便り箱一覧</h2>
-<% if current_user %>
-  <% if producer?(current_user, @program) || current_user.admin %>
-    <p><%= link_to "お便り箱 新規作成 =>" , new_program_letterbox_path(@program) %></p>
-  <% end %>
-<% end %>
-<br>
-<div>
-  <%= render @program.letterboxes %>
-  <br>
-  <p><%= link_to "Back to programs", programs_path %></p>
-  <% if current_user %>
-    <% if producer?(current_user, @program) || current_user.admin %>
-      <p><%= link_to "Edit this program", edit_program_path(@program) %></p>
-      <p><%= button_to "Destroy this program", @program, method: :delete %></p>
+
+  <div class="glass-morphism p-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="text-gradient h4 mb-0">
+        <i class="bi bi-mailbox me-2"></i>
+        お便り箱一覧
+      </h2>
+      
+      <% if current_user && (producer?(current_user, @program) || current_user.admin) %>
+        <%= link_to new_program_letterbox_path(@program), 
+            class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
+          <i class="bi bi-plus-lg me-2"></i>
+          新規作成
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="row g-4">
+      <%= render @program.letterboxes %>
+    </div>
+  </div>
+
+  <div class="d-flex gap-3 mt-4">
+    <%= link_to programs_path, class: "btn btn-outline-light hover-lift" do %>
+      <i class="bi bi-arrow-left me-2"></i>
+      番組一覧に戻る
     <% end %>
-  <% end %>
+
+    <% if current_user && (producer?(current_user, @program) || current_user.admin) %>
+      <%= link_to edit_program_path(@program), 
+          class: "btn btn-outline-light hover-lift" do %>
+        <i class="bi bi-pencil me-2"></i>
+        編集する
+      <% end %>
+
+      <%= button_to @program, 
+          method: :delete, 
+          class: "btn btn-outline-danger hover-lift",
+          form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
+        <i class="bi bi-trash me-2"></i>
+        削除する
+      <% end %>
+    <% end %>
+  </div>
 </div>

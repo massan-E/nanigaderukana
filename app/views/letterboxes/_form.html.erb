@@ -1,9 +1,8 @@
-<%= form_with model: letterbox, url: letterbox_action_path(letterbox, program) do |form| %>
+<%= form_with model: letterbox, url: letterbox_action_path(letterbox, program), class: "card glass-morphism p-4" do |form| %>
   <% if letterbox.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(letterbox.errors.count, "error") %> prohibited this letterbox from being saved:</h2>
-
-      <ul>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(letterbox.errors.count, "error") %> prohibited this letterbox from being saved:</h5>
+      <ul class="mb-0">
         <% letterbox.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,12 +10,12 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-4">
+    <%= form.label :title, class: "form-label text-white" %>
+    <%= form.text_field :title, class: "form-control glass-input", placeholder: "お便り箱のタイトルを入力" %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary rounded-pill px-4 hover-lift" %>
   </div>
 <% end %>

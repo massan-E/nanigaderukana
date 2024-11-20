@@ -1,16 +1,33 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Users" %>
-
-<h1>Users</h1>
-
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
+<div class="container py-5">
+  <% if notice %>
+    <div class="alert alert-success glass-morphism mb-4">
+      <%= notice %>
+    </div>
   <% end %>
-</div>
 
-<%= link_to "New user", new_user_path %>
+  <div class="glass-morphism p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-gradient h2 mb-0">
+        <i class="bi bi-people me-3"></i>
+        ユーザー一覧
+      </h1>
+      
+      <%= link_to new_user_path, class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
+        <i class="bi bi-person-plus me-2"></i>
+        新規ユーザー作成
+      <% end %>
+    </div>
+
+    <div id="users">
+      <% @users.each do |user| %>
+        <div class="user-card mb-3">
+          <%= render user %>
+          <%= link_to user, class: "btn btn-outline-light btn-sm rounded-pill hover-lift" do %>
+            <i class="bi bi-eye me-2"></i>
+            詳細を見る
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

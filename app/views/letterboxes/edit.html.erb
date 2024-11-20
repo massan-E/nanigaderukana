@@ -1,12 +1,16 @@
-<% content_for :title, "Editing letterbox" %>
+<% content_for :title, "お便り箱の編集" %>
 
-<h1>Editing letterbox</h1>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="text-primary mb-4">お便り箱の編集</h2>
+      
+      <%= render "form", letterbox: @letterbox, program: nil %>
 
-<%= render "form", letterbox: @letterbox, program: nil %>
-
-<br>
-
-<div>
-  <%= link_to "Show this letterbox", @letterbox %> |
-  <%= link_to "Back to letterboxes", program_letterboxes_path(@letterbox.program) %>
+      <div class="mt-4 d-flex gap-3">
+        <%= link_to "詳細を見る", @letterbox, class: "btn btn-outline-primary rounded-pill px-4 hover-lift" %>
+        <%= link_to "一覧に戻る", program_letterboxes_path(@letterbox.program), class: "btn btn-outline-secondary rounded-pill px-4 hover-lift" %>
+      </div>
+    </div>
+  </div>
 </div>
