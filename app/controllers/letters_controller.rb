@@ -23,6 +23,7 @@ class LettersController < ApplicationController
   def create
     @letter = Letter.new(letter_params)
     @letter.user_id = current_user&.id
+    @letter.program_id = params[:program_id]
     if @letter.save
       redirect_to @program, notice: "Letter was successfully created."
     else
