@@ -1,27 +1,62 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "お便り一覧" %>
-
-<h1>Letters</h1>
-
-<div id="letters">
-<%= search_form_for @q, url: program_letters_path(@program) do |f| %>
-  <%= f.search_field :body_cont, class: 'form-control', placeholder: '本文' %>
-  <%= f.collection_select :letterbox_id_eq, @program.letterboxes, :id, :title, include_blank: "選択して下さい" %>
-  <%=  %>
-  <%= f.submit '検索', class: 'btn btn-primary' %>
-<% end %>
-
-<%= link_to "なにがでるかな！？",
-  letter_random_path(letterbox_id: params[:q]&.dig(:letterbox_id_eq), program_id: @program.id),
-  onclick: "window.open(this.href,'New letter', 'height=700, width=800'); return false;",
-  data: { turbo_prefetch: false } %>
-
-  <% @letters.each do |letter| %>
-    <%= render letter %>
-    <p>user name:<%= letter.user&.name %></p>
-    <p>
-      <%= link_to "Show this letter", letter %>
-    </p>
+<div class="container py-5">
+  <% if notice %>
+    <div class="alert alert-success glass-morphism mb-4">
+      <%= notice %>
+    </div>
   <% end %>
+
+  <div class="glass-morphism p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-gradient h2 mb-0">
+        <i class="bi bi-envelope me-3"></i>
+        お便り一覧
+      </h1>
+    </div>
+
+    <div class="search-section glass-morphism p-4 mb-4">
+      <%= search_form_for @q, url: program_letters_path(@program), 
+          class: "row g-3 align-items-end" do |f| %>
+        <div class="col-md-5">
+          <%= f.search_field :body_cont, 
+              class: 'form-control',
+              placeholder: 'お便りの本文を検索...' %>
+        </div>
+        
+        <div class="col-md-5">
+          <%= f.collection_select :letterbox_id_eq,
+              @program.letterboxes, :id, :title,
+              { include_blank: "お便り箱を選択" },
+              { class: 'form-select' } %>
+        </div>
+        
+        <div class="col-md-2">
+          <%= f.submit '検索', class: 'btn btn-primary w-100 rounded-pill hover-lift' %>
+        </div>
+      <% end %>
+
+      <div class="text-center mt-4">
+        <%= link_to letter_random_path(letterbox_id: params[:q]&.dig(:letterbox_id_eq), 
+            program_id: @program.id),
+            class: "btn btn-primary rounded-pill px-4 hover-lift",
+            onclick: "window.open(this.href,'New letter', 'height=700, width=800'); return false;",
+            data: { turbo_prefetch: false } do %>
+          <i class="bi bi-shuffle me-2"></i>
+          ランダム表示
+        <% end %>
+      </div>
+    </div>
+
+    <div id="letters">
+      <% @letters.each do |letter| %>
+        <div class="letter-card position-relative">
+          <%= render letter %>
+          <%= link_to letter, 
+              class: "btn btn-outline-light btn-sm rounded-pill position-absolute top-0 end-0 m-3" do %>
+            <i class="bi bi-eye me-2"></i>
+            詳細を見る
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

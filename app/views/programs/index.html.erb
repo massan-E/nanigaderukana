@@ -1,12 +1,30 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "番組一覧" %>
 
-<h1>番組一覧</h1>
-<% if current_user %>
-	<p><%= link_to "番組新規作成 =>", new_program_path %></p>
-<% end %>
-<br>
-<div id="programs">
-    <%= render @programs %>
+<div class="container py-5">
+  <% if notice %>
+    <div class="alert alert-success glass-morphism mb-4">
+    <%= notice %>
+    </div>
+  <% end %>
+
+  <div class="glass-morphism p-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-gradient display-5 fw-bold mb-0">
+        <i class="bi bi-broadcast me-3"></i>
+        番組一覧
+      </h1>
+
+      <% if current_user %>
+        <%= link_to new_program_path, 
+            class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
+          <i class="bi bi-plus-lg me-2"></i>
+          新規番組作成
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="row g-4" id="programs">
+      <%= render @programs %>
+    </div>
+  </div>
 </div>

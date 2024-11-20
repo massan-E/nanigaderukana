@@ -1,8 +1,25 @@
-<h1>中に誰もいませんよ？</h1>
+<div class="container-fluid py-5">
+  <div class="glass-morphism p-5 text-center">
+    <div class="mb-4">
+      <i class="bi bi-inbox display-1 text-gradient"></i>
+    </div>
+    
+    <h1 class="text-gradient mb-4">中に誰もいませんよ？</h1>
+    
+    <div class="d-flex justify-content-center gap-3">
+      <%= link_to letter_reset_path(letterbox_id: @letterbox_id, program_id: @program.id),
+          class: "btn btn-primary rounded-pill px-4 hover-lift",
+          data: { turbo_prefetch: false } do %>
+        <i class="bi bi-arrow-clockwise me-2"></i>
+        既読リセット
+      <% end %>
 
-<p>
-  <%= link_to "既読リセット", letter_reset_path(letterbox_id: @letterbox_id, program_id: @program.id ),
-      data: { turbo_prefetch: false } %>
-</p>
-
-<p><%= button_to "Close Window", "#", onclick: "window.close(); return false;", class: "close-button" %></p>
+      <%= button_to "#",
+          onclick: "window.close(); return false;",
+          class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+        <i class="bi bi-x-lg me-2"></i>
+        ウィンドウを閉じる
+      <% end %>
+    </div>
+  </div>
+</div>

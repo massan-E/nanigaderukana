@@ -1,24 +1,35 @@
-<h1>login</h1>
-<p>Find me in app/views/user_sessions/new.html.erb</p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="glass-morphism p-4">
+        <h1 class="text-gradient text-center mb-4">
+          <i class="bi bi-box-arrow-in-right me-2"></i>
+          ログイン
+        </h1>
 
-<%= form_with(url: login_path, scope: :session) do |form| %>
+        <%= form_with(url: login_path, scope: :session) do |form| %>
+          <div class="mb-4">
+            <%= form.label :name, class: "form-label" %>
+            <%= form.text_field :name, class: "form-control" %>
+          </div>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+          <div class="mb-4">
+            <%= form.label :password, class: "form-label" %>
+            <%= form.password_field :password, class: "form-control" %>
+          </div>
+
+          <div class="mb-4">
+            <div class="form-check">
+              <%= form.check_box :remember_me, class: "form-check-input" %>
+              <%= form.label :remember_me, "ログイン状態を保持する", class: "form-check-label" %>
+            </div>
+          </div>
+
+          <div class="d-grid">
+            <%= form.submit "ログイン", class: "btn btn-primary rounded-pill hover-lift" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :passowrd, style: "display: block" %>
-    <%= form.password_field :password %>
-  </div>
-
-  <%= form.label :remember_me, class: "checkbox inline" do %>
-    <%= form.check_box :remember_me %>
-    <span>ログイン状態を保持する</span>
-  <% end %>
-
-  <div>
-    <%= form.submit "log in" %>
-  </div>
-<% end %>
+</div>

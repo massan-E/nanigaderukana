@@ -1,27 +1,31 @@
-<%= form_with(model: program) do |form| %>
-  <% if program.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(program.errors.count, "error") %> prohibited this program from being saved:</h2>
+<div class="glass-morphism p-4">
+  <%= form_with(model: program, class: "needs-validation") do |form| %>
+    <% if program.errors.any? %>
+      <div class="error-message mb-4">
+        <h2 class="h5 mb-3">
+          <%= pluralize(program.errors.count, "error") %> prohibited this program from being saved:
+        </h2>
+        <ul class="list-unstyled m-0">
+          <% program.errors.each do |error| %>
+            <li><i class="bi bi-exclamation-circle me-2"></i><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-        <% program.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="mb-4">
+      <%= form.label :title, class: "form-label" %>
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :body, class: "form-label" %>
+      <%= form.text_area :body, class: "form-control", rows: 5 %>
+    </div>
+
+    <div class="d-flex gap-3">
+      <%= form.submit class: "btn btn-primary rounded-pill px-4 hover-lift" %>
+      <%= link_to "キャンセル", :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.text_area :body %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

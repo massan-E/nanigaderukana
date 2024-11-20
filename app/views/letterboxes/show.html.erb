@@ -1,20 +1,84 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, @letterbox.title %>
 
-<h4><%= link_to "番組：#{@letterbox.program.title}", @letterbox.program %></h4>
-<h1>Title:<%= @letterbox.title %></h1>
-<br>
-<h2>Body:<br><%= @letterbox.body %></h2>
-<br>
-<div>
-  <%= link_to 'お便りはこちらから =>', program_path(@letterbox.program, letter:{letterbox_id: @letterbox.id})%>
-  <br>
-  <br>
-  <p><%= link_to "Back to letterboxes", program_path(@letterbox.program) %></p>
+<div class="container py-5">
+  <div class="card glass-morphism">
+    <div class="card-body p-4">
+      <div class="mb-4">
+        <%= link_to @letterbox.program, class: "text-decoration-none" do %>
+          <h5 class="text-primary mb-2">
+            <i class="bi bi-broadcast me-2"></i><%= @letterbox.program.title %>
+          </h5>
+        <% end %>
+        <h2 class="text-info mb-4"><%= @letterbox.title %></h2>
+        <% if @letterbox.body.present? %>
+          <div class="text-white-50 mb-4">
+            <%= simple_format @letterbox.body %>
+          </div>
+        <% end %>
+      </div>
 
-  <% if current_user %>
-    <% if producer?(current_user, @letterbox.program) || current_user.admin %>
-      <p><%= link_to "Edit this letterbox", edit_letterbox_path(@letterbox) %></p>
-      <%= button_to "Destroy this letterbox", @letterbox, method: :delete %>
-    <% end %>
-  <% end %>
+      <div class="d-flex flex-wrap gap-3">
+        <%= link_to program_path(@letterbox.program, letter: {letterbox_id: @letterbox.id}),
+            class: "btn btn-primary rounded-pill px-4 hover-lift fs-5" do %>
+          お便りはこちらから <i class="bi bi-arrow-right ms-2"></i>
+        <% end %>
+        
+        <%= link_to program_path(@letterbox.program),
+            class: "btn btn-outline-info rounded-pill px-4 hover-lift fs-5" do %>
+          <i class="bi bi-arrow-left me-2"></i>番組に戻る
+        <% end %>
+
+        <% if current_user && (producer?(current_user, @letterbox.program) || current_user.admin) %>
+          <div class="ms-auto">
+            <%= link_to edit_letterbox_path(@letterbox),
+                class: "btn btn-outline-primary rounded-pill px-4 hover-lift me-2" do %>
+              <i class="bi bi-pencil me-2"></i>編集
+            <% end %>
+            <%= button_to @letterbox,
+                method: :delete,
+                class: "btn btn-outline-danger rounded-pill px-4 hover-lift",
+                form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
+              <i class="bi bi-trash me-2"></i>削除
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+.glass-morphism {
+  background: rgba(26, 27, 38, 0.8);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(192, 202, 245, 0.1);
+}
+
+.glass-input {
+  background: rgba(26, 27, 38, 0.8);
+  border: 1px solid rgba(192, 202, 245, 0.2);
+  color: #c0caf5;
+}
+
+.glass-input:focus {
+  background: rgba(26, 27, 38, 0.9);
+  border-color: #7aa2f7;
+  color: #c0caf5;
+  box-shadow: 0 0 0 0.25rem rgba(122, 162, 247, 0.25);
+}
+
+.glass-input::placeholder {
+  color: rgba(192, 202, 245, 0.5);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+</style>

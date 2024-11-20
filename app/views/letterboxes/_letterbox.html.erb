@@ -1,16 +1,37 @@
 <div id="<%= dom_id letterbox %>" class="col-md-6 col-lg-4">
-  <div class="card glass-morphism h-100">
+  <div class="card glass-morphism h-100 border-0 hover-lift letter-card">
     <div class="card-body p-4">
-      <p class="text-primary mb-2">
-        <%= link_to "番組：#{letterbox.program.title}", letterbox.program, class: "text-decoration-none" %>
-      </p>
-      <h4 class="card-title mb-4">
-        <%= link_to letterbox.title, letterbox, class: "text-decoration-none fw-bold text-info" %>
+      <%# プログラムリンクセクション %>
+      <div class="program-link mb-4">
+        <%= link_to letterbox.program, 
+            class: "d-flex align-items-center text-decoration-none text-gradient-subtle" do %>
+          <div class="program-icon me-3">
+            <i class="bi bi-broadcast fs-4"></i>
+          </div>
+          <div class="program-info">
+            <small class="d-block text-gradient-subtle mb-1">Program</small>
+            <span class="fw-medium"><%= letterbox.program.title %></span>
+          </div>
+        <% end %>
+      </div>
+      
+      <%# タイトルセクション %>
+      <h4 class="card-title h5 mb-4">
+        <%= link_to letterbox, 
+            class: "text-decoration-none" do %>
+          <span class="text-gradient fw-bold"><%= letterbox.title %></span>
+        <% end %>
       </h4>
-      <%= link_to program_path(letterbox.program, letter:{letterbox_id: letterbox.id}), 
-          class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
-        お便りはこちらから <i class="bi bi-arrow-right ms-2"></i>
-      <% end %>
+      
+      <%# アクションボタン %>
+      <div class="card-actions mt-auto">
+        <%= link_to program_path(letterbox.program, letter: {letterbox_id: letterbox.id}), 
+            class: "btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center" do %>
+          <i class="bi bi-pencil-square me-2"></i>
+          <span>お便りを書く</span>
+          <i class="bi bi-arrow-right ms-2 transition-icon"></i>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
