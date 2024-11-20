@@ -1,9 +1,4 @@
 <div id="<%= dom_id letter %>">
   <h2>radio name:<%= letter.radio_name %></h2>
   <p>body:<br><%= letter.body %><p>
-  <% if current_user.admin %>
-    <% if letter.user %>
-      <p><%= letter.user.name %></p>
-    <% end %>
-  <% end %>
 </div>
