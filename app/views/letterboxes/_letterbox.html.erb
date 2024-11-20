@@ -1,9 +1,16 @@
-<div id="<%= dom_id letterbox %>">
-  <p><%= link_to "番組：#{letterbox.program.title}", letterbox.program %></p>
-  <h4>
-    <strong>Title:</strong>
-    <%= link_to letterbox.title, letterbox %>
-  </h4>
-  <%= link_to 'お便りはこちらから =>', program_path(letterbox.program, letter:{letterbox_id: letterbox.id})%>
+<div id="<%= dom_id letterbox %>" class="col-md-6 col-lg-4">
+  <div class="card glass-morphism h-100">
+    <div class="card-body p-4">
+      <p class="text-primary mb-2">
+        <%= link_to "番組：#{letterbox.program.title}", letterbox.program, class: "text-decoration-none" %>
+      </p>
+      <h4 class="card-title mb-4">
+        <%= link_to letterbox.title, letterbox, class: "text-decoration-none fw-bold text-info" %>
+      </h4>
+      <%= link_to program_path(letterbox.program, letter:{letterbox_id: letterbox.id}), 
+          class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
+        お便りはこちらから <i class="bi bi-arrow-right ms-2"></i>
+      <% end %>
+    </div>
+  </div>
 </div>
-<br>

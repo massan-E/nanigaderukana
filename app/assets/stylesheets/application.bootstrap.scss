@@ -6,3 +6,18 @@ header {
     display: none;
   }
 }
+
+body {
+  position: relative;
+  min-height: 100vh;
+  background-color: #1a1b26;  /* SVGが読み込めない場合のフォールバック */
+}
+
+.background-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}

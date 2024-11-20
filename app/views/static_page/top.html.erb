@@ -1,22 +1,81 @@
-<h1>Music Hour</h1>
-<br>
-<h3><%= link_to "番組一覧", programs_path %></h3>
-<br>
-<% if @programs %>
-  <div>
-    <h2>最近追加された番組</h2><br>
-    <div id="programs">
-      <%= render @programs %>
-    </div>
-  </div>
-<% end %>
-<br>
-<br>
-<% if @letterboxes %>
-  <div>
-    <h2>最近追加されたお便り箱</h2><br>
-    <div id="letterboxes">
-      <%= render @letterboxes %>
-    </div>
+<div class="container py-5">
+  <h1 class="display-3 fw-bold text-gradient mb-5">Music Hour</h1>
+
+  <nav class="mb-5">
+    <%= link_to "番組一覧", programs_path, class: "nav-link hover-lift fs-4" %>
+  </nav>
+
+  <% if @programs %>
+    <section class="mb-6">
+      <h2 class="display-6 fw-bold mb-4 text-gradient">最近追加された番組</h2>
+      <div id="programs" class="row g-4">
+        <%= render @programs %>
+      </div>
+    </section>
+  <% end %>
+
+  <% if @letterboxes %>
+    <section>
+      <h2 class="display-6 fw-bold mb-4 text-gradient">最近追加されたお便り箱</h2>
+      <div id="letterboxes" class="row g-4">
+        <%= render @letterboxes %>
+      </div>
+    </section>
+  <% end %>
 </div>
-<% end %>
+
+<style>
+/* 全体の背景色を夜空のような深い色に */
+body {
+ background: linear-gradient(135deg, #1a1b26 0%, #24283b 100%);
+ color: #c0caf5;
+ min-height: 100vh;
+}
+
+/* カードのスタイリング */
+.glass-morphism {
+ background: rgba(26, 27, 38, 0.7);
+ backdrop-filter: blur(10px);
+ border-radius: 16px;
+ box-shadow: 
+   0 4px 30px rgba(192, 202, 245, 0.1),
+   inset 0 0 0 1px rgba(192, 202, 245, 0.1);
+}
+
+/* テキストグラデーション */
+.text-gradient {
+ background: linear-gradient(120deg, #c0caf5, #7aa2f7);
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+}
+
+/* リンクの色 */
+a {
+ color: #7aa2f7;
+}
+
+a:hover {
+ color: #bb9af7;
+}
+
+/* ボタンスタイル */
+.btn-primary {
+ background: linear-gradient(120deg, #7aa2f7, #bb9af7);
+ border: none;
+ box-shadow: 0 4px 15px rgba(122, 162, 247, 0.2);
+}
+
+.btn-primary:hover {
+ background: linear-gradient(120deg, #bb9af7, #7aa2f7);
+ box-shadow: 0 6px 20px rgba(187, 154, 247, 0.3);
+}
+
+/* カード内のテキスト色 */
+.card-text {
+ color: #9aa5ce;
+}
+
+.card-title {
+ color: #c0caf5;
+}
+</style>
