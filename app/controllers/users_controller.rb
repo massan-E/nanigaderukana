@@ -36,6 +36,7 @@ class UsersController < ApplicationController
       if @user.update(user_params)
         redirect_to @user, notice: "User was successfully updated."
       else
+        flash.now[:danger] = "Invalid name/password"
         render :edit, status: :unprocessable_entity
       end
     end
