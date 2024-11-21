@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def show
     @programs = @user.joined_programs.order(created_at: :desc)
+    @letters = @user.letters.includes(:program)
   end
 
   def new

@@ -3,7 +3,7 @@ class LettersController < ApplicationController
   before_action :set_program, only: %i[ index show new create random reset ]
   before_action :logged_in_user, only: %i[ index show edit update destroy ]
   before_action :editable_user, only: %i[ edit update destroy ]
-  before_action :authorized_user, only: %i[ show ]
+  before_action :authorized_user, only: %i[ show random reset ]
   # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
