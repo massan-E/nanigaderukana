@@ -1,5 +1,7 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: %i[ show edit update destroy ]
+  before_action :logged_in_user, only: %i[ new create edit update destroy ]
+  before_action :authorized_user, only: %i[ edit update destroy ]
 
   def index
     @programs = Program.all
@@ -52,5 +54,11 @@ class ProgramsController < ApplicationController
 
     def program_params
       params.require(:program).permit(:title, :body)
+    end
+
+    def authorized_user
+      unless producer?(current_user, @program) || current_user.admin?
+        redirect_to(root_url, status: :see_other)
+      end
     end
 end

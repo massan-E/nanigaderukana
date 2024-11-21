@@ -41,7 +41,7 @@
         <i class="bi bi-mailbox me-2"></i>
         お便り箱一覧
       </h2>
-      
+
       <% if current_user && (producer?(current_user, @program) || current_user.admin) %>
         <%= link_to new_program_letterbox_path(@program), 
             class: "btn btn-primary rounded-pill px-4 hover-lift" do %>

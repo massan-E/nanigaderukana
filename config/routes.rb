@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get    "/letter_reset", to: "letters#reset"
 
   resources :programs do
-    resources :letterboxes, shallow: true
+    resources :letterboxes
     resources :letters, shallow: true
   end
   resources :users

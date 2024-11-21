@@ -1,4 +1,4 @@
-<%= form_with model: letterbox, url: letterbox_action_path(letterbox, program), class: "card glass-morphism p-4" do |form| %>
+<%= form_with model: letterbox, url: letterbox_action_path(program,letterbox), class: "card glass-morphism p-4" do |form| %>
   <% if letterbox.errors.any? %>
     <div class="alert alert-danger">
       <h5><%= pluralize(letterbox.errors.count, "error") %> prohibited this letterbox from being saved:</h5>

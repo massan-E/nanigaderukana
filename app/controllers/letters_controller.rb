@@ -1,6 +1,9 @@
 class LettersController < ApplicationController
   before_action :set_letter, only: %i[ show edit update destroy ]
   before_action :set_program, only: %i[ index show new create random reset ]
+  before_action :logged_in_user, only: %i[ index show edit update destroy ]
+  before_action :editable_user, only: %i[ edit update destroy ]
+  before_action :authorized_user, only: %i[ show ]
   # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
@@ -8,8 +11,7 @@ class LettersController < ApplicationController
     @letters = @q.result(distinct: true)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @letter = Letter.new
@@ -62,6 +64,7 @@ class LettersController < ApplicationController
   end
 
   private
+
     def set_letter
       @letter = Letter.find(params[:id])
     end
@@ -83,5 +86,17 @@ class LettersController < ApplicationController
     def letter_sampling(letters)
       random_letter_id = letters.where(publish: true, is_read: false).pluck(:id).sample
       random_letter = random_letter_id ? Letter.find(random_letter_id) : nil
+    end
+
+    def editable_user
+      unless current_user == @letter.user || current_user.admin?
+        redirect_to(root_url, status: :see_other)
+      end
+    end
+
+    def authorized_user
+      unless producer?(current_user, @letter.program) || current_user.admin || current_user == @letter.user
+        redirect_to(root_url, status: :see_other)
+      end
     end
 end
