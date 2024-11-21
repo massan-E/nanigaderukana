@@ -1,20 +1,18 @@
 class LetterboxesController < ApplicationController
   before_action :set_letterbox, only: %i[ show edit update destroy ]
-  before_action :set_program, only: %i[ index new create ]
+  before_action :set_program, only: %i[ index new create edit update destroy ]
+  before_action :logged_in_user, only: %i[ index new create edit update destroy ]
+  before_action :authorized_user, only: %i[ new create edit update destroy ]
 
   def index
-    @letterboxes = @program.letterboxes.all
-  end
-
-  def show
+    @letterboxes = Letterbox.all
   end
 
   def new
     @letterbox = Letterbox.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @letterbox = @program.letterboxes.build(letterbox_params)
@@ -27,7 +25,7 @@ class LetterboxesController < ApplicationController
 
   def update
     if @letterbox.update(letterbox_params)
-      redirect_to @letterbox, notice: "Letterbox was successfully updated."
+      redirect_to @program, notice: "Letterbox was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -50,5 +48,11 @@ class LetterboxesController < ApplicationController
 
     def set_program
       @program = Program.find(params[:program_id])
+    end
+
+    def authorized_user
+      unless producer?(current_user, @program) || current_user.admin?
+        redirect_to(root_url, status: :see_other)
+      end
     end
 end

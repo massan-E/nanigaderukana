@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-  # before_action :logged_in_user, only %i[ index edit update destroy ]
-  # before_action :correct_user,   only %i[ edit update]
+  before_action :logged_in_user, only: %i[ index edit update destroy ]
+  before_action :correct_user, only: %i[ edit update destroy ]
   # before_action :admin_user,     only %i[ destroy ]
 
   def index
@@ -32,31 +32,31 @@ class UsersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        redirect_to @user, notice: "User was successfully updated."
-      else
-        flash.now[:danger] = "Invalid name/password"
-        render :edit, status: :unprocessable_entity
-      end
+    if @user.update(user_params)
+      redirect_to @user, notice: "User was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @user.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to users_path, status: :see_other, notice: "User was successfully destroyed."
+    head :no_content
   end
 
   private
+
     def set_user
       @user = User.find(params[:id])
     end
 
     def user_params
       params.require(:user).permit(:name, :password, :password_confirmation)
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url, status: :see_other) unless current_user?(@user)
     end
 end

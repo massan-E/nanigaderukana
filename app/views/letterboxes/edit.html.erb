@@ -5,11 +5,10 @@
     <div class="col-md-8">
       <h2 class="text-primary mb-4">お便り箱の編集</h2>
       
-      <%= render "form", letterbox: @letterbox, program: nil %>
+      <%= render "form", program: @program, letterbox: @letterbox %>
 
       <div class="mt-4 d-flex gap-3">
-        <%= link_to "詳細を見る", @letterbox, class: "btn btn-outline-primary rounded-pill px-4 hover-lift" %>
-        <%= link_to "一覧に戻る", program_letterboxes_path(@letterbox.program), class: "btn btn-outline-secondary rounded-pill px-4 hover-lift" %>
+        <%= link_to "戻る", @letterbox.program, class: "btn btn-outline-primary rounded-pill px-4 hover-lift" %>
       </div>
     </div>
   </div>

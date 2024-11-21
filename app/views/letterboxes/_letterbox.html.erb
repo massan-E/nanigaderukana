@@ -17,10 +17,7 @@
       
       <%# タイトルセクション %>
       <h4 class="card-title h5 mb-4">
-        <%= link_to letterbox, 
-            class: "text-decoration-none" do %>
-          <span class="text-gradient fw-bold"><%= letterbox.title %></span>
-        <% end %>
+        <span class="text-gradient fw-bold"><%= letterbox.title %></span>
       </h4>
       
       <%# アクションボタン %>
@@ -32,6 +29,21 @@
           <i class="bi bi-arrow-right ms-2 transition-icon"></i>
         <% end %>
       </div>
+      <% if current_user && (producer?(current_user, letterbox.program) || current_user.admin) %>
+        <%= link_to edit_program_letterbox_path(letterbox.program, letterbox), 
+            class: "btn btn-outline-light hover-lift" do %>
+          <i class="bi bi-pencil me-2"></i>
+          編集する
+        <% end %>
+
+        <%= button_to program_letterbox_path(letterbox.program, letterbox), 
+            method: :delete, 
+            class: "btn btn-outline-danger hover-lift",
+            form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
+          <i class="bi bi-trash me-2"></i>
+          削除する
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

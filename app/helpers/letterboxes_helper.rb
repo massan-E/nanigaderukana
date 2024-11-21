@@ -1,7 +1,5 @@
 module LetterboxesHelper
-  include ProgramsHelper
-
-  def letterbox_action_path(letterbox, program)
-    letterbox.persisted? ? letterbox_path(letterbox) : program_letterboxes_path(program)
+  def letterbox_action_path(program, letterbox)
+    letterbox.persisted? ? program_letterbox_path(program, letterbox) : program_letterboxes_path(program, letterbox)
   end
 end
