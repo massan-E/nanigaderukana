@@ -29,7 +29,8 @@
 
       <ul class="nav-links mb-0">
         <% if current_user %>
-          <li class="nav-item"><%= link_to current_user.name, current_user, class: "nav-link text-gradient" %></li>
+          <li class="nav-item"><span class="text-gradient fs-6"><%= current_user.name %></span></li>
+          <li class="nav-item"><%= link_to "My page", current_user, class: "nav-link text-gradient" %></li>
           <li class="nav-item"><%= link_to "Log out", logout_path, data: { "turbo-method": :delete }, class: "nav-link hover-lift" %></li>
         <% else %>
           <li class="nav-item"><span class="text-gradient fs-6">loving rabbit</span></li>

@@ -16,10 +16,6 @@
     </p>
   </div>
 
-  <div class="glass-morphism p-4 mb-5">
-    <%= render "letters/form", letter: @letter, program: @program %>
-  </div>
-
   <% if current_user && (producer?(current_user, @program) || current_user.admin) %>
     <div class="glass-morphism p-4 mb-5">
       <h2 class="text-gradient h4 mb-4">
@@ -54,6 +50,14 @@
     <div class="row g-4">
       <%= render @program.letterboxes %>
     </div>
+  </div>
+
+  <div class="glass-morphism p-4 mb-5">
+    <h2 class="text-gradient h4 mb-4">
+      <i class="bi bi-envelope me-2"></i>
+      おたよりはこちらから
+    </h2>
+    <%= render "letters/form", letter: @letter, program: @program %>
   </div>
 
   <div class="d-flex gap-3 mt-4">
