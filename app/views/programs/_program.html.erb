@@ -5,14 +5,18 @@
         <i class="bi bi-music-note-beamed fs-4 me-2 text-gradient"></i>
         <h4 class="card-title mb-0">
           <%= link_to program.title, program, 
-              class: "text-decoration-none stretched-link text-gradient fw-bold" %>
+              class: "text-decoration-none text-gradient fw-bold" %>
         </h4>
       </div>
       
       <p class="card-text">
         <%= program.body %>
       </p>
-      
+
+
+      <%= link_to "host：#{program.user.name}", program.user %>
+      <%= link_to "招待リンク作成", new_program_invitation_path(program) %>
+
       <div class="mt-3 text-white-50 small">
         <i class="bi bi-clock me-2"></i>
         <%= program.created_at.strftime("%Y-%m-%d") %>

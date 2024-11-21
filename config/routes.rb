@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   get    "/letter_reset", to: "letters#reset"
 
   resources :programs do
-    resources :letterboxes
+    resources :letterboxes, only: %i[ index new create edit update destroy ]
     resources :letters, shallow: true
+    resources :invitations, only: %i[ show new create edit update ]
   end
   resources :users
 

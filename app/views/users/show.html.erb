@@ -29,7 +29,9 @@
       </h3>
 
       <div class="row g-4">
-        <%= render @programs %>
+        <% @programs.each do |program| %>
+          <%= render program %>
+        <% end %>
       </div>
     </div>
 
