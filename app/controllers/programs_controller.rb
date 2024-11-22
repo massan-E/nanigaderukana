@@ -4,7 +4,7 @@ class ProgramsController < ApplicationController
   before_action :authorized_user, only: %i[ edit update destroy ]
 
   def index
-    @programs = Program.all
+    @programs = Program.includes(:user).all
   end
 
   def show

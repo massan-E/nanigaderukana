@@ -42,10 +42,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    programs = @user.programs
     @user.destroy!
     flash[:success] = "User was successfully destroyed."
     redirect_to users_path, status: :see_other
-    head :no_content
   end
 
   private

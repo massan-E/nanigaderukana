@@ -40,9 +40,12 @@
           最近追加されたお便り箱
         </h2>
       </div>
-      
-      <div class="row g-4" id="letterboxes">
-        <%= render @letterboxes %>
+
+      <div class="row g-4">
+        <%= render partial: "letterboxes/letterbox", 
+              collection: @letterboxes, 
+              as: :letterbox,
+              locals: { current_user: current_user } %>
       </div>
     </section>
   <% end %>
