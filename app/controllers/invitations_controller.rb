@@ -23,8 +23,9 @@ class InvitationsController < ApplicationController
     if participation.save
       flash[:success] = "#{@program.title}の制作に参加しました"
       redirect_to @program
-    end
+    else
       redirect_to @program, danger: "既に制作に参加しています"
+    end
   end
 
   private

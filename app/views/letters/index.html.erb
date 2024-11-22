@@ -45,7 +45,7 @@
       <% @letters.each do |letter| %>
         <div class="letter-card position-relative">
           <%= render letter %>
-          <%= link_to letter, 
+          <%= link_to letter_path(letter, program_id: @program.id),
               class: "btn btn-outline-light btn-sm rounded-pill position-absolute top-0 end-0 m-3" do %>
             <i class="bi bi-eye me-2"></i>
             詳細を見る
