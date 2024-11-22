@@ -43,8 +43,11 @@
     </div>
 
     <div class="row g-4">
-      <%= render @program.letterboxes %>
-    </div>
+        <%= render partial: "letterboxes/letterbox", 
+              collection: @program.letterboxes, 
+              as: :letterbox,
+              locals: { current_user: current_user } %>
+      </div>
   </div>
 
   <div class="glass-morphism p-4 mb-5">

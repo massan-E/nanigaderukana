@@ -8,7 +8,7 @@ class Program < ApplicationRecord
   has_many :user_participations, dependent: :destroy
   has_many :participants, through: :user_participations, source: :user
   has_many :letterboxes, dependent: :destroy
-  has_many :letters
+  has_many :letters, dependent: :nullify
 
   def self.ransackable_associations(auth_object = nil)
     [ "letter", "letterbox" ]

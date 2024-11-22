@@ -18,8 +18,11 @@
       <% end %>
     </div>
 
-    <div class="row g-4" id="programs">
-      <%= render @programs %>
+    <div class="row g-4">
+      <%= render partial: "programs/program", 
+                collection: @programs, 
+                as: :program,
+                locals: { current_user: current_user } %>
     </div>
   </div>
 </div>

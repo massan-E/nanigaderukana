@@ -24,9 +24,10 @@
       </h3>
 
       <div class="row g-4">
-        <% @programs.each do |program| %>
-          <%= render program %>
-        <% end %>
+        <%= render partial: "programs/program", 
+              collection: @programs, 
+              as: :program,
+              locals: { current_user: current_user } %>
       </div>
     </div>
 
