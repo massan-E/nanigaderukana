@@ -12,7 +12,8 @@ class InvitationsController < ApplicationController
 
   def create
     @program.create_invitation_digest
-    redirect_to program_invitation_path(@program, @program.invitation_token), notice: "招待リンクを作成しました"
+    flash[:success] = "招待リンクを作成しました"
+    redirect_to program_invitation_path(@program, @program.invitation_token)
   end
 
   def edit; end
@@ -20,7 +21,8 @@ class InvitationsController < ApplicationController
   def update
     participation = UserParticipation.new(user: current_user, program: @program)
     if participation.save
-      redirect_to @program, notice: "#{@program.title}の制作に参加しました"
+      flash[:success] = "#{@program.title}の制作に参加しました"
+      redirect_to @program
     end
       redirect_to @program, danger: "既に制作に参加しています"
   end

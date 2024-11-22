@@ -1,7 +1,13 @@
-<% content_for :title, "New Program" %>
+<% content_for :title, "新規番組作成" %>
 
-<h1>New program</h1>
+<div class="container py-5">
+  <%= render 'shared/flash_message' %>
+  <div class="glass-morphism p-5">
+    <h1 class="display-6 fw-bold text-gradient mb-4">
+      <i class="bi bi-broadcast me-3"></i>
+      新規番組作成
+    </h1>
 
-<%= render "form", program: @program %>
-
-<br>
+    <%= render "form", program: @program %>
+  </div>
+</div>

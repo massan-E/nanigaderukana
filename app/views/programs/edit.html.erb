@@ -1,12 +1,27 @@
-<% content_for :title, "Editing program" %>
+<% content_for :title, "番組情報編集" %>
 
-<h1>番組情報編集</h1>
+<div class="container py-5">
+  <div class="glass-morphism p-5">
+    <h1 class="display-6 fw-bold text-gradient mb-4">
+      <i class="bi bi-broadcast-pin me-3"></i>
+      番組情報編集
+    </h1>
 
-<%= render "form", program: @program %>
+    <%= render 'shared/flash_message' %>
+    <%= render "form", program: @program %>
 
-<br>
+    <div class="mt-4 d-flex gap-3">
+      <%= link_to @program, 
+          class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+        <i class="bi bi-eye me-2"></i>
+        番組を表示
+      <% end %>
 
-<div>
-  <%= link_to "Show this program", @program %> |
-  <%= link_to "Back to programs", programs_path %>
+      <%= link_to programs_path, 
+          class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+        <i class="bi bi-arrow-left me-2"></i>
+        番組一覧に戻る
+      <% end %>
+    </div>
+  </div>
 </div>

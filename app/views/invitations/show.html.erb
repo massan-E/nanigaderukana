@@ -1,6 +1,42 @@
-<h2>以下のURLを招待したい相手に伝えてください</h2>
-<%= "招待リンクは#{@expiration_time}に期限切れになります"%>
-<p>期限切れになった場合は再度招待リンクを生成してください</p>
-<p>招待リンクは１時間が経過するか再度リンクを生成すると古いものが期限切れになります</p>
-<p>招待したい相手以外には伝えないように気を付けてください</p>
-<%= edit_program_invitation_url(@program, params[:id]) %>
+<div class="container py-5">
+  <%= render 'shared/flash_message' %>
+  <div class="glass-morphism p-5">
+    <h2 class="display-6 fw-bold text-gradient mb-4">
+      <i class="bi bi-link-45deg me-3"></i>
+      招待リンク
+    </h2>
+
+    <div class="alert alert-info mb-4">
+      <i class="bi bi-clock me-2"></i>
+      <%= "招待リンクは#{@expiration_time}に期限切れになります" %>
+    </div>
+
+    <div class="input-group mb-4">
+      <input type="text" class="form-control" 
+             value="<%= edit_program_invitation_url(@program, params[:id]) %>" 
+             readonly>
+      <button class="btn btn-primary" 
+              onclick="navigator.clipboard.writeText('<%= edit_program_invitation_url(@program, params[:id]) %>')">
+        <i class="bi bi-clipboard me-2"></i>
+        コピー
+      </button>
+    </div>
+
+    <div class="card glass-morphism border-0 mb-4">
+      <div class="card-body">
+        <h3 class="h5 text-gradient-subtle mb-3 ">注意事項</h3>
+        <ul class="mb-0 text-white-50">
+          <li>期限切れになった場合は再度招待リンクを生成してください</li>
+          <li>招待リンクは１時間が経過するか再度リンクを生成すると古いものが期限切れになります</li>
+          <li>招待したい相手以外には伝えないように気を付けてください</li>
+        </ul>
+      </div>
+    </div>
+
+    <%= link_to @program, 
+        class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+      <i class="bi bi-arrow-left me-2"></i>
+      番組ページに戻る
+    <% end %>
+  </div>
+</div>

@@ -34,7 +34,8 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: "User was successfully updated."
+      flash[:success] = "User was successfully updated."
+      redirect_to @user
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,7 +43,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy!
-    redirect_to users_path, status: :see_other, notice: "User was successfully destroyed."
+    flash[:success] = "User was successfully destroyed."
+    redirect_to users_path, status: :see_other
     head :no_content
   end
 
@@ -58,6 +60,6 @@ class UsersController < ApplicationController
 
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url, status: :see_other) unless current_user?(@user) || current_user.admin?
+      redirect_to(root_url, status: :see_other) unless current_user?(@user) || current_user&.admin?
     end
 end

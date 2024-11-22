@@ -1,3 +1,18 @@
-<h1><%= @program.title %></h1>
-<h2>この番組の制作に参加しますか？</h2>
-<%= button_to "参加する", program_invitation_path, method: :patch %>
+<div class="container py-5">
+  <%= render 'shared/flash_message' %>
+  <div class="glass-morphism p-5 text-center">
+    <h1 class="display-5 fw-bold text-gradient mb-4">
+      <i class="bi bi-broadcast me-3"></i>
+      <%= @program.title %>
+    </h1>
+    
+    <h2 class="h4 text-gradient-subtle mb-5">この番組の制作に参加しますか？</h2>
+    
+    <%= button_to program_invitation_path, 
+        method: :patch, 
+        class: "btn btn-primary btn-lg rounded-pill px-5 py-3 hover-lift" do %>
+      <i class="bi bi-person-plus-fill me-2"></i>
+      参加する
+    <% end %>
+  </div>
+</div>

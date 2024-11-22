@@ -1,10 +1,5 @@
 <div class="container py-5">
-  <% if notice %>
-    <div class="alert alert-success glass-morphism mb-4">
-      <%= notice %>
-    </div>
-  <% end %>
-
+  <%= render 'shared/flash_message' %>
   <div class="glass-morphism p-4 mb-5">
     <h1 class="text-gradient display-5 fw-bold mb-4">
       <i class="bi bi-music-note-beamed me-3"></i>
@@ -16,7 +11,7 @@
     </p>
   </div>
 
-  <% if current_user && (producer?(current_user, @program) || current_user.admin) %>
+  <% if (producer?(current_user, @program) || current_user&.admin?) %>
     <div class="glass-morphism p-4 mb-5">
       <h2 class="text-gradient h4 mb-4">
         <i class="bi bi-envelope me-2"></i>
@@ -38,7 +33,7 @@
         お便り箱一覧
       </h2>
 
-      <% if current_user && (producer?(current_user, @program) || current_user.admin) %>
+      <% if (producer?(current_user, @program) || current_user&.admin?) %>
         <%= link_to new_program_letterbox_path(@program), 
             class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
           <i class="bi bi-plus-lg me-2"></i>
@@ -66,7 +61,7 @@
       番組一覧に戻る
     <% end %>
 
-    <% if current_user && (producer?(current_user, @program) || current_user.admin) %>
+    <% if (producer?(current_user, @program) || current_user&.admin?) %>
       <%= link_to edit_program_path(@program), 
           class: "btn btn-outline-light hover-lift" do %>
         <i class="bi bi-pencil me-2"></i>

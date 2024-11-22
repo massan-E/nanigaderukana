@@ -27,7 +27,8 @@ class LettersController < ApplicationController
     @letter.user_id = current_user&.id
     @letter.program_id = params[:program_id]
     if @letter.save
-      redirect_to @program, notice: "Letter was successfully created."
+      flash[:success] =  "Letter was successfully created."
+      redirect_to @program
     else
       render "programs/show", status: :unprocessable_entity
     end
@@ -35,7 +36,8 @@ class LettersController < ApplicationController
 
   def update
     if @letter.update(letter_params)
-      redirect_to @letter, notice: "Letter was successfully updated."
+      flash[:success] = "Letter was successfully updated."
+      redirect_to @letter
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,7 +45,8 @@ class LettersController < ApplicationController
 
   def destroy
     @letter.destroy!
-    redirect_to letters_path, status: :see_other, notice: "Letter was successfully destroyed."
+    flash[:success] = "Letter was successfully destroyed."
+    redirect_to letters_path, status: :see_other
   end
 
   def sent; end

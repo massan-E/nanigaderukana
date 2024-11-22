@@ -23,7 +23,8 @@ class ProgramsController < ApplicationController
     @program = current_user.programs.build(program_params)
     if @program.save
       current_user.user_participations.create(program: @program)
-      redirect_to current_user, notice: "program was successfully created."
+      flash[:success] = "program was successfully created."
+      redirect_to current_user
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +32,8 @@ class ProgramsController < ApplicationController
 
   def update
     if @program.update(program_params)
-      redirect_to @program, notice: "program was successfully updated."
+      flash[:success] = "program was successfully updated."
+      redirect_to @program
     else
       render :edit, status: :unprocessable_entity
     end
@@ -39,11 +41,8 @@ class ProgramsController < ApplicationController
 
   def destroy
     @program.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to programs_path, status: :see_other, notice: "program was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    flash[:success] = "program was successfully destroyed."
+    redirect_to programs_path, status: :see_other
   end
 
   private
