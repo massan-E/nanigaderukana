@@ -27,12 +27,7 @@
     <div class="background-animation">
       <%= inline_svg_tag "night_sky_background.svg" %>
     </div>
-    <%= render 'layouts/header' %>
-    <div class="container">
-      <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-      <% end %>
-    </div>
+    <%= render 'shared/header' %>
     <%= yield %>
   </body>
 </html>

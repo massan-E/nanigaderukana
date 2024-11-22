@@ -1,4 +1,25 @@
-<h2><%= @program.title %></h2>
-<h3>この番組への招待リンクを生成しますか？</h3>
-<%= button_to "生成する", program_invitations_path %>
-<%= link_to "戻る", @program %>
+<div class="container py-5">
+  <%= render 'shared/flash_message' %>
+  <div class="glass-morphism p-5">
+    <h2 class="display-6 fw-bold text-gradient mb-4">
+      <i class="bi bi-broadcast me-3"></i>
+      <%= @program.title %>
+    </h2>
+    
+    <h3 class="h4 text-gradient-subtle mb-5">この番組への招待リンクを生成しますか？</h3>
+    
+    <div class="d-flex gap-3">
+      <%= button_to program_invitations_path, 
+          class: "btn btn-primary rounded-pill px-4 py-2 hover-lift" do %>
+        <i class="bi bi-link-45deg me-2"></i>
+        招待リンクを生成する
+      <% end %>
+      
+      <%= link_to @program, 
+          class: "btn btn-outline-light rounded-pill px-4 py-2 hover-lift" do %>
+        <i class="bi bi-arrow-left me-2"></i>
+        戻る
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,5 @@
 <div class="container-fluid py-5">
-  <% if notice %>
-    <div class="alert alert-success glass-morphism mb-4">
-      <%= notice %>
-    </div>
-  <% end %>
-
+  <%= render 'shared/flash_message' %>
   <div class="glass-morphism p-4">
     <%= render @letter %>
 

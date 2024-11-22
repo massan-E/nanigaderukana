@@ -1,5 +1,6 @@
 <% content_for :title, "New Letter" %>
 
+  <%= render 'shared/flash_message' %>
 <h1>New Letter</h1>
 <h2>To:<%= @program.title %></h2>
 <%= render "form", letter: @letter, program: @program %>

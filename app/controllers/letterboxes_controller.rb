@@ -17,7 +17,8 @@ class LetterboxesController < ApplicationController
   def create
     @letterbox = @program.letterboxes.build(letterbox_params)
     if @letterbox.save
-      redirect_to program_path(@program), notice: "Letterbox was successfully created."
+      flash[:success] = "Letterbox was successfully created."
+      redirect_to program_path(@program)
     else
       render :new, status: :unprocessable_entity
     end
@@ -25,7 +26,8 @@ class LetterboxesController < ApplicationController
 
   def update
     if @letterbox.update(letterbox_params)
-      redirect_to @program, notice: "Letterbox was successfully updated."
+      flash[:success] = "Letterbox was successfully updated."
+      redirect_to @program
     else
       render :edit, status: :unprocessable_entity
     end
@@ -33,7 +35,8 @@ class LetterboxesController < ApplicationController
 
   def destroy
     @letterbox.destroy!
-    redirect_to letterboxes_path, status: :see_other, notice: "Letterbox was successfully destroyed."
+    flash[:success] = "Letterbox was successfully destroyed."
+    redirect_to letterboxes_path, status: :see_other
   end
 
   private
