@@ -8,10 +8,18 @@
       </div>
 
       <div class="d-flex gap-2">
-        <% if (current_user == @user || current_user&.admin?) %>
-          <%= link_to new_program_path, class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
-            <i class="bi bi-plus-lg me-2"></i>
-            新規番組作成
+        <% if (@user == current_user || current_user&.admin?) %>
+          <%= link_to edit_user_path(@user), class: "btn btn-outline-light hover-lift" do %>
+            <i class="bi bi-pencil me-2"></i>
+            編集する
+          <% end %>
+
+          <%= button_to @user, 
+              method: :delete, 
+              class: "btn btn-outline-danger hover-lift",
+              form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
+            <i class="bi bi-trash me-2"></i>
+            削除する
           <% end %>
         <% end %>
       </div>
@@ -26,34 +34,20 @@
       <div class="row g-4">
         <%= render @programs %>
       </div>
+    </div>
 
     <% if current_user == @user || current_user&.admin? %>
       <h3 class="text-gradient h4 mb-4">
-          <i class="bi bi-broadcast me-2"></i>
-          過去に投稿したお便り
-        </h3>
+        <i class="bi bi-broadcast me-2"></i>
+        過去に投稿したお便り
+      </h3>
       <%= render @letters %>
     <% end %>
 
-    <div class="d-flex gap-3 mt-4">
+    <div class="mt-4">
       <%= link_to :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
         <i class="bi bi-arrow-left me-2"></i>
         戻る
-      <% end %>
-
-      <% if (@user == current_user || current_user&.admin?) %>
-        <%= link_to edit_user_path(@user), class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
-          <i class="bi bi-pencil me-2"></i>
-          編集する
-        <% end %>
-
-        <%= button_to @user, 
-            method: :delete, 
-            class: "btn btn-outline-danger rounded-pill px-4 hover-lift",
-            form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
-          <i class="bi bi-trash me-2"></i>
-          削除する
-        <% end %>
       <% end %>
     </div>
 

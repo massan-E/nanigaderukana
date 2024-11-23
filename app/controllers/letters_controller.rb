@@ -30,6 +30,7 @@ class LettersController < ApplicationController
       flash[:success] =  "Letter was successfully created."
       redirect_to @program
     else
+      flash.now[:danger] = "お便りの送信に失敗しました、お便り入力フォームを確認してください"
       render "programs/show", status: :unprocessable_entity
     end
   end

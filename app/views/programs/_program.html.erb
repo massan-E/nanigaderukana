@@ -1,21 +1,22 @@
 <div id="<%= dom_id program %>" class="col-md-6 col-lg-4">
   <div class="card glass-morphism h-100 border-0 hover-lift">
-    <div class="card-body p-4">
+    <div class="card-body p-4 d-flex flex-column">
       <div class="d-flex align-items-center mb-3">
         <div class="program-icon me-3">
           <i class="bi bi-broadcast fs-4 text-gradient"></i>
         </div>
-        <h4 class="card-title mb-0">
-          <%= link_to program.title, program, 
-              class: "text-decoration-none text-gradient fw-bold" %>
+        <h4 class="card-title mb-0 modern-program-title">
+          <%= link_to program, class: "text-decoration-none program-title-link nav-hover" do %>
+            <span class="text-gradient fw-bold title-text"><%= program.title %></span>
+          <% end %>
         </h4>
       </div>
-      
-      <p class="card-text mb-4">
-        <%= program.body %>
+
+      <p class="mb-4">
+        <%= simple_format(program.body, class: "card-text mb-0") %>
       </p>
 
-      <div class="program-meta mb-3">
+      <div class="program-meta mt-auto">
         <% if action_name == "show" %>
           <% if program.user == current_user || current_user&.admin? %>
             <%= link_to new_program_invitation_path(program), 
@@ -25,15 +26,18 @@
             <% end %>
           <% end %>
         <% end %>
-        <br>
-        <div class="text-white-50 small">
-          <i class="bi bi-clock me-2"></i>
-          <%= program.created_at.strftime("%Y-%m-%d") %>
+        
+        <div class="d-flex align-items-center justify-content-between text-white-50">
           <%= link_to program.user, 
-            class: "text-decoration-none d-inline-flex align-items-center me-3" do %>
-          <i class="bi bi-person-circle me-2"></i>
-          <span class="text-gradient-subtle"><%= program.user.name %></span>
-        <% end %>
+            class: "text-decoration-none d-inline-flex align-items-center" do %>
+            <i class="bi bi-person-circle me-2"></i>
+            <span class="text-gradient-subtle"><%= program.user.name %></span>
+          <% end %>
+          
+          <div class="d-flex align-items-center">
+            <i class="bi bi-clock me-2"></i>
+            <%= program.created_at.strftime("%Y-%m-%d")%>
+          </div>
         </div>
       </div>
     </div>

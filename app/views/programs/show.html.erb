@@ -1,14 +1,36 @@
 <div class="container py-5">
   <%= render 'shared/flash_message' %>
   <div class="glass-morphism p-4 mb-5">
-    <h1 class="text-gradient display-5 fw-bold mb-4">
-      <i class="bi bi-music-note-beamed me-3"></i>
-      <%= @program.title %>
-    </h1>
-    
-    <p class="lead card-text mb-4">
-      <%= @program.body %>
-    </p>
+    <div class="d-flex justify-content-between align-items-start mb-4">
+      <div>
+        <h1 class="text-gradient display-5 fw-bold mb-4">
+          <i class="bi bi-music-note-beamed me-3"></i>
+          <%= @program.title %>
+        </h1>
+        
+        <p class="lead card-text mb-0">
+          <%= simple_format(@program.body) %>
+        </p>
+      </div>
+
+      <% if (producer?(current_user, @program) || current_user&.admin?) %>
+        <div class="d-flex gap-3">
+          <%= link_to edit_program_path(@program), 
+              class: "btn btn-outline-light hover-lift" do %>
+            <i class="bi bi-pencil me-2"></i>
+            編集する
+          <% end %>
+
+          <%= button_to @program, 
+              method: :delete, 
+              class: "btn btn-outline-danger hover-lift",
+              form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
+            <i class="bi bi-trash me-2"></i>
+            削除する
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <% if (producer?(current_user, @program) || current_user&.admin?) %>
@@ -43,11 +65,11 @@
     </div>
 
     <div class="row g-4">
-        <%= render partial: "letterboxes/letterbox", 
-              collection: @program.letterboxes, 
-              as: :letterbox,
-              locals: { current_user: current_user } %>
-      </div>
+      <%= render partial: "letterboxes/letterbox", 
+            collection: @program.letterboxes, 
+            as: :letterbox,
+            locals: { current_user: current_user } %>
+    </div>
   </div>
 
   <div class="glass-morphism p-4 mb-5">
@@ -58,26 +80,8 @@
     <%= render "letters/form", letter: @letter, program: @program %>
   </div>
 
-  <div class="d-flex gap-3 mt-4">
-    <%= link_to :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
-        <i class="bi bi-arrow-left me-2"></i>
-        戻る
-    <% end %>
-
-    <% if (producer?(current_user, @program) || current_user&.admin?) %>
-      <%= link_to edit_program_path(@program), 
-          class: "btn btn-outline-light hover-lift" do %>
-        <i class="bi bi-pencil me-2"></i>
-        編集する
-      <% end %>
-
-      <%= button_to @program, 
-          method: :delete, 
-          class: "btn btn-outline-danger hover-lift",
-          form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
-        <i class="bi bi-trash me-2"></i>
-        削除する
-      <% end %>
-    <% end %>
-  </div>
+  <%= link_to :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+    <i class="bi bi-arrow-left me-2"></i>
+    戻る
+  <% end %>
 </div>
