@@ -1,7 +1,0 @@
-<% if producer?(current_user, program) || current_user&.admin? %>
-  <%= link_to new_program_invitation_path(program), 
-      class: "btn btn-outline-light btn-sm rounded-pill hover-lift mb-3" do %>
-      <i class="bi bi-person-plus me-2"></i>
-      ユーザーを招待する
-  <% end %>
-<% end %>

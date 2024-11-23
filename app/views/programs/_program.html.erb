@@ -16,7 +16,15 @@
       </p>
 
       <div class="program-meta mb-3">
-        <%= render invite_button, current_user: current_user, program: program %>
+        <% if action_name == "show" %>
+          <% if program.user == current_user || current_user&.admin? %>
+            <%= link_to new_program_invitation_path(program), 
+                class: "btn btn-outline-light btn-sm rounded-pill hover-lift mb-3" do %>
+              <i class="bi bi-person-plus me-2"></i>
+              ユーザーを招待する
+            <% end %>
+          <% end %>
+        <% end %>
         <br>
         <div class="text-white-50 small">
           <i class="bi bi-clock me-2"></i>
