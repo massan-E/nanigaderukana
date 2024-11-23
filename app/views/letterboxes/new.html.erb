@@ -1,15 +1,41 @@
 <% content_for :title, "新規お便り箱" %>
 
 <div class="container py-5">
-  <%= render 'shared/flash_message' %>
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h2 class="text-primary mb-4">新規お便り箱</h2>
-      
-      <%= render "form", letterbox: @letterbox, program: @program %>
+  <div class="glass-morphism p-5">
+    <h1 class="display-6 fw-bold text-gradient mb-4">
+      <i class="bi bi-mailbox me-3"></i>
+      新規お便り箱
+    </h1>
 
-      <div class="mt-4">
-        <%= link_to "一覧に戻る", @program, class: "btn btn-outline-secondary rounded-pill px-4 hover-lift" %>
+    <div class="mb-4">
+      <div class="d-flex align-items-center">
+        <div class="program-icon me-3">
+          <i class="bi bi-broadcast fs-4"></i>
+        </div>
+        <h2 class="h5 text-gradient-subtle mb-0">
+          <%= @program.title %>
+        </h2>
+      </div>
+    </div>
+
+    <%= render 'shared/flash_message' %>
+    
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <%= render "form", letterbox: @letterbox, program: @program %>
+
+        <div class="mt-4 d-flex gap-3">
+          <%= link_to :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+            <i class="bi bi-arrow-left me-2"></i>
+            戻る
+          <% end %>
+          
+          <%= link_to @program, 
+              class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+            <i class="bi bi-broadcast me-2"></i>
+            番組ページへ
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

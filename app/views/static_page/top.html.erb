@@ -27,7 +27,10 @@
       </div>
       
       <div id="programs" class="row g-4">
-        <%= render @programs %>
+        <%= render partial: "programs/program", 
+              collection: @programs, 
+              as: :program,
+              locals: { current_user: current_user, invite_button: invite_button } %>
       </div>
     </section>
   <% end %>

@@ -27,7 +27,7 @@
         <%= render partial: "programs/program", 
               collection: @programs, 
               as: :program,
-              locals: { current_user: current_user } %>
+              locals: { current_user: current_user, invite_button: invite_button } %>
       </div>
     </div>
 
@@ -40,9 +40,9 @@
     <% end %>
 
     <div class="d-flex gap-3 mt-4">
-      <%= link_to users_path, class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+      <%= link_to :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
         <i class="bi bi-arrow-left me-2"></i>
-        ユーザー一覧に戻る
+        戻る
       <% end %>
 
       <% if (@user == current_user || current_user&.admin?) %>
