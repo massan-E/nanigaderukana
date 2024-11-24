@@ -36,7 +36,7 @@ class LetterboxesController < ApplicationController
   def destroy
     @letterbox.destroy!
     flash[:success] = "Letterbox was successfully destroyed."
-    redirect_to letterboxes_path, status: :see_other
+    redirect_to @program, status: :see_other
   end
 
   private

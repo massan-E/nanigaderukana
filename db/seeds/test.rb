@@ -19,7 +19,7 @@ if Rails.env.development? || Rails.env.test?
 
   user_ids = User.ids
   user = User.find(1)
-  user.update!(name: "massanE", admin: true)
+  user.update(name: "massanE", admin: true)
 
   # programs
   50.times do |index|

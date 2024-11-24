@@ -14,12 +14,12 @@ class Letter < ApplicationRecord
   # def self.random
   #   random_letter_id = self.where(publish: true, is_read: false).pluck(:id).sample
   #   random_letter = random_letter_id ? Letter.find(random_letter_id) : nil
-  #   random_letter.update!(is_read: true) if random_letter
+  #   random_letter.update(is_read: true) if random_letter
   #   random_letter
   # end
 
   def self.reset_is_read
     letters = self.where(is_read: true)
-    letters.each { |letter| letter.update!(is_read: false) }
+    letters.update_all(is_read: false)
   end
 end

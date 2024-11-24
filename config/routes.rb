@@ -11,7 +11,10 @@ Rails.application.routes.draw do
 
   resources :programs do
     resources :letterboxes, only: %i[ index new create edit update destroy ]
-    resources :letters, shallow: true
+    resources :letters, shallow: true do
+      post "/publish", to: "publish#publish"
+      post "/non_publish", to: "publish#non_publish"
+    end
     resources :invitations, only: %i[ show new create edit update ]
   end
   resources :users

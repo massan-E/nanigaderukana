@@ -1,0 +1,5 @@
+<% if letter.publish? %>
+  <%= render 'non_publish', { letter: letter } %>
+<% else %>
+  <%= render 'publish', { letter: letter } %>
+<% end %>
