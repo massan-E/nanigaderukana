@@ -9,7 +9,9 @@
       <p class="mb-0 card-text"><%= simple_format(letter.body) %></p>
     </div>
 
-    <span>publish：</span><%= render "publish_buttons", letter: letter %>
+    <% if action_name == "index" %>
+      <span>publish：</span><%= render "publish_buttons", letter: letter %>
+    <% end %>
     <div class="mt-3 text-white-50 small">
       <i class="bi bi-clock me-2"></i>
       <%= letter.created_at.strftime("%Y-%m-%d %H:%M") %>
