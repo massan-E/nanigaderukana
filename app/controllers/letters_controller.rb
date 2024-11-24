@@ -57,7 +57,7 @@ class LettersController < ApplicationController
     @letters = @letterbox_id == 0 ? @program.letters : Letterbox.find(@letterbox_id).letters
     return render "letters/nothing" unless @letters
     @letter = letter_sampling(@letters)
-    @letter.present? ? @letter.update!(is_read: true) : (render "letters/nothing")
+    @letter.present? ? @letter.update(is_read: true) : (render "letters/nothing")
   end
 
   def reset

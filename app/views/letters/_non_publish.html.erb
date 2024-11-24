@@ -1,0 +1,3 @@
+<%= link_to letter_non_publish_path(letter), id: "non_publish-button-for-letter-#{letter.id}", data: { turbo_method: :post } do %>
+  <i class="bi bi-star-fill"></i>
+<% end %>

@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "publish-button-for-letter-#{@letter.id}" do %>
+  <%= render 'letters/non_publish', letter: @letter %>
+<% end %>
