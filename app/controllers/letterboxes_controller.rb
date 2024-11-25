@@ -46,7 +46,7 @@ class LetterboxesController < ApplicationController
     end
 
     def letterbox_params
-      params.require(:letterbox).permit(:title)
+      params.require(:letterbox).permit(:title, :body)
     end
 
     def set_program

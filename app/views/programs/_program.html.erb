@@ -6,7 +6,7 @@
           <i class="bi bi-broadcast fs-4 text-gradient"></i>
         </div>
         <h4 class="card-title mb-0 modern-program-title">
-          <%= link_to program, class: "text-decoration-none program-title-link nav-hover" do %>
+          <%= link_to program, class: "text-decoration-none program-title-link nav-hover",data: { turbo: false } do %>
             <span class="text-gradient fw-bold title-text"><%= program.title %></span>
           <% end %>
         </h4>

@@ -4,7 +4,8 @@ class ProgramsController < ApplicationController
   before_action :authorized_user, only: %i[ edit update destroy ]
 
   def index
-    @programs = Program.includes(:user).all
+    @q = Program.includes(:user).all.order(created_at: :desc).ransack(params[:q])
+    @programs = @q.result(distinct: true).page(params[:page]).per(6)
   end
 
   def show
@@ -24,7 +25,7 @@ class ProgramsController < ApplicationController
     if @program.save
       current_user.user_participations.create(program: @program)
       flash[:success] = "program was successfully created."
-      redirect_to current_user
+      redirect_to @program
     else
       render :new, status: :unprocessable_entity
     end

@@ -18,10 +18,27 @@
       <% end %>
     </div>
 
-    <div class="row g-4">
-      <%= render @programs %>
-    </div>
+    <%= search_form_for @q, url: programs_path, 
+        class: "row g-3 align-items-end" do |f| %>
+      <div class="col-md-5">
+        <%= f.search_field :title_or_body_or_user_name_cont, 
+            class: 'form-control',
+            placeholder: 'タイトル、本文、userで検索...' %>
+      </div>
+
+      <div class="col-md-2">
+        <%= f.submit '検索', class: 'btn btn-primary w-100 rounded-pill hover-lift' %>
+      </div>
+    <% end %>
+
+    <%= turbo_frame_tag "programs-list" do %>
+      <div class="row g-4">
+        <%= render @programs %>
+      </div>
+      <%= paginate @programs %>
+    <% end %>
   </div>
+
   <%= link_to :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
     <i class="bi bi-arrow-left me-2"></i>
     戻る
