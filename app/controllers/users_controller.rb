@@ -5,8 +5,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: %i[ index ]
 
   def index
-    # ページネーション入れる予定
-    @users = User.all
+    @users = User.all.page(params[:page]).per(10)
   end
 
   def show
