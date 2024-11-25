@@ -10,8 +10,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @programs = @user.joined_programs.order(created_at: :desc)
-    @letters = @user.letters.includes(:program)
+    @programs = @user.joined_programs.order(created_at: :desc).page(params[:page]).per(6)
+    @letters = @user.letters.includes(:program).page(params[:page]).per(10)
   end
 
   def new

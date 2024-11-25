@@ -20,9 +20,13 @@
         <span class="text-gradient fw-bold"><%= letterbox.title %></span>
       </h4>
       
+      <div class="letterbox-body p-3 rounded">
+        <p><%= simple_format(letterbox.body, class: "mb-0 card-text") %></p>
+      </div>
+
       <%# 空白スペース %>
       <div class="flex-grow-1"></div> <%# これを追加 %>
-      
+
       <%# アクションボタン %>
       <div class="card-actions">
         <%= link_to program_path(letterbox.program, letter: {letterbox_id: letterbox.id}), 

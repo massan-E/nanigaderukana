@@ -4,11 +4,11 @@ class LettersController < ApplicationController
   before_action :logged_in_user, only: %i[ index show edit update destroy ]
   before_action :editable_user, only: %i[ edit update destroy ]
   before_action :authorized_user, only: %i[ show random reset ]
-  # before_action :set_letterbox, only: %i[ index show new create ]
 
   def index
-    @q = @program.letters.includes(:letterbox).ransack(params[:q])
-    @letters = @q.result(distinct: true)
+    @q = @program.letters.includes(:letterbox).order(created_at: :desc).ransack(params[:q])
+    @result = @q.result(distinct: true)
+    @letters = @result.page(params[:page]).per(10)
   end
 
   def show; end
@@ -76,11 +76,6 @@ class LettersController < ApplicationController
     def letter_params
       params.require(:letter).permit(:body, :radio_name, :letterbox_id)
     end
-
-    # def set_letterbox
-    #   letterbox_id = params[:letter]&.dig(:letterbox_id)
-    #   @letterbox = Letterbox.find(letterbox_id) if letterbox_id
-    # end
 
     def set_program
       program_id = params[:program_id]

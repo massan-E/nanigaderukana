@@ -39,4 +39,8 @@ class User < ApplicationRecord
   def session_token
     remember_digest || remember
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "name" ]
+  end
 end

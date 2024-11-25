@@ -31,9 +31,12 @@
         制作に参加している番組
       </h3>
 
-      <div class="row g-4">
-        <%= render @programs %>
-      </div>
+      <%= turbo_frame_tag "programs-list" do %>
+        <div class="row g-4">
+          <%= render @programs %>
+        </div>
+        <%= paginate @programs %>
+      <% end %>
     </div>
 
     <% if current_user == @user || current_user&.admin? %>
@@ -41,7 +44,10 @@
         <i class="bi bi-broadcast me-2"></i>
         過去に投稿したお便り
       </h3>
-      <%= render @letters %>
+      <%= turbo_frame_tag "letters-list" do %>
+        <%= render @letters %>
+        <%= paginate @letters %>
+      <% end %>
     <% end %>
 
     <div class="mt-4">

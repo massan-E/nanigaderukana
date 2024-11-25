@@ -11,8 +11,13 @@
   <% end %>
 
   <div class="mb-4">
-    <%= form.label :title, class: "form-label text-white-50" %>
-    <%= form.text_field :title, class: "form-control glass-input", placeholder: "お便り箱のタイトルを入力" %>
+    <%= form.label :title, class: "form-label card-text" %>
+    <%= form.text_field :title, class: "form-control", placeholder: "お便り箱のタイトルを入力" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :body, class: "form-label card-text" %>
+    <%= form.text_area :body, class: "form-control glass-input", rows: 5 %>
   </div>
 
   <div>

@@ -1,0 +1,5 @@
+<% if letter.is_read? %>
+  <%= render 'unread', { letter: letter } %>
+<% else %>
+  <%= render 'read', { letter: letter } %>
+<% end %>

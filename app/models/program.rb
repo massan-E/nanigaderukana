@@ -11,8 +11,12 @@ class Program < ApplicationRecord
   has_many :letters, dependent: :nullify
 
   def self.ransackable_associations(auth_object = nil)
-    [ "letter", "letterbox" ]
+    [ "letter", "letterbox", "user" ]
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "title", "body" ]
+end
 
   def create_invitation_digest
     self.invitation_token = User.new_token
