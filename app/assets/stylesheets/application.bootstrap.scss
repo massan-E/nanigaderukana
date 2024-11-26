@@ -342,3 +342,195 @@ a {
     -webkit-text-fill-color: transparent;
   }
 }
+// 検索フォーム用のスタイル
+.search-form {
+  background: rgba(26, 27, 38, 0.5);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  .form-control {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(122, 162, 247, 0.2);
+    transition: $transition-base;
+
+    &:focus {
+      background: #ffffff;
+      border-color: #7aa2f7;
+      box-shadow: 0 0 0 3px rgba(122, 162, 247, 0.15);
+    }
+  }
+}
+
+
+// プログラムリスト用のスタイル
+.row.g-4 {
+  margin-top: 1.5rem;
+}
+
+// レスポンシブ対応の強化
+@media (max-width: 768px) {
+  .glass-morphism {
+    .d-flex {
+      flex-direction: column;
+      gap: 1rem;
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  .search-form {
+    padding: 1rem;
+    
+    .col-md-5,
+    .col-md-2 {
+      width: 100%;
+    }
+  }
+}
+
+// アニメーション効果の追加
+.glass-morphism {
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+// ページネーション用の調整したスタイル
+.pagination {
+  gap: 0.6rem;
+  margin: 2.5rem 0;
+  
+  .page-item {
+    .page-link {
+      background: rgba(26, 27, 38, 0.7);
+      border: 1px solid rgba(122, 162, 247, 0.2);
+      color: #c0caf5;
+      border-radius: 10px !important;
+      padding: 0.7rem 1rem;
+      min-width: 2.8rem;
+      min-height: 2.8rem;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      margin: 0;
+      
+      &:hover {
+        background: rgba(122, 162, 247, 0.15);
+        border-color: #7aa2f7;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(122, 162, 247, 0.2);
+      }
+    }
+
+    &.active .page-link {
+      background: linear-gradient(120deg, #7aa2f7, #bb9af7);
+      border-color: transparent;
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(122, 162, 247, 0.3);
+    }
+
+    &.disabled .page-link {
+      background: rgba(26, 27, 38, 0.4);
+      border-color: rgba(122, 162, 247, 0.1);
+      color: rgba(192, 202, 245, 0.5);
+      cursor: not-allowed;
+    }
+
+
+    // アクティブなページ
+    &.active .page-link {
+      background: linear-gradient(120deg, #7aa2f7, #bb9af7);
+      border-color: transparent;
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(122, 162, 247, 0.3);
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    // 無効なページ
+    &.disabled .page-link {
+      background: rgba(26, 27, 38, 0.4);
+      border-color: rgba(122, 162, 247, 0.1);
+      color: rgba(192, 202, 245, 0.5);
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+
+    // 前へ/次へボタン
+    &.prev, &.next {
+      .page-link {
+        padding: 0.7rem 1.2rem;
+        min-width: 3.2rem;
+        
+        span {
+          position: relative;
+          top: -1px;
+        }
+      }
+    }
+
+    // 省略記号
+    &.gap {
+      .page-link {
+        background: transparent;
+        border: none;
+        color: #c0caf5;
+        pointer-events: none;
+        box-shadow: none;
+
+        &:hover {
+          transform: none;
+        }
+      }
+    }
+  }
+}
+
+// レスポンシブ対応
+@media (max-width: 768px) {
+  .pagination {
+    gap: 0.4rem;
+    
+    .page-item {
+      .page-link {
+        padding: 0.6rem 0.8rem;
+        min-width: 2.4rem;
+        min-height: 2.4rem;
+        font-size: 0.9rem;
+      }
+      
+      &.prev, &.next {
+        .page-link {
+          padding: 0.6rem 1rem;
+        }
+      }
+    }
+  }
+}
+
+// コンテナのスタイル
+.d-inline-block {
+  width: 100%;
+}

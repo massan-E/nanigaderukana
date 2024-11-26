@@ -38,7 +38,7 @@ class InvitationsController < ApplicationController
     end
 
     def valid_user
-      unless (@program && @program.authenticated?(params[:id]))
+      unless @program && @program.authenticated?(params[:id])
         redirect_to root_url
       end
     end

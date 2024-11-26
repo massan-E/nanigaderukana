@@ -35,7 +35,11 @@
         <div class="row g-4">
           <%= render @programs %>
         </div>
-        <%= paginate @programs %>
+        <%= paginate @programs, 
+          theme: 'bootstrap-5',
+          pagination_class: "pagination flex-wrap justify-content-center",
+          nav_class: "d-inline-block",
+          window: 2 %>
       <% end %>
     </div>
 
@@ -46,7 +50,11 @@
       </h3>
       <%= turbo_frame_tag "letters-list" do %>
         <%= render @letters %>
-        <%= paginate @letters %>
+        <%= paginate @letters, 
+          theme: 'bootstrap-5',
+          pagination_class: "pagination flex-wrap justify-content-center",
+          nav_class: "d-inline-block",
+          window: 2 %>
       <% end %>
     <% end %>
 
