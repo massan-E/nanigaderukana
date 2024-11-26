@@ -5,10 +5,6 @@ Rails.application.routes.draw do
   post   "/login",   to: "user_sessions#create"
   delete "/logout",  to: "user_sessions#destroy"
 
-  get    "/letter_sent", to: "letters#sent"
-  get    "/letter_random", to: "letters#random"
-  get    "/letter_reset", to: "letters#reset"
-
   resources :programs do
     resources :letterboxes, only: %i[ index new create edit update destroy ]
     resources :letters, shallow: true do
@@ -18,7 +14,14 @@ Rails.application.routes.draw do
       post "/unread", to: "letter_status#unread"
     end
     resources :invitations, only: %i[ show new create edit update ]
+    resource :random_letters, only: %i[ show ] do
+      collection do
+        get "random"
+        get "reset"
+      end
+    end
   end
+
   resources :users
 
   get "up" => "rails/health#show", as: :rails_health_check

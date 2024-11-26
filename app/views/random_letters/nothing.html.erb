@@ -1,14 +1,14 @@
 <div class="container-fluid py-5">
   <%= render 'shared/flash_message' %>
   <div class="glass-morphism p-5 text-center">
-    <div class="mb-4">
+    <div class="mb-5">
       <i class="bi bi-inbox display-1 text-gradient"></i>
     </div>
     
-    <h1 class="text-gradient mb-4">中に誰もいませんよ？</h1>
+    <h1 class="text-gradient mb-5">中に誰もいませんよ？</h1>
     
-    <div class="d-flex justify-content-center gap-3">
-      <%= link_to letter_reset_path(letterbox_id: @letterbox_id, program_id: @program.id),
+    <div class="d-flex justify-content-center flex-column flex-md-row gap-3">
+      <%= link_to reset_program_random_letters_path(q: permitted_q_params),
           class: "btn btn-primary rounded-pill px-4 hover-lift",
           data: { turbo_prefetch: false } do %>
         <i class="bi bi-arrow-clockwise me-2"></i>

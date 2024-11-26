@@ -16,7 +16,7 @@ body {
 
 // ヘッダー
 header {
-  &.letters-new, &.letters-random, &.letters-sent {
+  &.random_letters-random, &.random_letters-reset, &.random_letters-show {
     display: none;
   }
 }

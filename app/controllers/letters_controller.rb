@@ -1,14 +1,15 @@
 class LettersController < ApplicationController
   before_action :set_letter, only: %i[ show edit update destroy ]
-  before_action :set_program, only: %i[ index show new create random reset ]
+  before_action :set_program, only: %i[ index show new create ]
   before_action :logged_in_user, only: %i[ index show edit update destroy ]
   before_action :editable_user, only: %i[ edit update destroy ]
-  before_action :authorized_user, only: %i[ show random reset ]
+  before_action :authorized_user, only: %i[ show ]
 
   def index
-    @q = @program.letters.includes(:letterbox).order(created_at: :desc).ransack(params[:q])
-    @result = @q.result(distinct: true)
-    @letters = @result.page(params[:page]).per(10)
+    @q = @program.letters.includes(:letterbox).ransack(params[:q])
+    result = @q.result(distinct: true)
+    @result_count = result.count
+    @letters = result.page(params[:page]).order(created_at: :desc).per(10)
   end
 
   def show; end
@@ -50,23 +51,6 @@ class LettersController < ApplicationController
     redirect_to letters_path, status: :see_other
   end
 
-  def sent; end
-
-  def random
-    @letterbox_id = params[:letterbox_id].to_i
-    @letters = @letterbox_id == 0 ? @program.letters : Letterbox.find(@letterbox_id).letters
-    return render "letters/nothing" unless @letters
-    @letter = letter_sampling(@letters)
-    @letter.present? ? @letter.update(is_read: true) : (render "letters/nothing")
-  end
-
-  def reset
-    @letterbox_id = params[:letterbox_id].to_i
-    @letters = @letterbox_id == 0 ? @program.letters : Letterbox.find(@letterbox_id).letters
-    @letters.reset_is_read
-    redirect_to letter_random_path(letterbox_id: @letterbox_id, program_id: @program.id)
-  end
-
   private
 
     def set_letter
@@ -82,10 +66,6 @@ class LettersController < ApplicationController
       @program = Program.find(program_id) if program_id
     end
 
-    def letter_sampling(letters)
-      random_letter_id = letters.where(publish: true, is_read: false).pluck(:id).sample
-      random_letter = random_letter_id ? Letter.find(random_letter_id) : nil
-    end
 
     def editable_user
       unless current_user == @letter.user || current_user.admin?
