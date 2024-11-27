@@ -57,7 +57,7 @@
 
       <div class="search-results-section text-center mt-1 mb-4">
         <div class="result-count my-3">
-          検索結果: <%= "#{@result_count}件" %>
+          検索結果: <%= "#{@result.count}件" %>
         </div>
 
     <%= link_to program_random_letters_path(q: permitted_q_params),

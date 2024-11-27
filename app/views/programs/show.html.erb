@@ -3,18 +3,27 @@
   <div class="glass-morphism p-4 mb-5">
     <div class="d-flex justify-content-between align-items-start mb-4">
       <div>
-        <h1 class="text-gradient display-5 fw-bold mb-4">
+        <h1 class="text-gradient display-5 fw-bold mb-3">
           <i class="bi bi-music-note-beamed me-3"></i>
           <%= @program.title %>
         </h1>
-        
+
         <p class="lead card-text mb-0">
           <%= simple_format(@program.body) %>
         </p>
       </div>
 
-      <% if (producer?(current_user, @program) || current_user&.admin?) %>
-        <div class="d-flex gap-3">
+      <div class="d-flex gap-3">
+        <%= link_to "https://twitter.com/share?url=#{program_url(@program)}&text=【Music Hour】%0a%0a「#{@program.title}」お便り募集中！！%0a#{@program.body}",
+            target: '_blank',
+            class: "share-link",
+            data: { toggle: "tooltip", placement: "bottom", turbo_prefetch: false, turbo: false },
+            title: "Xでシェア" do %>
+          <i class="bi bi-twitter-x"></i>
+          <span>共有する</span>
+        <% end %>
+
+        <% if (producer?(current_user, @program) || current_user&.admin?) %>
           <%= link_to edit_program_path(@program), 
               class: "btn btn-outline-light hover-lift" do %>
             <i class="bi bi-pencil me-2"></i>
@@ -28,23 +37,25 @@
             <i class="bi bi-trash me-2"></i>
             削除する
           <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 
   <% if (producer?(current_user, @program) || current_user&.admin?) %>
     <div class="glass-morphism p-4 mb-5">
-      <h2 class="text-gradient h4 mb-4">
-        <i class="bi bi-envelope me-2"></i>
-        この番組へのお便り一覧
-      </h2>
-      
-      <%= link_to program_letters_path(@program), 
-          class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
-        <i class="bi bi-list-ul me-2"></i>
-        お便り一覧を見る
-      <% end %>
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="text-gradient h4 mb-0">
+          <i class="bi bi-envelope me-2"></i>
+          この番組へのお便り一覧
+        </h2>
+        
+        <%= link_to program_letters_path(@program), 
+            class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
+          <i class="bi bi-list-ul me-2"></i>
+          お便り一覧を見る
+        <% end %>
+      </div>
     </div>
   <% end %>
 

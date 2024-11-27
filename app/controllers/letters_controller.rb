@@ -7,9 +7,8 @@ class LettersController < ApplicationController
 
   def index
     @q = @program.letters.includes(:letterbox).ransack(params[:q])
-    result = @q.result(distinct: true)
-    @result_count = result.count
-    @letters = result.page(params[:page]).order(created_at: :desc).per(10)
+    @result = @q.result(distinct: true)
+    @letters = @result.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show; end
