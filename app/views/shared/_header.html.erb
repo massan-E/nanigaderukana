@@ -4,88 +4,39 @@
       <div class="d-flex align-items-center">
         <!-- On Air ロゴ -->
         <div class="me-4">
-          <svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="5" width="110" height="30" rx="15" fill="rgba(26, 27, 38, 0.9)" />
-            <text x="15" y="26" fill="#c0caf5" font-family="Arial" font-weight="bold" font-size="16">ON AIR</text>
-            <circle cx="95" cy="20" r="8" fill="#ff5555" class="pulse-animation">
+          <svg width="140" height="46" viewBox="0 0 140 46" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="5" width="130" height="36" rx="18" fill="rgba(26, 27, 38, 0.9)" />
+            <text x="15" y="30" fill="#c0caf5" font-family="Arial" font-weight="bold" font-size="20">ON AIR</text>
+            <circle cx="110" cy="23" r="8" fill="#ff5555" class="pulse-animation">
               <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
             </circle>
-            <!-- ラジオ波アニメーション -->
-            <path d="M 95 12
-                     A 8 8 0 0 1 95 28"
+            <path d="M 110 15
+                     A 8 8 0 0 1 110 31"
                   stroke="#7aa2f7"
                   fill="none"
                   stroke-width="2"
                   class="wave-animation">
               <animate attributeName="d"
-                       values="M 95 12 A 8 8 0 0 1 95 28;M 95 10 A 10 10 0 0 1 95 30;M 95 12 A 8 8 0 0 1 95 28" 
+                       values="M 110 15 A 8 8 0 0 1 110 31;M 110 13 A 10 10 0 0 1 110 33;M 110 15 A 8 8 0 0 1 110 31" 
                        dur="1.5s"
                        repeatCount="indefinite"/>
             </path>
           </svg>
         </div>
-        <%= link_to "TOP", root_path, class: "top-nav-link nav-hover text-gradient fs-5 me-4" %>
+        <%= link_to "TOP", root_path, class: "top-nav-link nav-hover text-gradient fs-4 me-4" %>
       </div>
 
       <ul class="nav-links mb-0">
         <% if current_user %>
-          <li class="nav-item"><span class="text-gradient fs-6"><%= current_user.name %></span></li>
-          <li class="nav-item"><%= link_to "My page", current_user, class: "nav-link nav-hover" %></li>
-          <li class="nav-item"><%= link_to "Log out", logout_path, data: { "turbo-method": :delete }, class: "nav-link nav-hover" %></li>
+          <li class="nav-item d-none d-md-block"><span class="text-gradient fs-5"><%= current_user.name %></span></li>
+          <li class="nav-item"><%= link_to "My page", current_user, class: "nav-link nav-hover fs-5" %></li>
+          <li class="nav-item"><%= link_to "Log out", logout_path, data: { "turbo-method": :delete }, class: "nav-link nav-hover fs-5" %></li>
         <% else %>
-          <li class="nav-item"><span class="text-gradient fs-6">loving rabbit</span></li>
-          <li class="nav-item"><%= link_to "Log in", login_path, class: "nav-link nav-hover" %></li>
-          <li class="nav-item"><%= link_to "ユーザー登録", new_user_path, class: "btn btn-primary btn-sm rounded-pill px-3" %></li>
+          <li class="nav-item d-none d-md-block"><span class="text-gradient fs-5">loving rabbit</span></li>
+          <li class="nav-item"><%= link_to "Log in", login_path, class: "nav-link nav-hover fs-5" %></li>
+          <li class="nav-item"><%= link_to "ユーザー登録", new_user_path, class: "btn btn-primary btn-lg rounded-pill px-4" %></li>
         <% end %>
       </ul>
     </nav>
   </div>
 </header>
-
-<style>
-.glass-header {
-  background: rgba(26, 27, 38, 0.95);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(192, 202, 245, 0.1);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  list-style: none;
-}
-
-.nav-link {
-  color: #7aa2f7;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #bb9af7;
-}
-
-/* アニメーション */
-.pulse-animation {
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; }
-  100% { opacity: 1; }
-}
-
-.wave-animation {
-  animation: wave 1.5s infinite;
-  transform-origin: 95px 20px;
-}
-
-@keyframes wave {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-</style>
