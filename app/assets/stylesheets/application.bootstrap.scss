@@ -534,3 +534,74 @@ a {
 .d-inline-block {
   width: 100%;
 }
+
+// シェアリンクのスタイル
+.share-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(26, 27, 38, 0.7);
+  border: 1px solid rgba(192, 202, 245, 0.2);
+  border-radius: 50px;
+  color: #c0caf5;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  text-decoration: none;
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    background: rgba(26, 27, 38, 0.9);
+    border-color: rgba(192, 202, 245, 0.4);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(192, 202, 245, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// レスポンシブ対応
+@media (max-width: 768px) {
+  .share-link {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+// アニメーション付きのバリエーション
+.share-link {
+  // 既存のスタイルに追加
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    padding: 2px;
+    background: linear-gradient(120deg, #7aa2f7, #bb9af7);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}

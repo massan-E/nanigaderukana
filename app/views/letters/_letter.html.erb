@@ -12,6 +12,7 @@
     <% if action_name == "index" %>
       <span>publish：</span><%= render "publish_buttons", letter: letter %>
       <span>is_read：</span><%= render "read_buttons", letter: letter %>
+      <span><%= letter.user&.name %></span>
     <% end %>
 
     <div class="mt-3 text-white-50 small">
