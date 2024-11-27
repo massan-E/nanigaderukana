@@ -3,7 +3,7 @@
     <div class="card-body p-4 d-flex flex-column">
       <div class="d-flex align-items-center mb-3">
         <div class="program-icon me-3">
-          <i class="bi bi-broadcast fs-4 text-gradient"></i>
+          <i class="bi bi-broadcast-pin fs-4 text-gradient"></i>
         </div>
         <h4 class="card-title mb-0 modern-program-title">
           <%= link_to program, class: "text-decoration-none program-title-link nav-hover",data: { turbo: false } do %>
@@ -20,7 +20,8 @@
         <% if action_name == "show" %>
           <% if program.user == current_user || current_user&.admin? %>
             <%= link_to new_program_invitation_path(program), 
-                class: "btn btn-outline-light btn-sm rounded-pill hover-lift mb-3" do %>
+                class: "btn btn-outline-light btn-sm rounded-pill hover-lift mb-3",
+                data: { turbo: false }  do %>
               <i class="bi bi-person-plus me-2"></i>
               ユーザーを招待する
             <% end %>
@@ -29,14 +30,17 @@
         
         <div class="d-flex align-items-center justify-content-between text-white-50">
           <%= link_to program.user, 
-            class: "text-decoration-none d-inline-flex align-items-center" do %>
+            class: "text-decoration-none d-inline-flex align-items-center",
+            data: { turbo: false }  do %>
             <i class="bi bi-person-circle me-2"></i>
-            <span class="text-gradient-subtle"><%= program.user.name %></span>
+            <span class="top-nav-link nav-hover"><%= program.user.name %></span>
           <% end %>
           
           <div class="d-flex align-items-center">
-            <i class="bi bi-clock me-2"></i>
-            <%= program.created_at.strftime("%Y-%m-%d")%>
+            <span>
+              <i class="bi bi-clock me-2"></i>
+              <%= program.created_at.strftime("%Y-%m-%d")%>
+            </span>
           </div>
         </div>
       </div>

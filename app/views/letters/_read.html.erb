@@ -1,3 +1,4 @@
-<%= link_to letter_read_path(letter), id: "read-button-for-letter-#{letter.id}", data: { turbo_method: :post } do %>
-  <i class="bi bi-star"></i>
+<%= link_to letter_read_path(letter), id: "read-button-for-letter-#{letter.id}", class: "btn btn-outline-light hover-lift", data: { turbo_method: :post } do %>
+  <i class="bi bi-envelope-fill"></i>
+  未読
 <% end %>

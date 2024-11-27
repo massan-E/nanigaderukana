@@ -1,23 +1,53 @@
-<div id="<%= dom_id letter %>" class="glass-morphism p-4 mb-4">
+<div id="<%= dom_id letter %>" class="glass-morphism p-4 mb-4 letter-card">
   <div class="letter-content">
     <div class="d-flex align-items-center mb-3">
       <i class="bi bi-person-circle fs-4 me-3 text-gradient"></i>
       <h2 class="h5 mb-0 text-gradient"><%= letter.radio_name %></h2>
     </div>
     
-    <div class="letter-body p-3 rounded" style="background: rgba(26, 27, 38, 0.3);">
+    <div class="letter-body p-3 rounded">
       <p class="mb-0 card-text"><%= simple_format(letter.body) %></p>
     </div>
 
-    <% if action_name == "index" %>
-      <span>publish：</span><%= render "publish_buttons", letter: letter %>
-      <span>is_read：</span><%= render "read_buttons", letter: letter %>
-      <span><%= letter.user&.name %></span>
+    <% if action_name == "show" %>
+      <div class="d-flex justify-content-end align-items-center mt-3 text-muted">
+        <div class="d-flex align-items-center gap-3">
+          <span class="text-gradient-subtle">To：</span>
+          <%= link_to letter.program&.title, letter.program, class: "top-nav-link nav-hover", data: { turbo: false }  %>
+          <span class="text-gradient text-gradient-subtle nav-hover m-0"><%= letter.letterbox&.title %></span>
+        </div>
+      </div>
     <% end %>
 
-    <div class="mt-3 text-white-50 small">
-      <i class="bi bi-clock me-2"></i>
-      <%= letter.created_at.strftime("%Y-%m-%d %H:%M") %>
+    <% if action_name == "index" %>
+      <div class="d-flex justify-content-end align-items-center mt-3">
+        <div class="d-flex align-items-center gap-3 text-muted">
+          <%= render "publish_buttons", letter: letter %>
+          
+          <%= render "read_buttons", letter: letter %>
+          
+        </div>
+      </div>
+    <% end %>
+
+    <div class="d-flex align-items-center justify-content-between text-white-50 mt-3">
+      <% if action_name == "index" %>
+        <span>
+          user name：
+          <%= link_to letter.user, 
+            class: "text-decoration-none d-inline-flex align-items-center",
+            data: { turbo: false }  do %>
+            <i class="bi bi-person-circle me-2"></i>
+            <span class="top-nav-link nav-hover"><%= letter.user&.name %></span>
+          <% end %>
+        </span>
+      <% end %>
+      <div class="d-flex align-items-center">
+        <span>
+          <i class="bi bi-clock me-2"></i>
+          <%= letter.created_at.strftime("%Y-%m-%d")%>
+        </span>
+      </div>
     </div>
   </div>
 </div>
