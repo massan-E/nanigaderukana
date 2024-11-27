@@ -1,0 +1,24 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      program: 番組
+      letterbox: お便り箱
+      letter: お便り
+    attributes:
+      user:
+        name: ユーザーネーム
+        password: パスワード
+        password_confirmation: パスワード確認
+        admin: 管理者権限
+      program:
+        title: タイトル
+        body: 番組説明
+      letterbox:
+        title: タイトル
+        body: お便り箱説明
+      letter:
+        radio_name: ラジオネーム
+        body: 本文
+        is_read: 既読
+        publish: 公開

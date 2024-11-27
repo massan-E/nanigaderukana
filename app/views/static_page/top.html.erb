@@ -1,8 +1,8 @@
-<div class="container py-5">
+<div class="container pb-5 pt-4">
   <%= render 'shared/flash_message' %>
-  <div class="text-center mb-5 mt-4">
+  <div class="text-center mb-5 mt-2">
     <h1 class="display-2 fw-bold text-gradient my-3">Music Hour</h1>
-    <p class="lead text-gradient-subtle mb-5">はがき職人募集中。</p>
+    <p class="lead text-gradient-subtle mb-4">はがき職人募集中。</p>
     
     <%= link_to new_program_path, 
         class: "btn btn-primary btn-lg rounded-pill px-5 py-3 hover-lift" do %>
@@ -10,6 +10,23 @@
       番組を作成する
     <% end %>
   </div>
+
+  <style>
+    swiper-container {
+      width: 90%;
+      height: 350px; /* または適切な高さを設定 */
+    }
+
+    swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 50%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 
   <% if @programs %>
     <section class="glass-morphism p-5 mb-5">
@@ -26,9 +43,66 @@
         <% end %>
       </div>
       
-      <div id="programs" class="row g-4">
-        <%= render @programs %>
-      </div>
+      <swiper-container class="mySwiper" effect="coverflow" grab-cursor="true" centered-slides="true"
+                        slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
+                        coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true"
+                        autoplay-delay="2500" autoplay-disable-on-interaction="false" scrollbar-hide="true">
+
+        <% @programs.each do |program| %>
+          <swiper-slide>
+            <div id="<%= dom_id program %>" class="h-100 w-100 py-4 px-4">
+              <div class="card glass-morphism h-100 w-100 border-0 hover-lift">
+                <div class="card-body p-4 d-flex flex-column">
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="program-icon me-3">
+                      <i class="bi bi-broadcast-pin fs-4 text-gradient"></i>
+                    </div>
+                    <h4 class="card-title mb-0 modern-program-title">
+                      <%= link_to program, class: "text-decoration-none program-title-link nav-hover",data: { turbo: false } do %>
+                        <span class="text-gradient fw-bold title-text"><%= program.title %></span>
+                      <% end %>
+                    </h4>
+                  </div>
+
+                  <p class="mb-4">
+                    <%= simple_format(program.body, class: "card-text mb-0") %>
+                  </p>
+
+                  <div class="program-meta mt-auto">
+                    <% if action_name == "show" %>
+                      <% if program.user == current_user || current_user&.admin? %>
+                        <%= link_to new_program_invitation_path(program), 
+                            class: "btn btn-outline-light btn-sm rounded-pill hover-lift mb-3",
+                            data: { turbo: false }  do %>
+                          <i class="bi bi-person-plus me-2"></i>
+                          ユーザーを招待する
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                    
+                    <div class="d-flex align-items-center justify-content-between text-white-50">
+                      <%= link_to program.user, 
+                        class: "text-decoration-none d-inline-flex align-items-center",
+                        data: { turbo: false }  do %>
+                        <i class="bi bi-person-circle me-2"></i>
+                        <span class="top-nav-link nav-hover"><%= program.user.name %></span>
+                      <% end %>
+                      
+                      <div class="d-flex align-items-center">
+                        <span>
+                          <i class="bi bi-clock me-2"></i>
+                          <%= program.created_at.strftime("%Y-%m-%d")%>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+        <% end %>
+
+      </swiper-container>
     </section>
   <% end %>
 
