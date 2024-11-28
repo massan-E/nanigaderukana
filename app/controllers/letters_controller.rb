@@ -1,8 +1,8 @@
 class LettersController < ApplicationController
-  before_action :set_letter, only: %i[ show edit update destroy ]
+  before_action :set_letter, only: %i[ show destroy ]
   before_action :set_program, only: %i[ index show new create ]
-  before_action :logged_in_user, only: %i[ index show edit update destroy ]
-  before_action :editable_user, only: %i[ edit update destroy ]
+  before_action :logged_in_user, only: %i[ index show destroy ]
+  before_action :editable_user, only: %i[ destroy ]
   before_action :authorized_user, only: %i[ show ]
 
   def index
@@ -19,15 +19,12 @@ class LettersController < ApplicationController
     @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
   end
 
-  def edit
-  end
-
   def create
     @letter = Letter.new(letter_params)
     @letter.user_id = current_user&.id
     @letter.program_id = params[:program_id]
     if @letter.save
-      flash[:success] =  "Letter was successfully created."
+      flash[:success] =  "お便りを送信しました"
       redirect_to @program
     else
       flash.now[:danger] = "お便りの送信に失敗しました、お便り入力フォームを確認してください"
@@ -35,18 +32,9 @@ class LettersController < ApplicationController
     end
   end
 
-  def update
-    if @letter.update(letter_params)
-      flash[:success] = "Letter was successfully updated."
-      redirect_to @letter
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
   def destroy
     @letter.destroy!
-    flash[:success] = "Letter was successfully destroyed."
+    flash[:success] = "お便りを削除しました"
     redirect_to letters_path, status: :see_other
   end
 

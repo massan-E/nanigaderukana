@@ -1,3 +1,5 @@
+<% content_for :title, "#{@program.title} お便り一覧" %>
+
 <div class="container py-5">
   <%= render 'shared/flash_message' %>
   <div class="glass-morphism p-4 mb-4">
@@ -10,50 +12,69 @@
 
     <div class="search-form-container">
       <%= search_form_for @q, url: program_letters_path(@program), 
-          class: "search-form row g-3" do |f| %>
-        <div class="col-12 col-md-6 col-lg-4">
-          <%= f.search_field :body_or_user_name_or_radio_name_cont, 
-              class: 'form-control',
-              placeholder: '本文、ユーザー名、ラジオネームで検索...' %>
-        </div>
+          class: "search-form" do |f| %>
         
-        <div class="col-12 col-md-6 col-lg-4">
-          <%= f.collection_select :letterbox_id_eq,
-              @program.letterboxes, :id, :title,
-              { include_blank: "お便り箱を選択" },
-              { class: 'form-select' } %>
-        </div>
-        
-        <div class="col-12 col-md-6 col-lg-2">
-          <%= f.date_field :created_at_gteq,
-              class: 'form-control',
-              placeholder: '開始日' %>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-2">
-          <%= f.date_field :created_at_lteq_end_of_day,
-              class: 'form-control',
-              placeholder: '終了日' %>
+        <!-- メイン検索エリア -->
+        <div class="row g-3 mb-4">
+          <div class="col-12 col-lg-8">
+            <%= f.search_field :body_or_user_name_or_radio_name_cont, 
+                class: 'form-control',
+                placeholder: '本文、ユーザー名、ラジオネームで検索...' %>
+          </div>
+          <div class="col-12 col-lg-4">
+            <%= f.collection_select :letterbox_id_eq,
+                @program.letterboxes, :id, :title,
+                { include_blank: "お便り箱を選択" },
+                { class: 'form-select' } %>
+          </div>
         </div>
 
-        <div class="col-12 col-md-6 col-lg-2">
-          <%= f.select :publish_eq, 
-              [['すべて', ''], ['公開', true], ['非公開', false]], 
-              {}, 
-              { class: 'form-select' } %>
-        </div>
+        <!-- フィルターエリア -->
+        <div class="row g-3 align-items-center mb-4">
+          <!-- 日付範囲 -->
+          <div class="col-12 col-lg-5">
+            <div class="d-flex align-items-center gap-2">
+              <div class="flex-grow-1">
+                <%= f.date_field :created_at_gteq,
+                    class: 'form-control',
+                    placeholder: '開始日' %>
+              </div>
+              <div class="text-center">
+                <i class="bi bi-arrow-right"></i>
+              </div>
+              <div class="flex-grow-1">
+                <%= f.date_field :created_at_lteq_end_of_day,
+                    class: 'form-control',
+                    placeholder: '終了日' %>
+              </div>
+            </div>
+          </div>
 
-        <div class="col-12 col-md-6 col-lg-2">
-          <%= f.select :is_read_eq, 
-              [['すべて', ''], ['既読', true], ['未読', false]], 
-              {}, 
-              { class: 'form-select' } %>
-        </div>
+          <!-- ステータスフィルター -->
+          <div class="col-12 col-lg-5">
+            <div class="d-flex gap-3">
+              <div class="flex-grow-1">
+                <%= f.select :publish_eq, 
+                    [['すべて', ''], ['公開', true], ['非公開', false]], 
+                    {}, 
+                    { class: 'form-select' } %>
+              </div>
+              <div class="flex-grow-1">
+                <%= f.select :is_read_eq, 
+                    [['すべて', ''], ['既読', true], ['未読', false]], 
+                    {}, 
+                    { class: 'form-select' } %>
+              </div>
+            </div>
+          </div>
 
-        <div class="col-12 col-lg-4">
-          <%= f.submit '検索', class: 'btn btn-primary w-50 rounded-pill hover-lift' %>
+          <!-- 検索ボタン -->
+          <div class="col-12 col-lg-2">
+            <%= f.submit '検索', class: 'btn btn-primary w-100 rounded-pill hover-lift' %>
+          </div>
         </div>
       <% end %>
+
 
       <div class="search-results-section text-center mt-1 mb-4">
         <div class="result-count my-3">

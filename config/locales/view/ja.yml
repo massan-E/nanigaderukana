@@ -1,0 +1,70 @@
+ja:
+  views:
+    pagination:
+        first: "<<"
+        last: ">>"
+        previous: "<"
+        next: ">"
+        truncate: "..."
+  helpers:
+    submit:
+      create: 登録
+      submit: 保存
+      update: 更新
+    label:
+      email: メールアドレス
+      password: パスワード
+  defaults:
+    create: 作成
+    post: 投稿
+    search_word: 検索ワード
+    edit: 編集
+    delete_confirm: 削除しますか？
+    flash_message:
+      created: "%{item}を作成しました"
+      not_created: "%{item}を作成出来ませんでした"
+      updated: "%{item}を更新しました"
+      not_updated: "%{item}を更新出来ませんでした"
+      deleted: "%{item}を削除しました"
+      require_login: ログインしてください
+  header:
+  user_sessions:
+    create:
+      success: ログインしました
+      failure: ログインに失敗しました
+    destroy:
+      success: ログアウトしました
+  users:
+    new:
+      title: ユーザー登録
+      to_login_page: ログインページへ
+    create:
+      success: ユーザー登録が完了しました
+      failure: ユーザー登録に失敗しました
+  programs:
+    new:
+      title: 番組作成
+    show:
+      title: 番組詳細
+    index:
+      title: 番組一覧
+    edit:
+      title: 番組編集
+  letterboxes:
+    new:
+      title: お便り箱作成
+    show:
+      title: お便り箱詳細
+    index:
+      title: お便り箱一覧
+    edit:
+      title: お便り箱編集
+  letter:
+    new:
+      title: お便り作成
+    show:
+      title: お便り詳細
+    index:
+      title: お便り一覧
+    edit:
+      title: お便り編集

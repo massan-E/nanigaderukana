@@ -17,25 +17,27 @@ class LetterboxesController < ApplicationController
   def create
     @letterbox = @program.letterboxes.build(letterbox_params)
     if @letterbox.save
-      flash[:success] = "Letterbox was successfully created."
+      flash[:success] = "お便り箱を作成しました"
       redirect_to program_path(@program)
     else
+      flash.now[:danger] = "お便り箱の作成に失敗しました、お便り箱作成フォームを確認してください"
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
     if @letterbox.update(letterbox_params)
-      flash[:success] = "Letterbox was successfully updated."
+      flash[:success] = "お便り箱を編集しました"
       redirect_to @program
     else
+      flash.now[:danger] = "お便り箱の編集に失敗しました、お便り箱編集フォームを確認してください"
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @letterbox.destroy!
-    flash[:success] = "Letterbox was successfully destroyed."
+    flash[:success] = "お便り箱を削除しました"
     redirect_to @program, status: :see_other
   end
 

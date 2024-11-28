@@ -82,6 +82,19 @@ header {
   }
 }
 
+.btn-outline-primary {
+  border: 1px solid rgba(65, 132, 228, 0.3);  // 青色を基調とした境界線
+  color: #4184e4;  // ベースの青色
+  background: transparent;
+  transition: $transition-base;
+
+  &:hover {
+    background: rgba(65, 132, 228, 0.1);  // ホバー時の薄い青色の背景
+    border-color: rgba(65, 132, 228, 0.5);  // ホバー時の濃い目の境界線
+    color: #89b4f7;  // ホバー時の明るい青色
+  }
+}
+
 // テキストスタイル
 .text-gradient {
   background: linear-gradient(120deg, #c0caf5, #7aa2f7);
@@ -406,107 +419,7 @@ a {
     transform: translateY(0);
   }
 }
-// ページネーション用の調整したスタイル
-.pagination {
-  gap: 0.6rem;
-  margin: 2.5rem 0;
-  
-  .page-item {
-    .page-link {
-      background: rgba(26, 27, 38, 0.7);
-      border: 1px solid rgba(122, 162, 247, 0.2);
-      color: #c0caf5;
-      border-radius: 10px !important;
-      padding: 0.7rem 1rem;
-      min-width: 2.8rem;
-      min-height: 2.8rem;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      margin: 0;
-      
-      &:hover {
-        background: rgba(122, 162, 247, 0.15);
-        border-color: #7aa2f7;
-        color: #ffffff;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(122, 162, 247, 0.2);
-      }
-    }
 
-    &.active .page-link {
-      background: linear-gradient(120deg, #7aa2f7, #bb9af7);
-      border-color: transparent;
-      color: #ffffff;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(122, 162, 247, 0.3);
-    }
-
-    &.disabled .page-link {
-      background: rgba(26, 27, 38, 0.4);
-      border-color: rgba(122, 162, 247, 0.1);
-      color: rgba(192, 202, 245, 0.5);
-      cursor: not-allowed;
-    }
-
-
-    // アクティブなページ
-    &.active .page-link {
-      background: linear-gradient(120deg, #7aa2f7, #bb9af7);
-      border-color: transparent;
-      color: #ffffff;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(122, 162, 247, 0.3);
-
-      &:hover {
-        transform: translateY(-2px);
-      }
-    }
-
-    // 無効なページ
-    &.disabled .page-link {
-      background: rgba(26, 27, 38, 0.4);
-      border-color: rgba(122, 162, 247, 0.1);
-      color: rgba(192, 202, 245, 0.5);
-      cursor: not-allowed;
-
-      &:hover {
-        transform: none;
-        box-shadow: none;
-      }
-    }
-
-    // 前へ/次へボタン
-    &.prev, &.next {
-      .page-link {
-        padding: 0.7rem 1.2rem;
-        min-width: 3.2rem;
-        
-        span {
-          position: relative;
-          top: -1px;
-        }
-      }
-    }
-
-    // 省略記号
-    &.gap {
-      .page-link {
-        background: transparent;
-        border: none;
-        color: #c0caf5;
-        pointer-events: none;
-        box-shadow: none;
-
-        &:hover {
-          transform: none;
-        }
-      }
-    }
-  }
-}
 
 // レスポンシブ対応
 @media (max-width: 768px) {
@@ -728,3 +641,104 @@ a {
   }
 }
 
+// ページネーション用の調整したスタイル
+.pagination {
+  gap: 0.6rem;
+  margin: 2.5rem 0;
+  
+  .page-item {
+    .page-link {
+      background: rgba(26, 27, 38, 0.7);
+      border: 1px solid rgba(122, 162, 247, 0.2);
+      color: #c0caf5;
+      border-radius: 10px !important;
+      padding: 0.7rem 1rem;
+      min-width: 2.8rem;
+      min-height: 2.8rem;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      margin: 0;
+      
+      &:hover {
+        background: rgba(122, 162, 247, 0.15);
+        border-color: #7aa2f7;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(122, 162, 247, 0.2);
+      }
+    }
+
+    &.active .page-link {
+      background: linear-gradient(120deg, #7aa2f7, #bb9af7);
+      border-color: transparent;
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(122, 162, 247, 0.3);
+    }
+
+    &.disabled .page-link {
+      background: rgba(26, 27, 38, 0.4);
+      border-color: rgba(122, 162, 247, 0.1);
+      color: rgba(192, 202, 245, 0.5);
+      cursor: not-allowed;
+    }
+
+
+    // アクティブなページ
+    &.active .page-link {
+      background: linear-gradient(120deg, #7aa2f7, #bb9af7);
+      border-color: transparent;
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(122, 162, 247, 0.3);
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    // 無効なページ
+    &.disabled .page-link {
+      background: rgba(26, 27, 38, 0.4);
+      border-color: rgba(122, 162, 247, 0.1);
+      color: rgba(192, 202, 245, 0.5);
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+
+    // 前へ/次へボタン
+    &.prev, &.next {
+      .page-link {
+        padding: 0.7rem 1.2rem;
+        min-width: 3.2rem;
+        
+        span {
+          position: relative;
+          top: -1px;
+        }
+      }
+    }
+
+    // 省略記号
+    &.gap {
+      .page-link {
+        background: transparent;
+        border: none;
+        color: #c0caf5;
+        pointer-events: none;
+        box-shadow: none;
+
+        &:hover {
+          transform: none;
+        }
+      }
+    }
+  }
+}

@@ -24,25 +24,27 @@ class ProgramsController < ApplicationController
     @program = current_user.programs.build(program_params)
     if @program.save
       current_user.user_participations.create(program: @program)
-      flash[:success] = "program was successfully created."
+      flash[:success] = "番組を作成しました"
       redirect_to @program
     else
+      flash.now[:danger] = "番組を作成できませんでした、番組作成フォームを確認してください"
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
     if @program.update(program_params)
-      flash[:success] = "program was successfully updated."
+      flash[:success] = "番組を編集しました"
       redirect_to @program
     else
+      flash.now[:danger] = "番組を編集できませんでした、番組編集フォームを確認してください"
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @program.destroy!
-    flash[:success] = "program was successfully destroyed."
+    flash[:success] = "番組を削除しました"
     redirect_to programs_path, status: :see_other
   end
 

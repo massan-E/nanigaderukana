@@ -10,7 +10,7 @@ class UserSessionsController < ApplicationController
       log_in @user
       redirect_to forwarding_url || @user
     else
-      flash.now[:danger] = "Invalid name/password combination"
+      flash.now[:danger] = "ユーザー名とパスワードの組み合わせが間違っています"
       render "new", status: :unprocessable_entity
     end
   end
