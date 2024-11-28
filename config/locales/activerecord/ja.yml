@@ -1,0 +1,66 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      program: 番組
+      letterbox: お便り箱
+      letter: お便り
+    attributes:
+      user:
+        name: ユーザーネーム
+        password: パスワード
+        password_confirmation: パスワード確認
+        admin: 管理者権限
+      program:
+        title: タイトル
+        body: 番組の説明
+      letterbox:
+        title: タイトル
+        body: お便り箱の説明
+      letter:
+        radio_name: ラジオネーム
+        letterbox_id: お便り箱
+        title: タイトル
+        body: 本文
+        letterbox: お便り箱
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "ユーザーネームを入力してください。"
+              taken: "このユーザーネームはすでに使用されています。"
+              too_long: "ユーザーネームは最大50文字までです。"
+            password:
+              blank: "パスワードを入力してください。"
+              too_short: "パスワードは最低8文字必要です。"
+            password_confirmation:
+              blank: "パスワード確認を入力してください。"
+              confirmation: "パスワードが一致しません。"
+        program:
+          attributes:
+            title:
+              blank: "タイトルを入力してください。"
+              taken: "このタイトルはすでに使用されています。"
+              too_long: "タイトルは最大100文字までです。"
+            body:
+              too_long: "番組の説明は最大255文字までです。"
+        letterbox:
+          attributes:
+            title:
+              blank: "タイトルを入力してください。"
+              too_long: "タイトルは最大100文字までです。"
+            body:
+              too_long: "お便り箱の説明は最大255文字までです。"
+        letter:
+          attributes:
+            radio_name:
+              blank: "ラジオネームを入力してください。"
+              too_long: "ラジオネームは最大50文字までです。"
+            title:
+              too_long: "タイトルは最大100文字までです。"
+            body:
+              blank: "本文を入力してください。"
+              too_long: "本文は最大999文字までです。"
+            letterbox:
+              required: "%{attribute}を選択してください。"
