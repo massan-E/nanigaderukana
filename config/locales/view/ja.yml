@@ -1,4 +1,11 @@
 ja:
+  views:
+    pagination:
+        first: "<<"
+        last: ">>"
+        previous: "<"
+        next: ">"
+        truncate: "..."
   helpers:
     submit:
       create: 登録

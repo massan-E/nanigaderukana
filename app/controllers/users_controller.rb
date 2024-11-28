@@ -24,16 +24,17 @@ class UsersController < ApplicationController
     if @user.save
       reset_session
       log_in @user
-      flash[:success] = "Welcome to Music Hour"
+      flash[:success] = "Welcome to Music Hour!!"
       redirect_to @user
     else
+      flash.now[:danger] = "ユーザー登録に失敗しました、ユーザー登録フォームを確認してください"
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
     if @user.update(user_params)
-      flash[:success] = "User was successfully updated."
+      flash[:success] = "ユーザーを編集しました"
       redirect_to @user
     else
       render :edit, status: :unprocessable_entity
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
   def destroy
     programs = @user.programs
     @user.destroy!
-    flash[:success] = "User was successfully destroyed."
+    flash[:success] = "ユーザーを削除しました"
     redirect_to users_path, status: :see_other
   end
 

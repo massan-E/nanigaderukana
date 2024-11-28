@@ -7,7 +7,7 @@ ja:
       letter: お便り
     attributes:
       user:
-        name: ユーザーネーム
+        name: ユーザー名
         password: パスワード
         password_confirmation: パスワード確認
         admin: 管理者権限
@@ -28,9 +28,9 @@ ja:
         user:
           attributes:
             name:
-              blank: "ユーザーネームを入力してください。"
-              taken: "このユーザーネームはすでに使用されています。"
-              too_long: "ユーザーネームは最大50文字までです。"
+              blank: "ユーザー名を入力してください。"
+              taken: "このユーザー名はすでに使用されています。"
+              too_long: "ユーザー名は最大50文字までです。"
             password:
               blank: "パスワードを入力してください。"
               too_short: "パスワードは最低8文字必要です。"
