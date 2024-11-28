@@ -82,6 +82,19 @@ header {
   }
 }
 
+.btn-outline-primary {
+  border: 1px solid rgba(65, 132, 228, 0.3);  // 青色を基調とした境界線
+  color: #4184e4;  // ベースの青色
+  background: transparent;
+  transition: $transition-base;
+
+  &:hover {
+    background: rgba(65, 132, 228, 0.1);  // ホバー時の薄い青色の背景
+    border-color: rgba(65, 132, 228, 0.5);  // ホバー時の濃い目の境界線
+    color: #89b4f7;  // ホバー時の明るい青色
+  }
+}
+
 // テキストスタイル
 .text-gradient {
   background: linear-gradient(120deg, #c0caf5, #7aa2f7);
