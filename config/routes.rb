@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations"
+  }
   root "static_page#top"
-
-  get    "/login",   to: "user_sessions#new"
-  post   "/login",   to: "user_sessions#create"
-  delete "/logout",  to: "user_sessions#destroy"
 
   resources :programs do
     resources :letterboxes, only: %i[ index new create edit update destroy ]

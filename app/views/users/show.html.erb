@@ -11,7 +11,7 @@
 
       <div class="d-flex gap-2">
         <% if (@user == current_user || current_user&.admin?) %>
-          <%= link_to edit_user_path(@user), class: "btn btn-outline-light hover-lift" do %>
+          <%= link_to edit_user_registration_path(@user), class: "btn btn-outline-light hover-lift" do %>
             <i class="bi bi-pencil me-2"></i>
             編集する
           <% end %>
