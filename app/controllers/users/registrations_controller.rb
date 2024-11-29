@@ -11,11 +11,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    # user = User.new(sign_up)
-    # user.email = nil if user.email == ""
-    # user.skip_confirmation!
-    # user.save
-
     build_resource(sign_up_params)  # Strong Parametersを使用して新しいユーザーを作成
 
     resource.skip_confirmation! # 確認をスキップ

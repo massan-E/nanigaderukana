@@ -1,7 +1,7 @@
 class LetterboxesController < ApplicationController
   before_action :set_letterbox, only: %i[ edit update destroy ]
   before_action :set_program, only: %i[ index new create edit update destroy ]
-  before_action :logged_in_user, only: %i[ index new create edit update destroy ]
+  before_action :authenticate_user!, only: %i[ index new create edit update destroy ]
   before_action :authorized_user, only: %i[ new create edit update destroy ]
 
   def index

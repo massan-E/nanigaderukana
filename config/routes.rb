@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    sessions: "users/sessions",
+    # sessions: "users/sessions",
     registrations: "users/registrations"
   }
   root "static_page#top"
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users, only: %i[ index show ]
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

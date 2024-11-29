@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show ]
-  before_action :logged_in_user, only: %i[ index ]
+  before_action :authenticate_user!, only: %i[ index ]
   before_action :admin_user, only: %i[ index ]
 
   def index

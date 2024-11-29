@@ -1,7 +1,7 @@
 class LettersController < ApplicationController
   before_action :set_letter, only: %i[ show destroy ]
   before_action :set_program, only: %i[ index show new create ]
-  before_action :logged_in_user, only: %i[ index show destroy ]
+  before_action :authenticate_user!, only: %i[ index show destroy ]
   before_action :editable_user, only: %i[ destroy ]
   before_action :authorized_user, only: %i[ show ]
 
