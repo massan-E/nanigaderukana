@@ -10,7 +10,7 @@
     </div>
 
     <% if action_name == "show" %>
-      <div class="d-flex justify-content-end align-items-center mt-3 text-muted">
+      <div class="d-flex justify-content-end align-items-center mt-3 text-white-50">
         <div class="d-flex align-items-center gap-3">
           <span class="text-gradient-subtle">To：</span>
           <%= link_to letter.program&.title, letter.program, class: "top-nav-link nav-hover", data: { turbo: false }  %>
@@ -21,7 +21,7 @@
 
     <% if action_name == "index" %>
       <div class="d-flex justify-content-end align-items-center mt-3">
-        <div class="d-flex align-items-center gap-3 text-muted">
+        <div class="d-flex align-items-center gap-3 text-white-50">
           <%= render "publish_buttons", letter: letter %>
           
           <%= render "read_buttons", letter: letter %>

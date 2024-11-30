@@ -15,14 +15,6 @@
             <i class="bi bi-pencil me-2"></i>
             編集する
           <% end %>
-
-          <%= button_to @user, 
-              method: :delete, 
-              class: "btn btn-outline-danger hover-lift",
-              form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
-            <i class="bi bi-trash me-2"></i>
-            削除する
-          <% end %>
         <% end %>
       </div>
     </div>

@@ -1,28 +1,41 @@
-<h2>Log in</h2>
+<% content_for :title, "ログイン" %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<div class="container py-5">
+  <%= render 'shared/flash_message' %>
+  <div class="glass-morphism p-4 mb-4">
+    <h1 class="text-gradient h2 mb-4">
+      <i class="bi bi-box-arrow-in-right me-3"></i>
+      ログイン
+    </h1>
 
-  <div class="mb-4">
-    <%= f.label :name, class: "form-label" %>
-    <%= f.text_field :name, class: "form-control", placeholder: "ユーザー名を入力" %>
-  </div>
+    <div class="glass-morphism p-4">
+      <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), class: "needs-validation") do |f| %>
+        <div class="mb-4">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control", placeholder: "ユーザー名を入力" %>
+        </div>
 
+        <div class="mb-4">
+          <%= f.label :password, class: "form-label" %>
+          <%= f.password_field :password, class: "form-control", placeholder: "パスワードを入力" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="mb-4 form-check">
+            <%= f.check_box :remember_me, class: "form-check-input" %>
+            <%= f.label :remember_me, class: "form-check-label" %>
+          </div>
+        <% end %>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+        <div class="text-end mt-4">
+          <%= f.submit "ログイン", class: "btn btn-primary rounded-pill px-4 hover-lift" %>
+          <%= link_to "戻る", :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift ms-2" %>
+        </div>
+      <% end %>
+
+      <div class="mt-4 text-center">
+        <%= render "devise/shared/links" %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

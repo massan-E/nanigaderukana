@@ -24,7 +24,7 @@ class LettersController < ApplicationController
     @letter.user_id = current_user&.id
     @letter.program_id = params[:program_id]
     if @letter.save
-      flash[:success] =  "お便りを送信しました"
+      flash[:notice]=  "お便りを送信しました"
       redirect_to @program
     else
       flash.now[:danger] = "お便りの送信に失敗しました、お便り入力フォームを確認してください"
@@ -34,7 +34,7 @@ class LettersController < ApplicationController
 
   def destroy
     @letter.destroy!
-    flash[:success] = "お便りを削除しました"
+    flash[:notice]= "お便りを削除しました"
     redirect_to letters_path, status: :see_other
   end
 

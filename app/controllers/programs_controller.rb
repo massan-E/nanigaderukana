@@ -24,7 +24,7 @@ class ProgramsController < ApplicationController
     @program = current_user.programs.build(program_params)
     if @program.save
       current_user.user_participations.create(program: @program)
-      flash[:success] = "番組を作成しました"
+      flash[:notice]= "番組を作成しました"
       redirect_to @program
     else
       flash.now[:danger] = "番組を作成できませんでした、番組作成フォームを確認してください"
@@ -34,7 +34,7 @@ class ProgramsController < ApplicationController
 
   def update
     if @program.update(program_params)
-      flash[:success] = "番組を編集しました"
+      flash[:notice]= "番組を編集しました"
       redirect_to @program
     else
       flash.now[:danger] = "番組を編集できませんでした、番組編集フォームを確認してください"
@@ -44,7 +44,7 @@ class ProgramsController < ApplicationController
 
   def destroy
     @program.destroy!
-    flash[:success] = "番組を削除しました"
+    flash[:notice]= "番組を削除しました"
     redirect_to programs_path, status: :see_other
   end
 

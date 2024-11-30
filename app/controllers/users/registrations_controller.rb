@@ -11,7 +11,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    # puts "パラムス　#{params.to_h}"
     build_resource(sign_up_params)  # Strong Parametersを使用して新しいユーザーを作成
 
     resource.skip_confirmation! # 確認をスキップ
@@ -24,7 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         resource.unconfirmed_email = params[:user][:email]
         resource.send_confirmation_instructions if resource.unconfirmed_email.present?
         resource.save(validate: false)
-        flash[:notice] += "　メールアドレス宛てに確認メールを送信しました。メールに記載されているURLにアクセスし、メールアドレスを有効化してください" 
+        flash[:notice] += "　メールアドレス宛てに確認メールを送信しました。メールに記載されているURLにアクセスし、メールアドレスを有効化してください"
       end
       respond_with resource, location: after_sign_up_path_for(resource)
     else
