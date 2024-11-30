@@ -1,0 +1,40 @@
+<% content_for :title, "パスワードの変更" %>
+
+<div class="container py-5">
+  <%= render 'shared/flash_message' %>
+  <div class="glass-morphism p-4 mb-4">
+    <h1 class="text-gradient h2 mb-4">
+      <i class="bi bi-shield-lock me-3"></i>
+      新しいパスワードの設定
+    </h1>
+
+    <div class="glass-morphism p-4">
+      <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, class: "needs-validation") do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= f.hidden_field :reset_password_token %>
+
+        <div class="mb-4">
+          <%= f.label :password, "新しいパスワード", class: "form-label" %>
+          <% if @minimum_password_length %>
+            <span class="text-white-50 ms-2">（<%= @minimum_password_length %>文字以上）</span>
+          <% end %>
+          <%= f.password_field :password, class: "form-control", placeholder: "新しいパスワードを入力", autofocus: true %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :password_confirmation, "パスワードの確認", class: "form-label" %>
+          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "新しいパスワードを再入力" %>
+        </div>
+
+        <div class="text-end mt-4">
+          <%= f.submit "パスワードを変更", class: "btn btn-primary rounded-pill px-4 hover-lift" %>
+          <%= link_to "キャンセル", :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift ms-2" %>
+        </div>
+      <% end %>
+
+      <div class="mt-4 text-center">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<% content_for :title, "確認メールの再送信" %>
+
+<div class="container py-5">
+  <%= render 'shared/flash_message' %>
+  <div class="glass-morphism p-4 mb-4">
+    <h1 class="text-gradient h2 mb-4">
+      <i class="bi bi-envelope-check me-3"></i>
+      確認メールの再送信
+    </h1>
+
+    <div class="glass-morphism p-4">
+      <%= form_with(model: resource, as: resource_name, 
+          url: confirmation_path(resource_name), 
+          html: { method: :post }, 
+          class: "needs-validation") do |f| %>
+        
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="mb-4">
+          <%= f.label :email, class: "form-label" %>
+          <div class="form-text mb-2 text-white-50">
+            アカウント確認用のメールを再度送信します
+          </div>
+          <%= f.email_field :email, 
+              class: "form-control",
+              placeholder: "メールアドレスを入力",
+              autofocus: true,
+              value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+        </div>
+
+        <div class="text-end mt-4">
+          <%= f.submit "確認メールを再送信", 
+              class: "btn btn-primary rounded-pill px-4 hover-lift" %>
+          <%= link_to "戻る", :back, 
+              class: "btn btn-outline-light rounded-pill px-4 hover-lift ms-2" %>
+        </div>
+      <% end %>
+
+      <div class="mt-4 text-center">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+
+    <% if resource.pending_reconfirmation? %>
+      <div class="alert alert-info mt-4">
+        <i class="bi bi-info-circle me-2"></i>
+        現在、<strong><%= resource.unconfirmed_email %></strong>の確認待ちです
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :css do %>
+  <style>
+    .alert-info {
+      background: rgba(var(--bs-info-rgb), 0.1);
+      border: 1px solid rgba(var(--bs-info-rgb), 0.2);
+      color: var(--bs-info);
+    }
+  </style>
+<% end %>

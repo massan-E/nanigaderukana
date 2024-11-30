@@ -1,0 +1,32 @@
+<% content_for :title, "パスワードをお忘れの方" %>
+
+<div class="container py-5">
+  <%= render 'shared/flash_message' %>
+  <div class="glass-morphism p-4 mb-4">
+    <h1 class="text-gradient h2 mb-4">
+      <i class="bi bi-key me-3"></i>
+      パスワードの再設定
+    </h1>
+
+    <div class="glass-morphism p-4">
+      <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, class: "needs-validation") do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="mb-4">
+          <%= f.label :email, class: "form-label" %>
+          <div class="form-text mb-2 text-white-50">パスワード再設定用のメールをお送りします</div>
+          <%= f.email_field :email, class: "form-control", placeholder: "メールアドレスを入力", autofocus: true %>
+        </div>
+
+        <div class="text-end mt-4">
+          <%= f.submit "再設定メールを送信", class: "btn btn-primary rounded-pill px-4 hover-lift" %>
+          <%= link_to "戻る", :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift ms-2" %>
+        </div>
+      <% end %>
+
+      <div class="mt-4 text-center">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>

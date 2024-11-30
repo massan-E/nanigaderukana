@@ -1,0 +1,61 @@
+<% content_for :title, "アカウント設定" %>
+
+<div class="container py-5">
+  <%= render 'shared/flash_message' %>
+  <div class="glass-morphism p-4 mb-4">
+    <h1 class="text-gradient h2 mb-4">
+      <i class="bi bi-gear me-3"></i>
+      アカウント設定
+    </h1>
+
+    <div class="glass-morphism p-4">
+      <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, class: "needs-validation") do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="mb-4">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control", placeholder: "ユーザー名を入力" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :email, class: "form-label" %>
+          <%= f.email_field :email, class: "form-control", placeholder: "メールアドレスを入力（任意）" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :password, class: "form-label" %>
+          <span class="text-white-50 ms-2">（変更しない場合は空欄）</span>
+          <%= f.password_field :password, class: "form-control", placeholder: "新しいパスワードを入力" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :password_confirmation, class: "form-label" %>
+          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "新しいパスワードを再入力" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :current_password, class: "form-label" %>
+          <span class="text-white-50 ms-2">（変更を確認するため現在のパスワードが必要です）</span>
+          <%= f.password_field :current_password, class: "form-control", placeholder: "現在のパスワードを入力" %>
+        </div>
+
+        <div class="text-end mt-4">
+          <%= f.submit "更新する", class: "btn btn-primary rounded-pill px-4 hover-lift" %>
+          <%= link_to "キャンセル", :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift ms-2" %>
+        </div>
+      <% end %>
+
+      <div class="mt-5 pt-4 border-top">
+        <h3 class="h5 mb-4 text-danger">アカウントの削除</h3>
+        <p class="text-white-50 mb-4">アカウントを削除すると、すべてのデータが完全に削除されます。この操作は取り消すことができません。</p>
+        <%= button_to registration_path(resource_name), 
+            data: { confirm: "本当に削除してもよろしいですか？", turbo_confirm: "本当に削除してもよろしいですか？" }, 
+            method: :delete, 
+            class: "btn btn-outline-danger hover-lift" do %>
+            <i class="bi bi-trash me-2"></i>
+            アカウントを削除する
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

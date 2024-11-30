@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  root "static_page#top"
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 
-  get    "/login",   to: "user_sessions#new"
-  post   "/login",   to: "user_sessions#create"
-  delete "/logout",  to: "user_sessions#destroy"
+  devise_for :users, controllers: {
+    # sessions: "users/sessions",
+    registrations: "users/registrations"
+  }
+  root "static_page#top"
 
   resources :programs do
     resources :letterboxes, only: %i[ index new create edit update destroy ]
@@ -22,7 +26,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users, only: %i[ index show destroy ]
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

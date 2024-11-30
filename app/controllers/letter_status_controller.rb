@@ -1,6 +1,7 @@
 class LetterStatusController < ApplicationController
   before_action :set_letter, only: %i[ publish non_publish read unread]
-  before_action :logged_in_user, only: %i[ publish non_publish read unread ]
+  before_action :authenticate_user!, only: %i[ publish non_publish read unread ]
+  before_action :email_registered_user, only: %i[ publish non_publish read unread ]
 
   def publish
     @letter.update(publish: true)

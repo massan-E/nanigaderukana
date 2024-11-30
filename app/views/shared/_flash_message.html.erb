@@ -1,9 +1,9 @@
 <% if flash.to_h.any? %>
   <div class="container">
     <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %> mb-4">
+      <%= content_tag(:div, message, class: "alert alert-#{message_type == 'notice' ? 'success' : 'danger'} mb-4") do %>
         <%= message %>
-      </div>
+      <% end %>
     <% end %>
   </div>
 <% end %>

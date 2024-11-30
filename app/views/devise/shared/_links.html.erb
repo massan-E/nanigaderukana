@@ -1,0 +1,67 @@
+<div class="device-links">
+  <%- if controller_name != 'sessions' %>
+    <div class="mb-2">
+      <%= link_to new_session_path(resource_name), class: "top-nav-link nav-hover" do %>
+        <i class="bi bi-box-arrow-in-right me-2"></i>ログイン
+      <% end %>
+    </div>
+  <% end %>
+
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+    <div class="mb-2">
+      <%= link_to new_registration_path(resource_name), class: "top-nav-link nav-hover" do %>
+        <i class="bi bi-person-plus me-2"></i>新規登録
+      <% end %>
+    </div>
+  <% end %>
+
+  <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+    <div class="mb-2">
+      <%= link_to new_password_path(resource_name), class: "top-nav-link nav-hover" do %>
+        <i class="bi bi-key me-2"></i>パスワードをお忘れの方
+      <% end %>
+    </div>
+  <% end %>
+
+  <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+    <div class="mb-2">
+      <%= link_to new_confirmation_path(resource_name), class: "top-nav-link nav-hover" do %>
+        <i class="bi bi-envelope me-2"></i>確認メールの再送信
+      <% end %>
+    </div>
+  <% end %>
+
+  <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+    <div class="mb-2">
+      <%= link_to new_unlock_path(resource_name), class: "top-nav-link nav-hover" do %>
+        <i class="bi bi-unlock me-2"></i>アカウントのロック解除
+      <% end %>
+    </div>
+  <% end %>
+
+  <%- if devise_mapping.omniauthable? %>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <div class="mb-2">
+        <%= button_to omniauth_authorize_path(resource_name, provider),
+            class: "btn btn-outline-light rounded-pill px-4 hover-lift",
+            data: { turbo: false } do %>
+          <i class="bi bi-<%= provider.to_s.downcase %> me-2"></i>
+          <%= OmniAuth::Utils.camelize(provider) %>でログイン
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% content_for :css do %>
+  <style>
+    .device-links a {
+      color: #c0caf5;
+      transition: color 0.3s ease;
+    }
+    
+    .device-links a:hover {
+      color: #fff;
+    }
+  </style>
+<% end %>

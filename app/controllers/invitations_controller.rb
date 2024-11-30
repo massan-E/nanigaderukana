@@ -1,7 +1,8 @@
 class InvitationsController < ApplicationController
   before_action :set_program, only: %i[ show new create edit update]
-  before_action :logged_in_user, only: %i[ show new create edit update ]
+  before_action :authenticate_user!, only: %i[ show new create edit update ]
   before_action :authorized_user, only: %i[ show new create ]
+  before_action :email_registered_user, only: %i[ show new create edit update ]
   before_action :valid_user, only: %i[ edit update ]
 
   def show
@@ -12,7 +13,7 @@ class InvitationsController < ApplicationController
 
   def create
     @program.create_invitation_digest
-    flash[:success] = "招待リンクを作成しました"
+    flash[:notice]= "招待リンクを作成しました"
     redirect_to program_invitation_path(@program, @program.invitation_token)
   end
 
@@ -21,7 +22,7 @@ class InvitationsController < ApplicationController
   def update
     participation = UserParticipation.new(user: current_user, program: @program)
     if participation.save
-      flash[:success] = "#{@program.title}の制作に参加しました"
+      flash[:notice]= "#{@program.title}の制作に参加しました"
       redirect_to @program
     else
       redirect_to @program, danger: "既に制作に参加しています"

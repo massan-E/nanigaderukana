@@ -1,7 +1,8 @@
 class LetterboxesController < ApplicationController
   before_action :set_letterbox, only: %i[ edit update destroy ]
   before_action :set_program, only: %i[ index new create edit update destroy ]
-  before_action :logged_in_user, only: %i[ index new create edit update destroy ]
+  before_action :authenticate_user!, only: %i[ index new create edit update destroy ]
+  before_action :email_registered_user, only: %i[ new create edit update destroy ]
   before_action :authorized_user, only: %i[ new create edit update destroy ]
 
   def index
@@ -17,7 +18,7 @@ class LetterboxesController < ApplicationController
   def create
     @letterbox = @program.letterboxes.build(letterbox_params)
     if @letterbox.save
-      flash[:success] = "お便り箱を作成しました"
+      flash[:notice]= "お便り箱を作成しました"
       redirect_to program_path(@program)
     else
       flash.now[:danger] = "お便り箱の作成に失敗しました、お便り箱作成フォームを確認してください"
@@ -27,7 +28,7 @@ class LetterboxesController < ApplicationController
 
   def update
     if @letterbox.update(letterbox_params)
-      flash[:success] = "お便り箱を編集しました"
+      flash[:notice]= "お便り箱を編集しました"
       redirect_to @program
     else
       flash.now[:danger] = "お便り箱の編集に失敗しました、お便り箱編集フォームを確認してください"
@@ -37,7 +38,7 @@ class LetterboxesController < ApplicationController
 
   def destroy
     @letterbox.destroy!
-    flash[:success] = "お便り箱を削除しました"
+    flash[:notice]= "お便り箱を削除しました"
     redirect_to @program, status: :see_other
   end
 

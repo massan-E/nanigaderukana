@@ -1,9 +1,15 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable, :confirmable
+
   attr_accessor :remember_token
 
+  validates :email, uniqueness: true, allow_blank: true # deviceとともに追加
+
   validates :name,  presence: true, uniqueness: true, length: { maximum: 50 }
-  has_secure_password
-  validates :password, presence: true, length: { minimum: 8 }
+
 
   has_many :letters, dependent: :destroy
   has_many :programs, dependent: :destroy
@@ -40,7 +46,17 @@ class User < ApplicationRecord
     remember_digest || remember
   end
 
+  # ransack用
   def self.ransackable_attributes(auth_object = nil)
     [ "name" ]
+  end
+
+  # device用
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
   end
 end
