@@ -18,15 +18,15 @@ en:
       unconfirmed: "You have to confirm your email address before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "Music Hour メール認証"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "Music Hour パスワード再設定"
       unlock_instructions:
         subject: "Unlock instructions"
       email_changed:
-        subject: "Email Changed"
+        subject: "Music Hour Eメールアドレス変更"
       password_change:
-        subject: "Password Changed"
+        subject: "Music Hour パスワードを変更しました"
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
