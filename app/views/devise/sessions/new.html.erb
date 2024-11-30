@@ -2,39 +2,43 @@
 
 <div class="container py-5">
   <%= render 'shared/flash_message' %>
-  <div class="glass-morphism p-4 mb-4">
-    <h1 class="text-gradient h2 mb-4">
-      <i class="bi bi-box-arrow-in-right me-3"></i>
-      ログイン
-    </h1>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="glass-morphism p-4">
+        <h1 class="text-gradient text-center mb-4">
+          <i class="bi bi-box-arrow-in-right me-2"></i>
+          ログイン
+        </h1>
 
-    <div class="glass-morphism p-4">
-      <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), class: "needs-validation") do |f| %>
-        <div class="mb-4">
-          <%= f.label :name, class: "form-label" %>
-          <%= f.text_field :name, class: "form-control", placeholder: "ユーザー名を入力" %>
-        </div>
+        <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), class: "needs-validation") do |f| %>
+          <div class="mb-4">
+            <%= f.label :name, class: "form-label" %>
+            <%= f.text_field :name, class: "form-control", placeholder: "ユーザー名を入力" %>
+          </div>
 
-        <div class="mb-4">
-          <%= f.label :password, class: "form-label" %>
-          <%= f.password_field :password, class: "form-control", placeholder: "パスワードを入力" %>
-        </div>
+          <div class="mb-4">
+            <%= f.label :password, class: "form-label" %>
+            <%= f.password_field :password, class: "form-control", placeholder: "パスワードを入力" %>
+          </div>
 
-        <% if devise_mapping.rememberable? %>
-          <div class="mb-4 form-check">
-            <%= f.check_box :remember_me, class: "form-check-input" %>
-            <%= f.label :remember_me, class: "form-check-label" %>
+          <% if devise_mapping.rememberable? %>
+            <div class="mb-4">
+              <div class="form-check">
+                <%= f.check_box :remember_me, class: "form-check-input" %>
+                <%= f.label :remember_me, "ログイン状態を保持する", class: "form-check-label" %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="d-grid gap-2">
+            <%= f.submit "ログイン", class: "btn btn-primary rounded-pill hover-lift" %>
+            <%= link_to "戻る", :back, class: "btn btn-outline-light rounded-pill hover-lift" %>
           </div>
         <% end %>
 
-        <div class="text-end mt-4">
-          <%= f.submit "ログイン", class: "btn btn-primary rounded-pill px-4 hover-lift" %>
-          <%= link_to "戻る", :back, class: "btn btn-outline-light rounded-pill px-4 hover-lift ms-2" %>
+        <div class="mt-4 text-center">
+          <%= render "devise/shared/links" %>
         </div>
-      <% end %>
-
-      <div class="mt-4 text-center">
-        <%= render "devise/shared/links" %>
       </div>
     </div>
   </div>
