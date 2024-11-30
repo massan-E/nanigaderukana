@@ -2,6 +2,7 @@ class RandomLettersController < ApplicationController
   include LettersHelper
   before_action :set_program, only: %i[ show random reset ]
   before_action :authorized_user, only: %i[ show random reset ]
+  before_action :email_registered_user, only: %i[ show random reset ]
 
   def show
     @letters = fetch_letters(params[:q])

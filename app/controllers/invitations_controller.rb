@@ -2,6 +2,7 @@ class InvitationsController < ApplicationController
   before_action :set_program, only: %i[ show new create edit update]
   before_action :authenticate_user!, only: %i[ show new create edit update ]
   before_action :authorized_user, only: %i[ show new create ]
+  before_action :email_registered_user, only: %i[ show new create edit update ]
   before_action :valid_user, only: %i[ edit update ]
 
   def show

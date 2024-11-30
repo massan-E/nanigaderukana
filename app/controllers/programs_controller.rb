@@ -1,6 +1,7 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+  before_action :email_registered_user, only: %i[ new create edit update destroy ]
   before_action :authorized_user, only: %i[ edit update destroy ]
 
   def index
