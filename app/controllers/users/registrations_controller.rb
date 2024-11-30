@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-  before_action :configure_account_update_params, only: [:update]
+  before_action :configure_sign_up_params, only: [ :create ]
+  before_action :configure_account_update_params, only: [ :update ]
 
   # GET /resource/sign_up
   # def new
@@ -26,12 +26,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         resource.save(validate: false)
         flash[:notice] += "　メールアドレス宛てに確認メールを送信しました。メールに記載されているURLにアクセスし、メールアドレスを有効化してください"
       end
-
-      # コンソール使えないのでadminを一時的に作成する記述　使ったら消す
-      user = User.last
-      user.admin = true
-      user.save
-
       respond_with resource, location: after_sign_up_path_for(resource)
     else
       clean_up_passwords resource
@@ -68,12 +62,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name ])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :name, :email ])
   end
 
   # The path used after sign up.
