@@ -1,11 +1,11 @@
 <div class="glass-morphism p-4">
   <%= form_with(model: program, class: "needs-validation") do |form| %>
     <% if program.errors.any? %>
-      <div class="error-message mb-4">
+      <div class="alert alert-danger">
         <h2 class="h5 mb-3">
           <%= pluralize(program.errors.count, "error") %> prohibited this program from being saved:
         </h2>
-        <ul class="list-unstyled m-0">
+        <ul class="mb-0">
           <% program.errors.each do |error| %>
             <li><i class="bi bi-exclamation-circle me-2"></i><%= error.full_message %></li>
           <% end %>

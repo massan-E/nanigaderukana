@@ -1,0 +1,63 @@
+ja:
+  devise:
+    confirmations:
+      confirmed: "あなたのメールアドレスが認証されました。"
+      send_instructions: "数分以内に、あなたのメールアドレス宛に認証メールが送信されます"
+      send_paranoid_instructions: "あなたのメールアドレスがデータベースに存在する場合、数分以内にあなたのメールアドレス宛に認証メールが送信されます"
+    failure:
+      already_authenticated: "すでにログインしています。"
+      inactive: "あなたのアカウントはまだアクティブではありません。"
+      invalid: "無効な%{authentication_keys}またはパスワードです。"
+      locked: "あなたのアカウントはロックされています。"
+      last_attempt: "あなたのアカウントがロックされる前に、あと1回の猶予があります。"
+      not_found_in_database: "無効な%{authentication_keys}またはパスワードです。"
+      timeout: "セッションが期限切れになりました。続行するには再度ログインしてください。"
+      unauthenticated: "続行するにはログインまたはユーザー登録する必要があります。"
+      unconfirmed: "続行する前にメールアドレスを確認する必要があります。"
+    mailer:
+      confirmation_instructions:
+        subject: "Music Hour メール認証"
+      reset_password_instructions:
+        subject: "Music Hour パスワード再設定"
+      unlock_instructions:
+        subject: "アンロックの指示"
+      email_changed:
+        subject: "Music Hour Eメールアドレス変更"
+      password_change:
+        subject: "Music Hour パスワードを変更しました"
+    omniauth_callbacks:
+      failure: "%{kind}から認証できませんでした: \"%{reason}\"."
+      success: "%{kind}アカウントからの認証に成功しました。"
+    passwords:
+      no_token: "パスワードリセットメールのリンクからでなければ、このページにアクセスできません。パスワードリセットメールからアクセスした場合は、送信された正しいURLにアクセスしていることを確認してください。"
+      send_instructions: "数分以内にパスワードをリセットするためのメールがあなたのメールアドレス宛に送信されます"
+      send_paranoid_instructions: "あなたのメールアドレスがデータベースに存在する場合、数分以内にパスワード回復リンクがあなたのメールアドレスに送信されます。"
+      updated: "パスワードが変更され、ログインしました。"
+      updated_not_active: "パスワードが変更されました。"
+    registrations:
+      destroyed: "あなたのアカウントは削除されました。またお会いできることを願っています。"
+      signed_up: "Well come to Music Hour!! ユーザー登録が完了しました。"
+      signed_up_but_inactive: "ユーザー登録が完了しました。しかし、あなたのアカウントはまだアクティブではないため、ログインできませんでした。"
+      signed_up_but_locked: "ユーザー登録が完了しました。しかし、あなたのアカウントはロックされているため、ログインできませんでした。"
+      signed_up_but_unconfirmed: "確認リンクが記載されたメッセージがあなたのメールアドレスに送信されました。アカウントをアクティブにするには、そのリンクにアクセスしてください。"
+      update_needs_confirmation: "アカウントの編集が完了しましたが、新しいメールアドレスを確認する必要があります。メールを確認し、新しいメールアドレスを確認するためのリンクにアクセスしてください。"
+      updated: "アカウントが更新されました。"
+      updated_but_not_signed_in: "アカウントが更新されましたが、パスワードが変更されたため、再度ログインする必要があります。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "ログアウトしました。"
+    unlocks:
+      send_instructions: "数分以内にアカウントをアンロックするための指示が記載されたメールを受け取ります。"
+      send_paranoid_instructions: "あなたのアカウントが存在する場合、数分以内にアカウントをアンロックするための指示が記載されたメールを受け取ります。"
+      unlocked: "あなたのアカウントはアンロックされました。続行するにはログインしてください。"
+  errors:
+    messages:
+      already_confirmed: "はすでに確認されています。ログインを試みてください。"
+      confirmation_period_expired: "%{period} 内に確認する必要があります。新しいものをリクエストしてください。"
+      expired: "期限切れです。新しいものをリクエストしてください。"
+      not_found: "見つかりませんでした。"
+      not_locked: "はロックされていませんでした。"
+      not_saved:
+        one: "1つのエラーがこの%{resource}の保存を妨げました。"
+        other: "%{count}つのエラーがこの%{resource}の保存を妨げました。"

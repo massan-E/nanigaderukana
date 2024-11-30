@@ -37,6 +37,8 @@ ja:
             password_confirmation:
               blank: "パスワード確認を入力してください。"
               confirmation: "パスワードが一致しません。"
+            current_password:
+              blank: "現在のパスワードを入力してください。"
         program:
           attributes:
             title:
