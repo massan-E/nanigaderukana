@@ -16,15 +16,15 @@ ja:
       unconfirmed: "続行する前にメールアドレスを確認する必要があります。"
     mailer:
       confirmation_instructions:
-        subject: "Music Hour メール認証"
+        subject: "メールアドレスのご登録ありがとうございます！｜Music Hour"
       reset_password_instructions:
-        subject: "Music Hour パスワード再設定"
+        subject: "パスワード再設定のご案内｜Music Hour パスワード再設定"
       unlock_instructions:
         subject: "アンロックの指示"
       email_changed:
-        subject: "Music Hour Eメールアドレス変更"
+        subject: "メールアドレス変更のお知らせ｜Music Hour"
       password_change:
-        subject: "Music Hour パスワードを変更しました"
+        subject: "パスワード変更のおしらせ｜Music Hour"
     omniauth_callbacks:
       failure: "%{kind}から認証できませんでした: \"%{reason}\"."
       success: "%{kind}アカウントからの認証に成功しました。"

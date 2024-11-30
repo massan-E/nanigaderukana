@@ -20,8 +20,7 @@
 
                 <div class="mb-4">
                   <%= f.label :name, class: "form-label text-gradient" %>
-                  <span class="text-white-50 ms-2">(必須)</span>
-                  <%= f.text_field :name, class: "form-control text-dark", placeholder: "ユーザー名を入力", autofocus: true %>
+                  <%= f.text_field :name, class: "form-control text-dark", placeholder: "ユーザー名を入力（必須）", autofocus: true %>
                 </div>
 
                 <div class="mb-4">
@@ -31,10 +30,7 @@
 
                 <div class="mb-4">
                   <%= f.label :password, class: "form-label text-gradient" %>
-                  <% if @minimum_password_length %>
-                    <span class="text-white-50 ms-2">(<%= @minimum_password_length %>文字以上)</span>
-                  <% end %>
-                  <%= f.password_field :password, class: "form-control text-dark", placeholder: "パスワードを入力" %>
+                  <%= f.password_field :password, class: "form-control text-dark", placeholder: "パスワードを入力（#{@minimum_password_length}文字以上）" %>
                 </div>
 
                 <div class="mb-4">

@@ -94,16 +94,16 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  config.action_mailer.default_url_options = { host: 'https://nanigaderukana.onrender.com', protocol: 'https'}
+  config.action_mailer.default_url_options = { host: "https://nanigaderukana.onrender.com", protocol: "https" }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
+    address:              "smtp.gmail.com",
     port:                  587,
-    domain:               'nanigaderukana.onrender.com',
-    user_name:            'info.musichour@gmail.com',
-    password:             Rails.application.credentials.mailer[:password] ,
-    authentication:       'plain',
+    domain:               "nanigaderukana.onrender.com",
+    user_name:            "info.musichour@gmail.com",
+    password:             Rails.application.credentials.mailer[:password],
+    authentication:       "plain",
     enable_starttls_auto:  true
   }
 

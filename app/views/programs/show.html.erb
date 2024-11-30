@@ -3,6 +3,7 @@
 <div class="container py-5">
   <%= render 'shared/flash_message' %>
   <div class="glass-morphism p-4 mb-5">
+    
     <div class="d-flex justify-content-between align-items-start mb-4">
       <div>
         <h1 class="text-gradient display-5 fw-bold mb-3">
@@ -14,33 +15,32 @@
           <%= simple_format(@program.body) %>
         </p>
       </div>
+    </div>
+    <div class="d-flex justify-content-end gap-3">
+      <%= link_to "https://twitter.com/share?url=#{program_url(@program)}&text=【Music Hour】%0a%0a「#{@program.title}」お便り募集中！！%0a#{@program.body}",
+          target: '_blank',
+          class: "share-link",
+          data: { toggle: "tooltip", placement: "bottom", turbo_prefetch: false, turbo: false },
+          title: "Xでシェア" do %>
+        <i class="bi bi-twitter-x"></i>
+        <span>共有する</span>
+      <% end %>
 
-      <div class="d-flex gap-3">
-        <%= link_to "https://twitter.com/share?url=#{program_url(@program)}&text=【Music Hour】%0a%0a「#{@program.title}」お便り募集中！！%0a#{@program.body}",
-            target: '_blank',
-            class: "share-link",
-            data: { toggle: "tooltip", placement: "bottom", turbo_prefetch: false, turbo: false },
-            title: "Xでシェア" do %>
-          <i class="bi bi-twitter-x"></i>
-          <span>共有する</span>
+      <% if (producer?(current_user, @program) || current_user&.admin?) %>
+        <%= link_to edit_program_path(@program), 
+            class: "btn btn-outline-light hover-lift" do %>
+          <i class="bi bi-pencil me-2"></i>
+          編集する
         <% end %>
 
-        <% if (producer?(current_user, @program) || current_user&.admin?) %>
-          <%= link_to edit_program_path(@program), 
-              class: "btn btn-outline-light hover-lift" do %>
-            <i class="bi bi-pencil me-2"></i>
-            編集する
-          <% end %>
-
-          <%= button_to @program, 
-              method: :delete, 
-              class: "btn btn-outline-danger hover-lift",
-              form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
-            <i class="bi bi-trash me-2"></i>
-            削除する
-          <% end %>
+        <%= button_to @program, 
+            method: :delete, 
+            class: "btn btn-outline-danger hover-lift",
+            form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
+          <i class="bi bi-trash me-2"></i>
+          削除する
         <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
 

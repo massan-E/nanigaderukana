@@ -1,7 +1,7 @@
-<p>こんにちは <%= @resource.email %> さん! Music Hourからのお知らせです</p>
+<p>Music Hourからメールアドレス変更のお知らせです</p>
 
 <% if @resource.try(:unconfirmed_email?) %>
-  <p>あなたのアカウントのEメールアドレスは <%= @resource.unconfirmed_email %> に変更されました</p>
+  <p>あなたのアカウントのメールアドレスは <%= @resource.unconfirmed_email %> に変更されました</p>
 <% else %>
-  <p>あなたのアカウントのEメールアドレスは <%= @resource.unconfirmed_email %> に変更されました</p>
+  <p>あなたのアカウントのメールアドレスは <%= @resource.unconfirmed_email %> に変更されました</p>
 <% end %>
