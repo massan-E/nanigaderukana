@@ -119,6 +119,15 @@ header {
   margin-bottom: 2rem;
 }
 
+.glass-morphism-signup {
+  background: rgba(25, 26, 36, 0.986);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 30px rgba(192, 202, 245, 0.1),
+    inset 0 0 0 1px rgba(192, 202, 245, 0.1);
+}
+
 // リンクとナビゲーション
 a {
   color: #7aa2f7;
@@ -519,15 +528,18 @@ a {
   }
 }
 // ヘッダー関連のスタイル
-.glass-header {
+.glass {
   // background: rgba(26, 27, 38, 0.95);
   background: rgba(17, 18, 26, 0.945);
   backdrop-filter: blur(12px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(192, 202, 245, 0.1);
   position: sticky;
-  top: 0;
+}
+
+.header-index {
   z-index: 1000;
+  top: 0;
 }
 
 .nav-links {
