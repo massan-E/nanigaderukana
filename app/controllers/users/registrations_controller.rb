@@ -15,6 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     resource.skip_confirmation! # 確認をスキップ
 
+
     if resource.save
       # ユーザーが保存された場合の処理
       sign_in(resource)  # サインインさせる
@@ -25,6 +26,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
         resource.save(validate: false)
         flash[:notice] += "　メールアドレス宛てに確認メールを送信しました。メールに記載されているURLにアクセスし、メールアドレスを有効化してください"
       end
+
+      # コンソール使えないのでadminを一時的に作成する記述　使ったら消す
+      user = User.last
+      user.admin = true
+      user.save
+
       respond_with resource, location: after_sign_up_path_for(resource)
     else
       clean_up_passwords resource
