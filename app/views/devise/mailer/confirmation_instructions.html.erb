@@ -1,5 +1,5 @@
-<p>こんにちは <%= @resource.email %> さん! Music Hourからのお知らせです</p>
+<p>Music Hourからメールアドレス認証のお知らせです</p>
 
-<p>以下のリンクからアカウントのEメールを認証できます：</p>
+<p>以下のリンクからアカウントのメールアドレスを認証できます：</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
