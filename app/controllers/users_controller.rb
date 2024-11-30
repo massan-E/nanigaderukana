@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show ]
-  before_action :authenticate_user!, only: %i[ index ]
-  before_action :admin_user, only: %i[ index ]
+  before_action :set_user, only: %i[ show destroy ]
+  before_action :authenticate_user!, only: %i[ index destroy ]
+  before_action :admin_user, only: %i[ index destroy ]
 
   def index
     @users = User.all.page(params[:page]).per(10)
@@ -10,6 +10,13 @@ class UsersController < ApplicationController
   def show
     @programs = @user.joined_programs.order(created_at: :desc).page(params[:page]).per(6)
     @letters = @user.letters.includes(:program).page(params[:page]).per(10)
+  end
+
+  def destroy
+    programs = @user.programs
+    @user.destroy!
+    flash[:success] = "ユーザーを削除しました"
+    redirect_to users_path, status: :see_other
   end
 
   private
