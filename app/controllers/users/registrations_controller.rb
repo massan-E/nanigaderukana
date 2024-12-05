@@ -19,12 +19,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if resource.save
       # ユーザーが保存された場合の処理
       sign_in(resource)  # サインインさせる
-      flash[:notice] = "Wel come to Music Hour!!"
+      flash[:notice] = "Welcome to Music Hour!!"
       if params[:user][:email].present?
         resource.unconfirmed_email = params[:user][:email]
         resource.send_confirmation_instructions if resource.unconfirmed_email.present?
         resource.save(validate: false)
-        flash[:notice] += "　メールアドレス宛てに確認メールを送信しました。メールに記載されているURLにアクセスし、メールアドレスを有効化してください"
+        flash[:notice] += "　メールアドレス宛てに確認メールを送信しました。メールに記載されているURLにアクセスし、メールアドレスを有効化してください(迷惑メールフォルダに送信されている場合があります)"
       end
       respond_with resource, location: after_sign_up_path_for(resource)
     else
