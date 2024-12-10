@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_29_024725) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_10_115315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_024725) do
     t.datetime "updated_at", null: false
     t.text "body"
     t.bigint "program_id"
+    t.boolean "publish", default: true
     t.index ["program_id"], name: "index_letterboxes_on_program_id"
   end
 
@@ -47,6 +48,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_024725) do
     t.bigint "user_id"
     t.string "invitation_digest"
     t.datetime "send_invitation_at"
+    t.boolean "publish", default: true
     t.index ["user_id"], name: "index_programs_on_user_id"
   end
 
@@ -75,7 +77,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_024725) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true, where: "((email IS NOT NULL) AND ((email)::text <> ''::text))"
+    t.index ["email"], name: "index_users_on_email", unique: true, where: "(email IS NOT NULL)"
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

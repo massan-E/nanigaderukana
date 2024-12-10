@@ -22,7 +22,7 @@
     <% if action_name == "index" %>
       <div class="d-flex justify-content-end align-items-center mt-3">
         <div class="d-flex align-items-center gap-3 text-white-50">
-          <%= render "publish_buttons", letter: letter %>
+          <%= render "shared/publish_buttons", object: letter, program: letter.program %>
           
           <%= render "read_buttons", letter: letter %>
           

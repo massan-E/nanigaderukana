@@ -15,4 +15,8 @@ module ProgramsHelper
       "col-md-6 col-lg-4"
     end
   end
+
+  def set_program
+    @program = Program.find(params[:program_id])
+  end
 end

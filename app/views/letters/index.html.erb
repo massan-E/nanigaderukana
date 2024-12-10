@@ -81,7 +81,7 @@
           検索結果: <%= "#{@result.count}件" %>
         </div>
 
-    <%= link_to program_random_letters_path(q: permitted_q_params),
+        <%= link_to program_random_letters_path(q: permitted_q_params),
             class: "btn btn-primary rounded-pill px-4 hover-lift",
             onclick: "window.open(this.href,'New letter', 'height=700, width=800'); return false;",
             data: { turbo_prefetch: false } do %>

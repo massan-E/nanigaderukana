@@ -13,6 +13,7 @@ class ProgramsController < ApplicationController
     @letter = Letter.new
     @letter.radio_name = current_user.name if current_user
     @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
+    @letterboxes = @program.letterboxes.published
   end
 
   def new

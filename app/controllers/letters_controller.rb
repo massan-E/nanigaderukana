@@ -49,12 +49,6 @@ class LettersController < ApplicationController
       params.require(:letter).permit(:body, :radio_name, :letterbox_id)
     end
 
-    def set_program
-      program_id = params[:program_id]
-      @program = Program.find(program_id) if program_id
-    end
-
-
     def editable_user
       unless current_user == @letter.user || current_user.admin?
         redirect_to(root_url, status: :see_other)

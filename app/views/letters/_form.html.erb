@@ -15,7 +15,7 @@
 
     <div class="mb-4">
       <%= form.label :letterbox_id, class: "form-label" %>
-      <%= form.collection_select :letterbox_id, program.letterboxes, :id, :title,
+      <%= form.collection_select :letterbox_id, program.letterboxes.published, :id, :title,
           { include_blank: "選択して下さい" },
           { class: "form-select" } %>
     </div>

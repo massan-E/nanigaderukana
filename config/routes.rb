@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, controllers: {
-    # sessions: "users/sessions",
     registrations: "users/registrations"
   }
   root "static_page#top"
@@ -24,6 +23,7 @@ Rails.application.routes.draw do
         get "reset"
       end
     end
+    post "switch_publish", to: "object_publish#switch_publish"
   end
 
   resources :users, only: %i[ index show destroy ]

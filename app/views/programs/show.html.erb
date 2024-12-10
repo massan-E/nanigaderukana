@@ -59,6 +59,21 @@
         <% end %>
       </div>
     </div>
+
+    <div class="glass-morphism p-4 mb-5">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="text-gradient h4 mb-0">
+          <i class="bi bi-mailbox me-2"></i>
+          番組のお便り箱一覧
+        </h2>
+        
+        <%= link_to program_letterboxes_path(@program), 
+            class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
+          <i class="bi bi-mailbox me-2"></i>
+          お便り箱一覧を見る
+        <% end %>
+      </div>
+    </div>
   <% end %>
 
   <div class="glass-morphism p-4 mb-5">
@@ -79,7 +94,7 @@
 
     <div class="row g-4">
       <%= render partial: "letterboxes/letterbox", 
-            collection: @program.letterboxes, 
+            collection: @letterboxes, 
             as: :letterbox,
             locals: { current_user: current_user } %>
     </div>

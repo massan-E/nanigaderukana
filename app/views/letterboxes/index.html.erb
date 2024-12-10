@@ -1,12 +1,80 @@
-<% content_for :title, "お便り箱一覧" %>
+<% content_for :title, "#{@program.title} お便り箱一覧" %>
 
 <div class="container py-5">
   <%= render 'shared/flash_message' %>
-  <div class="d-flex justify-content-between align-items-center mb-5">
-    <h2 class="display-6 fw-bold text-gradient mb-0">お便り箱一覧</h2>
+  <div class="glass-morphism p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-gradient h2 mb-0">
+        <i class="bi bi-envelope me-3"></i>
+        お便り箱一覧
+      </h1>
+    </div>
+
+    <div class="search-form-container">
+      <%= search_form_for @q, url: program_letters_path(@program), 
+          class: "search-form" do |f| %>
+        
+        <!-- メイン検索エリア -->
+        <div class="row g-3 mb-4">
+          <div class="col-12 col-lg-8">
+            <%= f.search_field :body_or_title_cont, 
+                class: 'form-control',
+                placeholder: '本文、タイトル検索...' %>
+          </div>
+          <div class="col-12 col-lg-4">
+            <%= f.collection_select :id_eq,
+                @program.letterboxes, :id, :title,
+                { include_blank: "お便り箱を選択" },
+                { class: 'form-select' } %>
+          </div>
+        </div>
+
+        <!-- フィルターエリア -->
+        <div class="row g-3 align-items-center mb-4">
+          <!-- ステータスフィルター -->
+          <div class="col-12 col-lg-5">
+            <div class="d-flex gap-3">
+              <div class="flex-grow-1">
+                <%= f.select :publish_eq, 
+                    [['すべて', ''], ['公開', true], ['非公開', false]], 
+                    {}, 
+                    { class: 'form-select' } %>
+              </div>
+            </div>
+          </div>
+
+          <!-- 検索ボタン -->
+          <div class="col-12 col-lg-2">
+            <%= f.submit '検索', class: 'btn btn-primary w-100 rounded-pill hover-lift' %>
+          </div>
+        </div>
+      <% end %>
+
+
+      <div class="search-results-section text-center mt-1 mb-4">
+        <div class="result-count my-3">
+          検索結果: <%= "#{@result.count}件" %>
+        </div>
+      </div>
+    </div>
+
+    <%= turbo_frame_tag "letters-list" do %>
+      <div class="row g-4">
+        <%= render partial: "letterboxes/letterbox", 
+              collection: @letterboxes, 
+              as: :letterbox,
+              locals: { current_user: current_user } %>
+      </div>
+      <%= paginate @letterboxes, 
+          theme: 'bootstrap-5',
+          pagination_class: "pagination flex-wrap justify-content-center",
+          nav_class: "d-inline-block",
+          window: 2 %>
+    <% end %>
   </div>
 
-  <div class="row g-4" id="letterboxes">
-    <%= render @letterboxes %>
-  </div>
+  <%= link_to 'javascript:history.back()', class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+    <i class="bi bi-arrow-left me-2"></i>
+    戻る
+  <% end %>
 </div>

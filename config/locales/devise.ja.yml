@@ -36,7 +36,7 @@ ja:
       updated_not_active: "パスワードが変更されました。"
     registrations:
       destroyed: "あなたのアカウントは削除されました。またお会いできることを願っています。"
-      signed_up: "Well come to Music Hour!! ユーザー登録が完了しました。"
+      signed_up: "Welcome to Music Hour!! ユーザー登録が完了しました。"
       signed_up_but_inactive: "ユーザー登録が完了しました。しかし、あなたのアカウントはまだアクティブではないため、ログインできませんでした。"
       signed_up_but_locked: "ユーザー登録が完了しました。しかし、あなたのアカウントはロックされているため、ログインできませんでした。"
       signed_up_but_unconfirmed: "確認リンクが記載されたメッセージがあなたのメールアドレスに送信されました。アカウントをアクティブにするには、そのリンクにアクセスしてください。"
