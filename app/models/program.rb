@@ -16,7 +16,7 @@ class Program < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     [ "title", "body" ]
-end
+  end
 
   def create_invitation_digest
     self.invitation_token = User.new_token

@@ -6,6 +6,10 @@ class Letterbox < ApplicationRecord
   has_many :letters, dependent: :nullify
 
   def self.ransackable_attributes(auth_object = nil)
-    [ "id" ]
+    [ "id", "title", "body", "publish" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "program" ]
   end
 end

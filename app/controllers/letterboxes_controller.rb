@@ -6,7 +6,9 @@ class LetterboxesController < ApplicationController
   before_action :authorized_user, only: %i[ new create edit update destroy ]
 
   def index
-    @letterboxes = Letterbox.all
+    @q = @program.letterboxes.ransack(params[:q])
+    @result = @q.result(distinct: true)
+    @letterboxes = @result.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def new
