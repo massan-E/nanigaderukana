@@ -1,8 +1,8 @@
 class ProgramsController < ApplicationController
-  before_action :set_program, only: %i[ show edit update destroy letterboxes ]
-  before_action :authenticate_user!, only: %i[ new create edit update destroy letterboxes ]
-  before_action :email_registered_user, only: %i[ new create edit update destroy letterboxes ]
-  before_action :authorized_user, only: %i[ edit update destroy letterboxes ]
+  before_action :set_program, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+  before_action :email_registered_user, only: %i[ new create edit update destroy ]
+  before_action :authorized_user, only: %i[ edit update destroy ]
 
   def index
     @q = Program.includes(:user).all.order(created_at: :desc).ransack(params[:q])
@@ -13,6 +13,7 @@ class ProgramsController < ApplicationController
     @letter = Letter.new
     @letter.radio_name = current_user.name if current_user
     @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
+    @letterboxes = @program.letterboxes.published
   end
 
   def new

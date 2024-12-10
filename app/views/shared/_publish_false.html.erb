@@ -1,0 +1,6 @@
+<%= link_to program_switch_publish_path(program, id: object.id, model_name: object.class.name),
+  id: "publish-false-button-for-#{object.class.name.downcase}-#{object.id}",
+  class: "btn btn-outline-danger hover-lift", data: { turbo_method: :post } do %>
+  <i class="bi bi-eye-slash"></i>
+  非公開中
+<% end %>

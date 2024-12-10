@@ -64,7 +64,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h2 class="text-gradient h4 mb-0">
           <i class="bi bi-mailbox me-2"></i>
-          番組へのお便り箱一覧
+          番組のお便り箱一覧
         </h2>
         
         <%= link_to program_letterboxes_path(@program), 
@@ -94,7 +94,7 @@
 
     <div class="row g-4">
       <%= render partial: "letterboxes/letterbox", 
-            collection: @program.letterboxes, 
+            collection: @letterboxes, 
             as: :letterbox,
             locals: { current_user: current_user } %>
     </div>

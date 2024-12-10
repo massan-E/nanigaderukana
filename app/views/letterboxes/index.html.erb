@@ -59,8 +59,11 @@
     </div>
 
     <%= turbo_frame_tag "letters-list" do %>
-      <div class="letters-container">
-        <%= render @letterboxes %>
+      <div class="row g-4">
+        <%= render partial: "letterboxes/letterbox", 
+              collection: @letterboxes, 
+              as: :letterbox,
+              locals: { current_user: current_user } %>
       </div>
       <%= paginate @letterboxes, 
           theme: 'bootstrap-5',

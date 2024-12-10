@@ -24,11 +24,6 @@ class RandomLettersController < ApplicationController
 
   private
 
-    def set_program
-      program_id = params[:program_id]
-      @program = Program.find(program_id) if program_id
-    end
-
     def authorized_user
       unless producer?(current_user, @program) || current_user&.admin? || current_user == @letter&.user
         redirect_to(root_url, status: :see_other)

@@ -1,0 +1,5 @@
+<% if object.publish? %>
+  <%= render 'shared/publish_true', { object: object, program: program } %>
+<% else %>
+  <%= render 'shared/publish_false', { object: object, program: program } %>
+<% end %>

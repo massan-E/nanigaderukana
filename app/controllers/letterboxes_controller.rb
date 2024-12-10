@@ -54,10 +54,6 @@ class LetterboxesController < ApplicationController
       params.require(:letterbox).permit(:title, :body)
     end
 
-    def set_program
-      @program = Program.find(params[:program_id])
-    end
-
     def authorized_user
       unless producer?(current_user, @program) || current_user.admin?
         redirect_to(root_url, status: :see_other)

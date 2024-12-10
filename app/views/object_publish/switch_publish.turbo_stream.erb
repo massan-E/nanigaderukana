@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "publish-#{!@object.publish}-button-for-#{@object.class.name.downcase}-#{@object.id}" do %>
+  <%= render "shared/publish_#{@object.publish}", object: @object, program: @program %>
+<% end %>
