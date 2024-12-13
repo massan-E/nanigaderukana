@@ -31,7 +31,7 @@
       <%# アクションボタン %>
       <div class="card-actions">
         <% unless action_name == "index" %>
-          <%= link_to program_path(letterbox.program, letter: {letterbox_id: letterbox.id}), 
+          <%= link_to program_path(letterbox.program, letter: {letterbox_id: letterbox.id}, anchor: "letterForm"), 
               class: "btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center",
               data: { turbo: false }  do %>
             <i class="bi bi-pencil-square me-2"></i>

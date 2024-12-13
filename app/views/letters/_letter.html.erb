@@ -6,7 +6,7 @@
     </div>
     
     <div class="letter-body p-3 rounded">
-      <p class="mb-0 card-text"><%= simple_format(letter.body) %></p>
+      <p class="mb-0 card-text"><%= markdown(letter.body) %></p>
     </div>
 
     <% if action_name == "show" %>

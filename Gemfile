@@ -42,19 +42,27 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# 検索機能
 gem "ransack", "4.2.1"
 
+# svgの表示
 gem "inline_svg"
 
+# ページネーション
 gem "kaminari"
-
 gem "bootstrap5-kaminari-views"
 
+# meta tag設定用　主にtwitter共有用
 gem "meta-tags"
 
+# 認証機能
 gem "devise", "~> 4.9", ">= 4.9.4"
-
+# debviseのi18n対応
 gem "devise-i18n-views"
+
+# マークダウン用
+gem "redcarpet"
+gem 'rouge'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -1,4 +1,4 @@
-<div class="glass-morphism p-4">
+<div class="glass-morphism p-4" id="letterForm">
   <%= form_with(model: letter, url: letter_action_path(letter, program), class: "needs-validation") do |form| %>
     <% if letter.errors.any? %>
       <div class="alert alert-danger">
