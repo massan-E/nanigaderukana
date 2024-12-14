@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rouge/plugins/redcarpet'
-require 'redcarpet'
-require 'redcarpet/render_strip'
+require "rouge/plugins/redcarpet"
+require "redcarpet"
+require "redcarpet/render_strip"
 
 class CustomRenderHTML < Redcarpet::Render::HTML
   include Rouge::Plugins::Redcarpet
@@ -10,16 +10,16 @@ class CustomRenderHTML < Redcarpet::Render::HTML
   # Rouge::Plugins::Redcarpetのメソッドを上書きする
   def block_code(code, language)
     # もしコードブロックに言語とファイル名が定義されたら取得する。例： ```ruby:test.rb
-    filename = ''
+    filename = ""
     if language.present?
-      filename = language.split(':')[1]
-      language = language.split(':')[0].downcase
+      filename = language.split(":")[1]
+      language = language.split(":")[0].downcase
     else
       language = "code"
     end
 
     lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::PlainText
-    code.gsub!(/^    /, "\t") if lexer.tag == 'make'
+    code.gsub!(/^    /, "\t") if lexer.tag == "make"
     formatter = rouge_formatter(lexer)
     result = formatter.format(lexer.lex(code))
     return "<div class=#{wrap_class}>#{copy_button}#{result}</div" if filename.blank? && language.blank?
@@ -29,9 +29,9 @@ class CustomRenderHTML < Redcarpet::Render::HTML
 
   def rouge_formatter(_options = {})
     options = {
-      css_class: 'highlight',
+      css_class: "highlight",
       line_numbers: true,
-      line_format: '<span>%i</span>'
+      line_format: "<span>%i</span>"
     }
     Rouge::Formatters::HTMLLegacy.new(options)
   end
@@ -40,7 +40,7 @@ class CustomRenderHTML < Redcarpet::Render::HTML
 
   # wrap CSSクラス名の定義
   def wrap_class
-    'highlight-wrap'
+    "highlight-wrap"
   end
 
   # コピーボタンの定義。クリックするとJavaScriptファンクションが実行される
@@ -50,7 +50,7 @@ class CustomRenderHTML < Redcarpet::Render::HTML
 
   # コードブロックの言語、ファイル名、コピーボタンを設置する
   def compose_filename_and_language(result, filename, language)
-    info_section = [filename, language].select(&:present?).map.with_index do |text, i|
+    info_section = [ filename, language ].select(&:present?).map.with_index do |text, i|
       i.zero? ? "<span class='highlight-info'>#{text}</span>" : nil
     end.compact.join
 
@@ -75,7 +75,7 @@ module MarkdownHelper
       hard_wrap: true,
       escape_html: true,
       filter_html: true,
-      safe_links_only: true,
+      safe_links_only: true
     }
     extensions = {
       no_intra_emphasis: true,
