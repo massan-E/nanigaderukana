@@ -25,4 +25,8 @@ module ApplicationHelper
       }
     }
   end
+
+  def header_user_name
+    current_user ? current_user.name : "loving rabbit"
+  end
 end
