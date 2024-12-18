@@ -36,7 +36,7 @@
           <i class="bi bi-broadcast-pin me-3"></i>
           最近追加された番組
         </h2>
-        
+
         <%= link_to programs_path, 
             class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
           <i class="bi bi-arrow-right me-2"></i>
@@ -45,7 +45,7 @@
       </div>
       
       <swiper-container class="mySwiper" effect="coverflow" centered-slides="true" slides-per-view="auto"
-                        autoplay-delay="3600" speed="2400" scrollbar-hide="true">
+                        autoplay-delay="7200" speed="2400" scrollbar-hide="true">
         <% @programs.each do |program| %>
           <swiper-slide>
             <%= render program %>

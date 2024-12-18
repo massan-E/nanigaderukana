@@ -1,22 +1,26 @@
 <div id="<%= dom_id program %>" class="<%= program_card_class %>">
-  <div class="card glass-morphism h-100 border-0 hover-lift">
-    <div class="card-body p-4 d-flex flex-column">
-      <div class="d-flex align-items-center mb-3">
-        <div class="program-icon me-3">
-          <i class="bi bi-broadcast-pin fs-4 text-gradient"></i>
+  <div class="card glass-morphism h-100 border-0 hover-lift d-flex flex-column">
+    <%= link_to program, class: "text-decoration-none", data: { turbo: false } do %>
+      <div class="card-body p-4 d-flex flex-column">
+        <div class="d-flex align-items-center mb-3">
+          <div class="program-icon me-3">
+            <i class="bi bi-broadcast-pin fs-4 text-gradient"></i>
+          </div>
+          <h4 class="card-title mb-0 modern-program-title scroll">
+            <span class="text-gradient fw-bold title-text" id="title-span"><%= program.title %></span>
+          </h4>
         </div>
-        <h4 class="card-title mb-0 modern-program-title">
-          <%= link_to program, class: "text-decoration-none program-title-link nav-hover",data: { turbo: false } do %>
-            <span class="text-gradient fw-bold title-text"><%= program.title %></span>
-          <% end %>
-        </h4>
+
+        <p class="text-gradient mb-0"><%= "総お便り数：#{program.letters.count} 件"%></p>
+
+        <div class="my-4 text-truncate-container">
+          <%= simple_format(program.body, class: "card-text mb-0") %>
+        </div>
       </div>
+    <% end %>
 
-      <p class="mb-4">
-        <%= simple_format(program.body, class: "card-text mb-0") %>
-      </p>
-
-      <div class="program-meta mt-auto">
+    <div class="card-footer bg-transparent border-0 mt-auto m-3">
+      <div class="program-meta">
         <% if action_name == "show" %>
           <% if program.user == current_user || current_user&.admin? %>
             <%= link_to new_program_invitation_path(program), 
@@ -47,3 +51,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.querySelectorAll('.scroll').forEach(elem => {
+    // const span = document.getElementById('title-span');
+    const span = elem.querySelector('span');
+    if (span.scrollWidth > elem.clientWidth) {
+      span.classList.add('title-scroll');
+    }
+  });
+</script>
