@@ -28,7 +28,7 @@
         </div>
 
         <!-- ハンバーガーメニュートグルボタン -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler btn btn-outline-light hover-lift" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -37,7 +37,7 @@
           <ul class="navbar-nav w-100 justify-content-end nav-links mb-0">
             <li class="nav-item"><span class="text-gradient fs-5"><%= header_user_name %></span></li>
             <li class="nav-item d-lg-none">
-              <%= link_to "TOP", root_path, class: "nav-link nav-hover text-gradient fs-4" %>
+              <%= link_to "TOP", root_path, class: "nav-link nav-hover fs-4" %>
             </li>
             <% if current_user %>
               <li class="nav-item"><%= link_to "My page", current_user, class: "nav-link nav-hover fs-5" %></li>
