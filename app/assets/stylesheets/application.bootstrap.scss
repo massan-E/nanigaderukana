@@ -269,7 +269,7 @@ a {
 }
 
 // レスポンシブ設定
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .display-5 { font-size: 2rem; }
   .display-6 { font-size: 1.5rem; }
   .glass-morphism { padding: 1.5rem !important; }
@@ -285,7 +285,7 @@ a {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 992px) {
   .container {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -392,7 +392,7 @@ a {
 }
 
 // レスポンシブ対応の強化
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .glass-morphism {
     .d-flex {
       flex-direction: column;
@@ -432,7 +432,7 @@ a {
 
 
 // レスポンシブ対応
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .pagination {
     gap: 0.4rem;
     
@@ -491,7 +491,7 @@ a {
 }
 
 // レスポンシブ対応
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .share-link {
     padding: 0.4rem 1rem;
     font-size: 0.85rem;
@@ -784,5 +784,31 @@ a {
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 992px) {
+  .text-truncate-container {
+    max-height: 10rem;
+    overflow: scroll;
+  }
+  .scroll {
+    overflow: hidden;
+    width: 100%;
+  }
+  .title-scroll {
+    animation: scrollText 20s infinite;
+  }
+
+  @keyframes scrollText {
+    0%, 20% {
+      transform: translateX(0);
+    }
+    65%, 90% {
+      transform: translateX(calc(-100% + 10em));
+    }
+    100% {
+      transform: translateX(0);
+    }
   }
 }

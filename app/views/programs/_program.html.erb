@@ -1,11 +1,9 @@
 <div id="<%= dom_id program %>" class="<%= program_card_class %>">
   <div class="card glass-morphism h-100 border-0 hover-lift d-flex flex-column">
     <%= link_to program, class: "text-decoration-none", data: { turbo: false } do %>
-      <div class="card-body p-4 d-flex flex-column">
+      <div class="card-body p-lg-4 p-0 d-flex flex-column">
         <div class="d-flex align-items-center mb-3">
-          <div class="program-icon me-3">
-            <i class="bi bi-broadcast-pin fs-4 text-gradient"></i>
-          </div>
+          <span><i class="bi bi-broadcast-pin fs-4 text-gradient program-icon me-3"></i></span>
           <h4 class="card-title mb-0 modern-program-title scroll">
             <span class="text-gradient fw-bold title-text" id="title-span"><%= program.title %></span>
           </h4>
@@ -13,7 +11,7 @@
 
         <p class="text-gradient mb-0"><%= "総お便り数：#{program.letters.count} 件"%></p>
 
-        <div class="my-4 text-truncate-container">
+        <div class="my-lg-4 my-2 text-truncate-container">
           <%= simple_format(program.body, class: "card-text mb-0") %>
         </div>
       </div>
