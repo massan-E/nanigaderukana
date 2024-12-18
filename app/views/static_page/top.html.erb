@@ -27,6 +27,16 @@
       align-items: center;
       justify-content: center;
     }
+
+    @media (max-width: 992px) {
+      swiper-container {
+        width: ;
+        height: 500px; /* または適切な高さを設定 */
+      }
+      swiper-slide {
+        width: 100%;
+      }
+    }
   </style>
 
   <% if @programs %>
@@ -36,7 +46,7 @@
           <i class="bi bi-broadcast-pin me-3"></i>
           最近追加された番組
         </h2>
-        
+
         <%= link_to programs_path, 
             class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
           <i class="bi bi-arrow-right me-2"></i>
@@ -45,7 +55,7 @@
       </div>
       
       <swiper-container class="mySwiper" effect="coverflow" centered-slides="true" slides-per-view="auto"
-                        autoplay-delay="3600" speed="2400" scrollbar-hide="true">
+                        autoplay-delay="7200" speed="2400" scrollbar-hide="true">
         <% @programs.each do |program| %>
           <swiper-slide>
             <%= render program %>

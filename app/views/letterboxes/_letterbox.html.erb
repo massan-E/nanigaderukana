@@ -1,7 +1,6 @@
 <div id="<%= dom_id letterbox %>" class="col-md-6 col-lg-4">
   <div class="card glass-morphism h-100 border-0 hover-lift letter-card">
-    <div class="card-body p-4 d-flex flex-column"> <%# d-flex flex-columnを追加 %>
-      <%# プログラムリンクセクション %>
+    <div class="card-body p-4 d-flex flex-column"> 
       <div class="program-link mb-4">
         <%= link_to letterbox.program, 
             class: "d-flex align-items-center text-decoration-none text-gradient-subtle",
@@ -20,15 +19,14 @@
       <h4 class="card-title h5 mb-4">
         <span class="text-gradient fw-bold"><%= letterbox.title %></span>
       </h4>
-      
-      <div class="letterbox-body p-3 rounded">
-        <p><%= simple_format(letterbox.body, class: "mb-0 card-text") %></p>
+
+      <p class="text-gradient mb-0"><%= "お便り：#{letterbox.letters.count} 件"%></p>
+
+      <div class="letterbox-body p-3 rounded mb-0 card-text">
+        <p class="mb-0"><%= markdown(letterbox.body) %></p>
       </div>
 
-      <%# 空白スペース %>
-      <div class="flex-grow-1"></div> <%# これを追加 %>
-
-      <%# アクションボタン %>
+      <div class="flex-grow-1"></div>
       <div class="card-actions">
         <% unless action_name == "index" %>
           <%= link_to program_path(letterbox.program, letter: {letterbox_id: letterbox.id}, anchor: "letterForm"), 

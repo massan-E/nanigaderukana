@@ -11,36 +11,42 @@
           <%= @program.title %>
         </h1>
 
+        <p class="text-gradient mb-3"><%= "総お便り数：#{@program.letters.count} 件"%></p>
+
         <p class="lead card-text mb-0">
           <%= simple_format(@program.body) %>
         </p>
       </div>
     </div>
-    <div class="d-flex justify-content-end gap-3">
-      <%= link_to "https://twitter.com/share?url=#{program_url(@program)}&text=【Music Hour】%0a%0a「#{@program.title}」お便り募集中！！%0a#{@program.body}",
-          target: '_blank',
-          class: "share-link",
-          data: { toggle: "tooltip", placement: "bottom", turbo_prefetch: false, turbo: false },
-          title: "Xでシェア" do %>
-        <i class="bi bi-twitter-x"></i>
-        <span>共有する</span>
-      <% end %>
 
-      <% if (producer?(current_user, @program) || current_user&.admin?) %>
-        <%= link_to edit_program_path(@program), 
-            class: "btn btn-outline-light hover-lift" do %>
-          <i class="bi bi-pencil me-2"></i>
-          編集する
+    <div class="row align-item-end d-flex">
+      <div class="col align-self-end text-white-50">
+        <%= link_to @program.user, 
+          class: "text-decoration-none d-inline-flex",
+          data: { turbo: false }  do %>
+          <i class="bi bi-person-circle me-2"></i>
+          <span class="top-nav-link nav-hover"><%= @program.user.name %></span>
+        <% end %>
+      </div>
+
+      <div class="col align-self-end gap-3">
+        <% if (producer?(current_user, @program) || current_user&.admin?) %>
+          <%= link_to edit_program_path(@program), 
+              class: "btn btn-outline-light hover-lift float-end mb-2" do %>
+            <i class="bi bi-pencil"></i>
+            編集する
+          <% end %>
         <% end %>
 
-        <%= button_to @program, 
-            method: :delete, 
-            class: "btn btn-outline-danger hover-lift",
-            form: { data: { turbo_confirm: "本当に削除しますか？" } } do %>
-          <i class="bi bi-trash me-2"></i>
-          削除する
+        <%= link_to "https://twitter.com/share?url=#{program_url(@program)}&text=【Music Hour】%0a%0a「#{@program.title}」お便り募集中！！%0a#{@program.body}",
+            target: '_blank',
+            class: "share-link float-end me-2",
+            data: { toggle: "tooltip", placement: "bottom", turbo_prefetch: false, turbo: false },
+            title: "Xでシェア" do %>
+          <i class="bi bi-twitter-x"></i>
+          <span>共有する</span>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 
@@ -100,7 +106,7 @@
     </div>
   </div>
 
-  <div class="glass-morphism p-4 mb-5">
+  <div class="glass-morphism p-4 mb-5" id="letterForm">
     <h2 class="text-gradient h4 mb-4">
       <i class="bi bi-envelope me-2"></i>
       お便りはこちらから

@@ -10,7 +10,7 @@ module ProgramsHelper
     when "index"
       "col-md-6 col-lg-4"
     when "top"
-      "h-100 w-100 py-4 px-4"
+      "h-100 w-100 p-lg-4 p-2"
     else
       "col-md-6 col-lg-4"
     end
