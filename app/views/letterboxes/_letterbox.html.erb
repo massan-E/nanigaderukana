@@ -1,14 +1,14 @@
-<div id="<%= dom_id letterbox %>" class="col-md-6 col-lg-4">
+<div id="<%= dom_id letterbox %>" class="col-lg-4">
   <div class="card glass-morphism h-100 border-0 hover-lift letter-card">
-    <div class="card-body p-4 d-flex flex-column"> 
-      <div class="program-link mb-4">
+    <div class="card-body p-lg-4 p-0 d-flex flex-column"> 
+      <div class="program-link mb-lg-4 mb-2">
         <%= link_to letterbox.program, 
             class: "d-flex align-items-center text-decoration-none text-gradient-subtle",
             data: { turbo: false }  do %>
           <div class="program-icon me-3">
             <i class="bi bi-broadcast-pin fs-4"></i>
           </div>
-          <div class="program-info">
+          <div class="program-info scroll">
             <small class="d-block text-gradient-subtle mb-1">Program</small>
             <span class="fw-medium"><%= letterbox.program.title %></span>
           </div>
@@ -16,13 +16,13 @@
       </div>
       
       <%# タイトルセクション %>
-      <h4 class="card-title h5 mb-4">
+      <h4 class="card-title h5 mb-lg-4 mb-1">
         <span class="text-gradient fw-bold"><%= letterbox.title %></span>
       </h4>
 
-      <p class="text-gradient mb-0"><%= "お便り：#{letterbox.letters.count} 件"%></p>
+      <p class="text-gradient mb-3"><%= "お便り：#{letterbox.letters.count} 件"%></p>
 
-      <div class="letterbox-body p-3 rounded mb-0 card-text">
+      <div class="letterbox-body rounded mb-0 card-text">
         <p class="mb-0"><%= markdown(letterbox.body) %></p>
       </div>
 
