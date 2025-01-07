@@ -114,7 +114,6 @@ MVP リリース時
 - お便り箱の締め切りや既読お便りの一定期間での削除などは cron、whenever などを用いて実装する予定
 
 ## ER 図
-
 [![Image from Gyazo](https://i.gyazo.com/406d8fe383fa258b8a81a032960accdc.png)](https://gyazo.com/406d8fe383fa258b8a81a032960accdc)
 
 ## 画面遷移図
