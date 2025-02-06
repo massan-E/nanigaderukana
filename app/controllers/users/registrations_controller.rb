@@ -15,7 +15,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     resource.skip_confirmation! # 確認をスキップ
 
-
     if resource.save
       # ユーザーが保存された場合の処理
       sign_in(resource)  # サインインさせる
