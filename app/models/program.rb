@@ -25,7 +25,7 @@ class Program < ApplicationRecord
   end
 
   def invitation_expired?
-    send_invitation_at < 1.hours.ago
+    send_invitation_at < 3.days.ago
   end
 
   def authenticated?(invitation_token)
@@ -34,6 +34,6 @@ class Program < ApplicationRecord
   end
 
   def expiration_time
-    (send_invitation_at + 1.hour).strftime("%Y年%m月%d日 %H:%M")
+    (send_invitation_at + 3.days).strftime("%Y年%m月%d日 %H:%M")
   end
 end

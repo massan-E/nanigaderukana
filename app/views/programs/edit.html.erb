@@ -9,6 +9,20 @@
 
     <%= render 'shared/flash_message' %>
     <%= render "form", program: @program %>
+    <div class="glass-morphism p-4 mb-5">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="text-gradient h4 mb-0">
+          <i class="bi bi-person-plus me-2"></i>
+          この番組の制作へユーザーを招待する
+        </h2>
+        <%= link_to new_program_invitation_path(@program), 
+            class: "btn btn-outline-light btn-sm rounded-pill hover-lift px-4 py-2",
+            data: { turbo: false }  do %>
+          <i class="bi bi-person-plus me-2"></i>
+          ユーザーを招待する
+        <% end %>
+      </div>
+    </div>
     <%= button_to @program, 
         method: :delete, 
         class: "btn btn-outline-danger hover-lift float-end",
@@ -21,10 +35,6 @@
       <%= link_to 'javascript:history.back()', class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
           <i class="bi bi-arrow-left me-2"></i>
           戻る
-      <% end %>
-      <%= link_to @program, 
-          class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
-        番組を表示
       <% end %>
     </div>
   </div>
