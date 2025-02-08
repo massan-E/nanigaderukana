@@ -20,7 +20,12 @@ class ProgramsController < ApplicationController
     @program = Program.new
   end
 
-  def edit; end
+  def edit
+    @members = @program.participants
+                       .where.not(id: @program.user_id)
+                       .page(params[:page])
+                       .per(6)
+  end
 
   def create
     @program = current_user.programs.build(program_params)

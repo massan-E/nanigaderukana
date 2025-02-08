@@ -9,18 +9,53 @@
 
     <%= render 'shared/flash_message' %>
     <%= render "form", program: @program %>
-    <div class="glass-morphism p-4 mb-5">
-      <div class="d-flex justify-content-between align-items-center">
-        <h2 class="text-gradient h4 mb-0">
-          <i class="bi bi-person-plus me-2"></i>
-          この番組の制作へユーザーを招待する
-        </h2>
-        <%= link_to new_program_invitation_path(@program), 
-            class: "btn btn-outline-light btn-sm rounded-pill hover-lift px-4 py-2",
-            data: { turbo: false }  do %>
-          <i class="bi bi-person-plus me-2"></i>
-          ユーザーを招待する
-        <% end %>
+    <% if @program.user == current_user || current_user&.admin? %>
+      <div class="glass-morphism p-4 mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2 class="text-gradient h4 mb-0">
+            <i class="bi bi-person-plus me-2"></i>
+            この番組の制作へユーザーを招待する
+          </h2>
+          <%= link_to new_program_invitation_path(@program), 
+              class: "btn btn-outline-light btn-sm rounded-pill hover-lift px-4 py-2",
+              data: { turbo: false }  do %>
+            <i class="bi bi-person-plus me-2"></i>
+            ユーザーを招待する
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <div class="py-3">
+      <%= render 'shared/flash_message' %>
+      <div class="glass-morphism p-4 mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="text-gradient h4 mb-0">
+            <i class="bi bi-person-fill"></i>
+            Hostユーザー
+          </h2>
+        </div>
+
+        <%= render @program.user %>
+
+        <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
+          <h2 class="text-gradient h4 mb-0">
+            <i class="bi bi-people me-3"></i>
+            番組管理ユーザー
+          </h2>
+        </div>
+
+        <div id="users">
+          <% if @members %>
+
+            <%= render @members %>
+
+            <%= paginate @members, 
+                theme: 'bootstrap-5',
+                pagination_class: "pagination flex-wrap justify-content-center",
+                nav_class: "d-inline-block",
+                window: 2 %>
+          <% end %>
+        </div>
       </div>
     </div>
     <%= button_to @program, 
