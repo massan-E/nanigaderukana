@@ -82,7 +82,6 @@ class ProgramsController < ApplicationController
       blob = image.download
       input_image = Vips::Image.new_from_buffer(blob, "")
 
-
       # アスペクト比を維持しながらリサイズ
       processed_image = input_image.thumbnail_image(854,
         height: 480,
