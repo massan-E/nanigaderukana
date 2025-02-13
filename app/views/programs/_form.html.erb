@@ -24,8 +24,21 @@
     </div>
 
     <div class="mb-4">
-      <%= form.label :image, class: "form-label" %>
-      <%= form.file_field :image, class:"form-control" %>
+      <%= form.label :image, "画像", class: "form-label" %>
+      <%= form.file_field :image,
+          class: "form-control",
+          accept: "image/jpeg,image/png,image/gif,image/webp",
+          data: {
+            controller: "file-validation",
+            file_validation_max_size_value: 5.megabytes,
+            file_validation_accepted_types_value: "image/jpeg,image/png,image/gif,image/webp"
+          } %>
+      <small class="form-text text-muted">
+        ※ JPEG、PNG、GIF、WebP形式（5MB以下）のみアップロード可能です
+      </small>
+      <div class="invalid-feedback">
+        ファイル形式が不正か、サイズが大きすぎます
+      </div>
     </div>
 
     <div class="text-end mt-4">
