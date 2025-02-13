@@ -23,6 +23,11 @@
       <%= form.text_area :body, class: "form-control", rows: 5 %>
     </div>
 
+    <div class="mb-4">
+      <%= form.label :image, class: "form-label" %>
+      <%= form.file_field :image, class:"form-control" %>
+    </div>
+
     <div class="text-end mt-4">
       <%= form.submit class: "btn btn-primary rounded-pill px-4 mx-2 hover-lift" %>
       <%= link_to "キャンセル", 'javascript:history.back()', class: "btn btn-outline-light rounded-pill px-4 hover-lift" %>

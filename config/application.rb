@@ -31,6 +31,8 @@ module Myapp
     config.time_zone = "Tokyo"
     config.active_record.default_timezone = :utc
 
+    config.active_storage.variant_processor = :vips
+
     config.secret_key_base = ENV["SECRET_KEY_BASE"]
   end
 end

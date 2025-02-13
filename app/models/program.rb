@@ -10,6 +10,8 @@ class Program < ApplicationRecord
   has_many :letterboxes, dependent: :destroy
   has_many :letters, dependent: :nullify
 
+  has_one_attached :image
+
   def self.ransackable_associations(auth_object = nil)
     [ "letter", "letterbox", "user" ]
   end
