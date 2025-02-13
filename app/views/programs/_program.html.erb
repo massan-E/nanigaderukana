@@ -1,7 +1,8 @@
 <div id="<%= dom_id program %>" class="<%= program_card_class %>">
   <div class="card glass-morphism h-100 border-0 hover-lift d-flex flex-column">
-    <%= link_to program, class: "text-decoration-none", data: { turbo: false } do %>
-      <div class="card-body p-lg-4 p-0 d-flex flex-column">
+    <%= link_to program, class: "text-decoration-none flex-grow-1 d-flex flex-column", data: { turbo: false } do %>
+      <div class="card-body px-lg-4 pt-lg-4 pt-3 px-3 pb-0 d-flex flex-column flex-grow-1">
+        <%# ヘッダー部分 %>
         <div class="d-flex align-items-center mb-3">
           <span><i class="bi bi-broadcast-pin fs-4 text-gradient program-icon me-3"></i></span>
           <h4 class="card-title mb-0 modern-program-title scroll">
@@ -9,15 +10,40 @@
           </h4>
         </div>
 
-        <p class="text-gradient mb-0"><%= "総お便り数：#{program.letters.count} 件"%></p>
+        <% if action_name == "index" %>
+          <p class="text-gradient mb-3"><%= "総お便り数：#{program.letters.count} 件"%></p>
+        <% end %>
 
-        <div class="my-lg-4 my-2 text-truncate-container">
-          <%= simple_format(program.body, class: "card-text mb-0") %>
+        <%# 画像部分 - アスペクト比を維持しながら表示 %>
+        <div class="image-wrapper" style="height: 270px;">
+          <% if program.image.attached? %>
+            <%= image_tag program.image,
+                class: "w-100 h-100",
+                style: "object-fit: contain; max-height: 100%;" %>
+          <% else %>
+            <% if action_name == "index" %>
+              <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-25">
+                <p class="text-white-50 mb-0">No image available</p>
+              </div>
+            <% else %>
+              <div class="mt-3 text-truncate-container">
+                <%= simple_format(program.body, class: "card-text mb-0") %>
+              </div>
+            <% end %>
+          <% end %>
         </div>
+
+        <%# 本文部分 %>
+        <% if action_name == "index" %>
+          <div class="mt-3 text-truncate-container">
+            <%= simple_format(program.body, class: "card-text mb-0") %>
+          </div>
+        <% end %>
       </div>
     <% end %>
 
-    <div class="card-footer bg-transparent border-0 mt-auto m-3">
+    <%# フッター部分 %>
+    <div class="card-footer bg-transparent border-0 pb-3 mx-3 mb-3 ">
       <div class="program-meta">
         <% if action_name == "show" %>
           <% if program.user == current_user || current_user&.admin? %>

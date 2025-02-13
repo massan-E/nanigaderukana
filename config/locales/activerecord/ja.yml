@@ -14,6 +14,7 @@ ja:
       program:
         title: タイトル
         body: 番組の説明
+        image: 画像
       letterbox:
         title: タイトル
         body: お便り箱の説明
