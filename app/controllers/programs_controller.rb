@@ -29,10 +29,14 @@ class ProgramsController < ApplicationController
 
   def create
     @program = current_user.programs.build(program_params)
+    
+    if params[:program][:image].present?
+      process_and_transform_image(params[:program][:image])
+    end
+
     if @program.save
       current_user.user_participations.create(program: @program)
-      resize_image(@program.image) if @program.image.attached?
-      flash[:notice]= "番組を作成しました"
+      flash[:notice] = "番組を作成しました"
       redirect_to @program
     else
       flash.now[:danger] = "番組を作成できませんでした、番組作成フォームを確認してください"
@@ -41,9 +45,12 @@ class ProgramsController < ApplicationController
   end
 
   def update
+    if params[:program][:image].present?
+      process_and_transform_image(params[:program][:image])
+    end
+
     if @program.update(program_params)
-      resize_image(@program.image) if @program.image.attached?
-      flash[:notice]= "番組を編集しました"
+      flash[:notice] = "番組を編集しました"
       redirect_to @program
     else
       flash.now[:danger] = "番組を編集できませんでした、番組編集フォームを確認してください"
@@ -73,35 +80,42 @@ class ProgramsController < ApplicationController
       end
     end
 
-    def resize_image(image)
-      return unless image.attached?
-
+    def process_and_transform_image(image_io)
       require "vips"
 
-      # 画像データを読み込み
-      blob = image.download
-      input_image = Vips::Image.new_from_buffer(blob, "")
+      begin
+        # 送信された画像を直接処理
+        input_image = Vips::Image.new_from_buffer(image_io.tempfile.read, "")
+        image_io.tempfile.rewind
 
-      # アスペクト比を維持しながらリサイズ
-      processed_image = input_image.thumbnail_image(854,
-        height: 480,
-        size: :down,        # 画像を縮小のみ行う
-        crop: :none,        # クロップを無効化
-        linear: true       # より滑らかなスケーリング
-      )
+        # アスペクト比を維持しながらリサイズ
+        processed_image = input_image.thumbnail_image(854,
+          height: 480,
+          size: :down,
+          crop: :none,
+          linear: true
+        )
 
-      # WebPフォーマットに変換（品質80%）
-      output_buffer = processed_image.webpsave_buffer(
-        Q: 80,
-        effort: 4,         # 圧縮の努力レベル
-        reduction_effort: 2 # ファイルサイズ削減の努力レベル
-      )
+        # WebPフォーマットに変換
+        output_buffer = processed_image.webpsave_buffer(
+          Q: 80,
+          effort: 4,
+          reduction_effort: 2
+        )
 
-      # 処理した画像を再アタッチ
-      image.attach(
-        io: StringIO.new(output_buffer),
-        filename: "#{image.filename.base}.webp",
-        content_type: "image/webp"
-      )
+        # 新しい一時ファイルを作成して処理済み画像を書き込む
+        new_tempfile = Tempfile.new(['processed', '.webp'])
+        new_tempfile.binmode
+        new_tempfile.write(output_buffer)
+        new_tempfile.rewind
+
+        # 元のUploadedFileオブジェクトの属性を更新
+        image_io.tempfile = new_tempfile
+        image_io.original_filename = "#{File.basename(image_io.original_filename, '.*')}.webp"
+        image_io.content_type = "image/webp"
+      rescue => e
+        Rails.logger.error "Image processing error: #{e.message}"
+        raise e
+      end
     end
 end
