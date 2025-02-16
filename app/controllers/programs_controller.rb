@@ -93,7 +93,6 @@ class ProgramsController < ApplicationController
           height: 480,
           size: :down,
           crop: :none,
-          linear: true
         )
 
         # WebPフォーマットに変換
