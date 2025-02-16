@@ -49,13 +49,13 @@ class Program < ApplicationRecord
 
     # ファイルサイズの制限（5MB以下）
     unless image.byte_size <= 5.megabyte
-      errors.add(:image, 'のサイズは5MB以下にしてください')
+      errors.add(:image, "のサイズは5MB以下にしてください")
     end
 
     # 許可する拡張子とContent-Type
-    acceptable_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+    acceptable_types = [ "image/jpeg", "image/png", "image/gif", "image/webp" ]
     unless acceptable_types.include?(image.content_type)
-      errors.add(:image, 'はJPEG、PNG、GIF、WebP形式のみアップロード可能です')
+      errors.add(:image, "はJPEG、PNG、GIF、WebP形式のみアップロード可能です")
     end
   end
 end

@@ -29,7 +29,7 @@ class ProgramsController < ApplicationController
 
   def create
     @program = current_user.programs.build(program_params)
-    
+
     if params[:program][:image].present?
       process_and_transform_image(params[:program][:image])
     end
@@ -103,7 +103,7 @@ class ProgramsController < ApplicationController
         )
 
         # 新しい一時ファイルを作成して処理済み画像を書き込む
-        new_tempfile = Tempfile.new(['processed', '.webp'])
+        new_tempfile = Tempfile.new([ "processed", ".webp" ])
         new_tempfile.binmode
         new_tempfile.write(output_buffer)
         new_tempfile.rewind
