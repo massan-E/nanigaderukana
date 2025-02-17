@@ -50,7 +50,7 @@ ja:
               too_long: "番組の説明は最大255文字までです。"
             image:
               content_type_invalid: "はJPEG、PNG、GIF、WebP形式のみアップロード可能です"
-              file_size_out_of_range: "は5MB以下にしてください"
+              file_size_not_less_than_or_equal_to: "は %{max}以下にしてください (現在のサイズは %{file_size})"
         letterbox:
           attributes:
             title:

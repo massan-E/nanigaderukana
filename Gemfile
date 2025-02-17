@@ -43,7 +43,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 # ActiveStorageのバリデーションを簡単に書けるgem
-gem 'active_storage_validations'
+gem "active_storage_validations"
 
 # 画像保存用ストレージcloudinaryのgem
 gem "cloudinary"
