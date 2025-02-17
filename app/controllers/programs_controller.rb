@@ -53,7 +53,6 @@ class ProgramsController < ApplicationController
     # まず属性の更新のみを行う
     @program.assign_attributes(program_params)
 
-    Rails.logger.debug "@program.valid? => #{@program.valid?}"
     if @program.valid?
       # 画像処理が必要な場合のみ実行
       if params[:program][:image].present?
