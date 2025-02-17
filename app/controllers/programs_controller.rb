@@ -29,15 +29,20 @@ class ProgramsController < ApplicationController
 
   def create
     @program = current_user.programs.build(program_params)
-    
-    if params[:program][:image].present?
-      process_and_transform_image(params[:program][:image])
-    end
 
-    if @program.save
-      current_user.user_participations.create(program: @program)
-      flash[:notice] = "番組を作成しました"
-      redirect_to @program
+    if @program.valid?
+      if params[:program][:image].present?
+        process_and_transform_image(params[:program][:image])
+      end
+
+      if @program.save
+        current_user.user_participations.create(program: @program)
+        flash[:notice] = "番組を作成しました"
+        redirect_to @program
+      else
+        flash.now[:danger] = "番組を作成できませんでした、番組作成フォームを確認してください"
+        render :new, status: :unprocessable_entity
+      end
     else
       flash.now[:danger] = "番組を作成できませんでした、番組作成フォームを確認してください"
       render :new, status: :unprocessable_entity
@@ -45,13 +50,23 @@ class ProgramsController < ApplicationController
   end
 
   def update
-    if params[:program][:image].present?
-      process_and_transform_image(params[:program][:image])
-    end
+    # まず属性の更新のみを行う
+    @program.assign_attributes(program_params)
 
-    if @program.update(program_params)
-      flash[:notice] = "番組を編集しました"
-      redirect_to @program
+    if @program.valid?
+      # 画像処理が必要な場合のみ実行
+      if params[:program][:image].present?
+        process_and_transform_image(params[:program][:image])
+      end
+
+      # バリデーションが通った場合のみ保存
+      if @program.save
+        flash[:notice] = "番組を編集しました"
+        redirect_to @program
+      else
+        flash.now[:danger] = "番組を編集できませんでした、番組編集フォームを確認してください"
+        render :edit, status: :unprocessable_entity
+      end
     else
       flash.now[:danger] = "番組を編集できませんでした、番組編集フォームを確認してください"
       render :edit, status: :unprocessable_entity
@@ -103,7 +118,7 @@ class ProgramsController < ApplicationController
         )
 
         # 新しい一時ファイルを作成して処理済み画像を書き込む
-        new_tempfile = Tempfile.new(['processed', '.webp'])
+        new_tempfile = Tempfile.new([ "processed", ".webp" ])
         new_tempfile.binmode
         new_tempfile.write(output_buffer)
         new_tempfile.rewind
