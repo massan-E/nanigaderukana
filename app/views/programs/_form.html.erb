@@ -27,7 +27,7 @@
       <%= form.label :image, "画像", class: "form-label" %>
       <%= form.file_field :image,
           class: "form-control",
-          accept: "image/jpeg,image/png,image/gif,image/webp"
+          accept: Program::ACCEPTED_CONTENT_TYPES.join(",")
           %>
       <small class="form-text text-white-50">
         ※ JPEG、PNG、GIF、WebP形式（5MB以下）のみアップロード可能です
