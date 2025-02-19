@@ -8,6 +8,11 @@
         <i class="bi bi-envelope me-3"></i>
         お便り箱一覧
       </h1>
+      <%= link_to new_program_letterbox_path(@program), 
+          class: "btn btn-primary rounded-pill px-4 hover-lift" do %>
+        <i class="bi bi-plus-lg me-2"></i>
+        お便り箱新規作成
+      <% end %>
     </div>
 
     <div class="search-form-container">
