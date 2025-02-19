@@ -42,9 +42,28 @@
       }
 
       document.querySelectorAll('.scroll').forEach(elem => {
-        // const span = document.getElementById('title-span');
         const span = elem.querySelector('span');
         if (span.scrollWidth > elem.clientWidth) {
+          // スクロールが必要な場合のみアニメーションを適用
+          const scrollDistance = span.scrollWidth - elem.clientWidth;
+          
+          // CSSアニメーションを動的に生成
+          const styleSheet = document.styleSheets[0];
+          const animationName = `scrollText-${Math.random().toString(36).substr(2, 9)}`; // ユニークな名前を生成
+          
+          const keyframes = `
+            @keyframes ${animationName} {
+              0%, 20% { transform: translateX(0); }
+              65%, 90% { transform: translateX(-${scrollDistance}px); }
+              100% { transform: translateX(0); }
+            }
+          `;
+          
+          // スタイルシートにキーフレームを追加
+          styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+          
+          // アニメーションを要素に適用
+          span.style.animation = `${animationName} ${Math.min(20, Math.max(11, scrollDistance / 50))}s infinite`;
           span.classList.add('title-scroll');
         }
       });
