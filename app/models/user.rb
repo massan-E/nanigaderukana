@@ -4,9 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  validates :email, uniqueness: true, allow_blank: true # deviceとともに追加
+  validates :email, uniqueness: { case_sensitive: false, allow_blank: true } # deviceとともに追加
 
-  validates :name,  presence: true, uniqueness: true, length: { maximum: 50 }
+  validates :name,  presence: true,
+                    uniqueness: { case_sensitive: false },
+                    length: { maximum: 50 }
 
 
   has_many :letters, dependent: :destroy
