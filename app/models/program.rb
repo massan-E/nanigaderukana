@@ -1,7 +1,9 @@
 class Program < ApplicationRecord
   attr_accessor :invitation_token
 
-  validates :title, presence: true, uniqueness: true, length: { maximum: 100 }
+  validates :title, presence: true,
+                   uniqueness: { case_sensitive: false }, # 大文字小文字を区別しない
+                   length: { maximum: 100 }
   validates :body, allow_nil: true, length: { maximum: 255 }
 
   belongs_to :user
