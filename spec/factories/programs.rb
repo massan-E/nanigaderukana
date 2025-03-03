@@ -3,6 +3,9 @@ FactoryBot.define do
     sequence(:title) { |n| "プログラム#{n}" }
     body { "プログラムの説明文です" }
     association :user
-    send_invitation_at { Time.current }
+
+    after(:create) do |program|
+      create(:user_participation, user: program.user, program: program)
+    end
   end
 end

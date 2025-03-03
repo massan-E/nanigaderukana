@@ -4,6 +4,7 @@ class InvitationsController < ApplicationController
   before_action :authorized_user, only: %i[ show new create ]
   before_action :email_registered_user, only: %i[ show new create edit update ]
   before_action :valid_user, only: %i[ edit update ]
+  before_action :check_expiration, only: %i[ update ]
 
   def show
     @expiration_time = @program.expiration_time
