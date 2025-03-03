@@ -37,27 +37,27 @@ RSpec.describe 'Programs', type: :system do
   describe '招待機能' do
     let!(:program) { create(:program, user: user) }
     let(:other_user) { create(:user) }
-    
+
     context '番組制作者の場合' do
       it '招待リンクを生成できること', js: true do
         visit edit_program_path(program)
         click_link 'ユーザーを招待する'
-        
+
         expect(page).to have_content 'この番組への招待リンクを生成しますか？'
-        
+
         click_button '招待リンクを生成する'
         expect(page).to have_content '招待リンク'
         expect(page).to have_content '招待リンクは'
         expect(page).to have_content 'に期限切れになります'
       end
-      
+
       context '招待リンクの有効期限' do
         before do
           program.create_invitation_digest
           sign_out user
           sign_in other_user
         end
-        
+
         it '3日以内の場合、リンクが有効であること', js: true do
           program.update(send_invitation_at: 2.days.ago)
           visit edit_program_invitation_path(program, program.invitation_token)
