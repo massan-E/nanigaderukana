@@ -3,21 +3,25 @@ class LetterboxesController < ApplicationController
   before_action :set_program, only: %i[ index new create edit update destroy ]
   before_action :authenticate_user!, only: %i[ index new create edit update destroy ]
   before_action :email_registered_user, only: %i[ new create edit update destroy ]
-  before_action :authorized_user, only: %i[ new create edit update destroy ]
 
   def index
+    authorize @program, policy_class: LetterboxPolicy
     @q = @program.letterboxes.ransack(params[:q])
     @result = @q.result(distinct: true)
     @letterboxes = @result.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def new
+    authorize @program, policy_class: LetterboxPolicy
     @letterbox = Letterbox.new
   end
 
-  def edit; end
+  def edit
+    authorize @program, policy_class: LetterboxPolicy
+  end
 
   def create
+    authorize @program, policy_class: LetterboxPolicy
     @letterbox = @program.letterboxes.build(letterbox_params)
     if @letterbox.save
       flash[:notice]= "お便り箱を作成しました"
@@ -29,6 +33,7 @@ class LetterboxesController < ApplicationController
   end
 
   def update
+    authorize @program, policy_class: LetterboxPolicy
     if @letterbox.update(letterbox_params)
       flash[:notice]= "お便り箱を編集しました"
       redirect_to @program
@@ -39,6 +44,7 @@ class LetterboxesController < ApplicationController
   end
 
   def destroy
+    authorize @program, policy_class: LetterboxPolicy
     @letterbox.destroy!
     flash[:notice]= "お便り箱を削除しました"
     redirect_to @program, status: :see_other
@@ -52,11 +58,5 @@ class LetterboxesController < ApplicationController
 
     def letterbox_params
       params.require(:letterbox).permit(:title, :body)
-    end
-
-    def authorized_user
-      unless producer?(current_user, @program) || current_user.admin?
-        redirect_to(root_url, status: :see_other)
-      end
     end
 end

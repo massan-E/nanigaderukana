@@ -2,14 +2,15 @@ class ProgramsController < ApplicationController
   before_action :set_program, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[ new create edit update destroy ]
   before_action :email_registered_user, only: %i[ new create edit update destroy ]
-  before_action :authorized_user, only: %i[ edit update destroy ]
 
   def index
     @q = Program.includes(:user).all.order(created_at: :desc).ransack(params[:q])
     @programs = @q.result(distinct: true).page(params[:page]).per(6)
+    authorize @programs
   end
 
   def show
+    authorize @program
     @letter = Letter.new
     @letter.radio_name = current_user.name if current_user
     @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
@@ -18,9 +19,11 @@ class ProgramsController < ApplicationController
 
   def new
     @program = Program.new
+    authorize @program
   end
 
   def edit
+    authorize @program
     @members = @program.participants
                        .where.not(id: @program.user_id)
                        .page(params[:page])
@@ -29,6 +32,7 @@ class ProgramsController < ApplicationController
 
   def create
     @program = current_user.programs.build(program_params)
+    authorize @program
 
     if @program.valid?
       if params[:program][:image].present?
@@ -52,6 +56,7 @@ class ProgramsController < ApplicationController
   def update
     # まず属性の更新のみを行う
     @program.assign_attributes(program_params)
+    authorize @program
 
     if @program.valid?
       # 画像処理が必要な場合のみ実行
@@ -74,6 +79,7 @@ class ProgramsController < ApplicationController
   end
 
   def destroy
+    authorize @program
     @program.destroy!
     flash[:notice]= "番組を削除しました"
     redirect_to programs_path, status: :see_other
@@ -87,12 +93,6 @@ class ProgramsController < ApplicationController
 
     def program_params
       params.require(:program).permit(:title, :body, :image)
-    end
-
-    def authorized_user
-      unless producer?(current_user, @program) || current_user.admin?
-        redirect_to(root_url, status: :see_other)
-      end
     end
 
     def process_and_transform_image(image_io)

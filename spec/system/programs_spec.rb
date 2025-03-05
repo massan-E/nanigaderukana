@@ -61,6 +61,7 @@ RSpec.describe 'Programs', type: :system do
         it '3日以内の場合、リンクが有効であること', js: true do
           program.update(send_invitation_at: 2.days.ago)
           visit edit_program_invitation_path(program, program.invitation_token)
+          expect(page).to have_button '参加する'
           click_button '参加する'
           expect(page).to have_content "#{program.title}の制作に参加しました"
         end
@@ -68,6 +69,7 @@ RSpec.describe 'Programs', type: :system do
         it '3日以上経過した場合、リンクが無効になること', js: true do
           program.update(send_invitation_at: 4.days.ago)
           visit edit_program_invitation_path(program, program.invitation_token)
+          expect(page).to have_button '参加する'
           click_button '参加する'
           expect(page).to have_content '招待リンクが期限切れです'
         end

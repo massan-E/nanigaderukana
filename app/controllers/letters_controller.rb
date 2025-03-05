@@ -3,24 +3,27 @@ class LettersController < ApplicationController
   before_action :set_program, only: %i[ index show new create ]
   before_action :authenticate_user!, only: %i[ index show destroy ]
   before_action :email_registered_user, only: %i[ index ]
-  before_action :editable_user, only: %i[ destroy ]
-  before_action :authorized_user, only: %i[ show ]
 
   def index
+    authorize @program, policy_class: LetterPolicy
     @q = @program.letters.includes(:letterbox).ransack(params[:q])
     @result = @q.result(distinct: true)
     @letters = @result.order(created_at: :desc).page(params[:page]).per(10)
   end
 
-  def show; end
+  def show
+    authorize @program, policy_class: LetterPolicy
+  end
 
   def new
+    authorize @program, policy_class: LetterPolicy
     @letter = Letter.new
     @letter.radio_name = current_user&.name
     @letter.letterbox_id = params[:letter]&.dig(:letterbox_id)
   end
 
   def create
+    authorize @program, policy_class: LetterPolicy
     @letter = Letter.new(letter_params)
     @letter.user_id = current_user&.id
     @letter.program_id = params[:program_id]
@@ -34,6 +37,7 @@ class LettersController < ApplicationController
   end
 
   def destroy
+    authorize @program, policy_class: LetterPolicy
     @letter.destroy!
     flash[:notice]= "お便りを削除しました"
     redirect_to letters_path, status: :see_other
@@ -47,17 +51,5 @@ class LettersController < ApplicationController
 
     def letter_params
       params.require(:letter).permit(:body, :radio_name, :letterbox_id)
-    end
-
-    def editable_user
-      unless current_user == @letter.user || current_user.admin?
-        redirect_to(root_url, status: :see_other)
-      end
-    end
-
-    def authorized_user
-      unless producer?(current_user, @program) || current_user&.admin? || current_user == @letter&.user
-        redirect_to(root_url, status: :see_other)
-      end
     end
 end

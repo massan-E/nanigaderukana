@@ -4,10 +4,12 @@ class LetterStatusController < ApplicationController
   before_action :email_registered_user, only: %i[ read unread ]
 
   def read
+    authorize @letter.program, policy_class: LetterStatusPolicy
     @letter.update(is_read: true)
   end
 
   def unread
+    authorize @letter.program, policy_class: LetterStatusPolicy
     @letter.update(is_read: false)
   end
 
