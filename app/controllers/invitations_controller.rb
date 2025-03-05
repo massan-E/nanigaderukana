@@ -1,26 +1,32 @@
 class InvitationsController < ApplicationController
   before_action :set_program, only: %i[ show new create edit update]
   before_action :authenticate_user!, only: %i[ show new create edit update ]
-  before_action :authorized_user, only: %i[ show new create ]
   before_action :email_registered_user, only: %i[ show new create edit update ]
   before_action :valid_user, only: %i[ edit update ]
   before_action :check_expiration, only: %i[ update ]
 
   def show
+    authorize @program, policy_class: InvitationPolicy
     @expiration_time = @program.expiration_time
   end
 
-  def new; end
+  def new
+    authorize @program, policy_class: InvitationPolicy
+  end
 
   def create
+    authorize @program, policy_class: InvitationPolicy
     @program.create_invitation_digest
     flash[:notice]= "招待リンクを作成しました"
     redirect_to program_invitation_path(@program, @program.invitation_token)
   end
 
-  def edit; end
+  def edit
+    authorize @program, policy_class: InvitationPolicy
+  end
 
   def update
+    authorize @program, policy_class: InvitationPolicy
     participation = UserParticipation.new(user: current_user, program: @program)
     if participation.save
       flash[:notice]= "#{@program.title}の制作に参加しました"
@@ -42,12 +48,6 @@ class InvitationsController < ApplicationController
     def valid_user
       unless @program && @program.authenticated?(params[:id])
         redirect_to root_url
-      end
-    end
-
-    def authorized_user
-      unless producer?(current_user, @program) || current_user.admin?
-        redirect_to(root_url, status: :see_other)
       end
     end
 end

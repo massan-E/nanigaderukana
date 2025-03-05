@@ -1,14 +1,15 @@
 class RandomLettersController < ApplicationController
   include LettersHelper
   before_action :set_program, only: %i[ show random reset ]
-  before_action :authorized_user, only: %i[ show random reset ]
   before_action :email_registered_user, only: %i[ show random reset ]
 
   def show
+    authorize @program, policy_class: RandomLetterPolicy
     @letters = fetch_letters(params[:q])
   end
 
   def random
+    authorize @program, policy_class: RandomLetterPolicy
     @letters = fetch_letters(params[:q])
     return render "letters/nothing" unless @letters
     @letter = letter_sampling(@letters)
@@ -16,6 +17,7 @@ class RandomLettersController < ApplicationController
   end
 
   def reset
+    authorize @program, policy_class: RandomLetterPolicy
     @letters = fetch_letters(params[:q])
     @letters.reset_is_read
     redirect_to program_random_letters_path(q: permitted_q_params)
