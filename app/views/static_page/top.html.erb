@@ -40,7 +40,27 @@
     }
   </style>
 
-  <% if @programs %>
+  <% if @rankings.present? %>
+    <section class="glass-morphism p-5 mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="display-6 fw-bold text-gradient mb-0">
+          <i class="bi bi-broadcast-pin me-3"></i>
+          勢いランキング
+        </h2>
+      </div>
+
+      <swiper-container class="mySwiper" effect="coverflow" centered-slides="true" slides-per-view="auto"
+                        autoplay-delay="7200" speed="2400" scrollbar-hide="true">
+        <% @rankings.each do |result| %>
+          <swiper-slide>
+            <%= render "programs/program", program: result.program %>
+          </swiper-slide>
+        <% end %>
+      </swiper-container>
+    </section>
+  <% end %>
+
+  <% if @programs.present? %>
     <section class="glass-morphism p-5 mb-5">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="display-6 fw-bold text-gradient mb-0">
@@ -63,7 +83,6 @@
           </swiper-slide>
         <% end %>
       </swiper-container>
-
     </section>
   <% end %>
 

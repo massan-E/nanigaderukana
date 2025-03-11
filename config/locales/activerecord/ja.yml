@@ -5,6 +5,7 @@ ja:
       program: 番組
       letterbox: お便り箱
       letter: お便り
+      program_ranking: "勢いランキング"
     attributes:
       user:
         name: ユーザー名
@@ -24,6 +25,10 @@ ja:
         title: タイトル
         body: 本文
         letterbox: お便り箱
+      program_ranking:
+        program_id: "番組ID"
+        letters_count: "お便り数"
+        ranked_on: "ランキング日"
     errors:
       models:
         user:
@@ -72,3 +77,21 @@ ja:
               too_long: "本文は最大999文字までです。"
             letterbox:
               required: "%{attribute}を選択してください。"
+        program_ranking:
+          attributes:
+            program:
+              required: "番組が存在しません"
+              blank: "番組を選択してください"
+            program_id:
+              blank: "番組IDを入力してください"
+            letters_count:
+              blank: "お便り数を入力してください"
+            ranked_on:
+              blank: "ランキング日を入力してください"
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+        required: "%{attribute}は必須です"
+        blank: "%{attribute}を入力してください"

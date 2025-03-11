@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_13_021647) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_11_162521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_13_021647) do
     t.index ["user_id"], name: "index_letters_on_user_id"
   end
 
+  create_table "program_rankings", force: :cascade do |t|
+    t.bigint "program_id", null: false
+    t.integer "letters_count", null: false
+    t.date "ranked_on", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["letters_count"], name: "index_program_rankings_on_letters_count"
+    t.index ["program_id"], name: "index_program_rankings_on_program_id"
+  end
+
   create_table "programs", force: :cascade do |t|
     t.string "title", null: false
     t.text "body"
@@ -105,7 +115,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_13_021647) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true, where: "(email IS NOT NULL)"
+    t.index ["email"], name: "index_users_on_email", unique: true, where: "((email IS NOT NULL) AND ((email)::text <> ''::text))"
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -116,6 +126,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_13_021647) do
   add_foreign_key "letters", "letterboxes"
   add_foreign_key "letters", "programs"
   add_foreign_key "letters", "users"
+  add_foreign_key "program_rankings", "programs"
   add_foreign_key "programs", "users"
   add_foreign_key "user_participations", "programs"
   add_foreign_key "user_participations", "users"
