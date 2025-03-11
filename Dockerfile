@@ -28,6 +28,9 @@ ARG SECRET_KEY_BASE
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
+COPY bin/update_program_rankings.sh /usr/bin/update_program_rankings.sh
+RUN chmod +x /usr/bin/update_program_rankings.sh
+
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
