@@ -53,6 +53,8 @@ Rails.application.configure do
 
   # テスト環境でのホスト制限を解除
   config.hosts.clear
+  config.hosts << "localhost"  # localhostを追加
+  config.hosts << "127.0.0.1"  # IPアドレスを追加
   config.hosts << "chrome"
   config.hosts << "web"
 end
