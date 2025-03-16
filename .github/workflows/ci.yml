@@ -27,17 +27,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      SELENIUM_REMOTE_HOST: localhost
-      CAPYBARA_APP_HOST: localhost
-
+      RAILS_ENV: test
+      CI: 'true'
 
     services:
-      chrome:
-        image: selenium/standalone-chrome:latest
-        ports:
-          - 4444:4444
-        options: --shm-size=2g
-
       postgres:
         image: postgres
         env:
@@ -62,6 +55,11 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
 
       - name: Cache node modules
         uses: actions/cache@v4
