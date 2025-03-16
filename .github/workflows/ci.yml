@@ -32,6 +32,12 @@ jobs:
 
 
     services:
+      chrome:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+        options: --shm-size=2g
+
       postgres:
         image: postgres
         env:
