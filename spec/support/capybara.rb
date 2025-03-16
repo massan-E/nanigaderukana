@@ -16,7 +16,7 @@ Capybara.register_driver :remote_chrome do |app|
     Capybara::Selenium::Driver.new(
       app,
       browser: :chrome,
-      capabilities: options
+      options: options
     )
   else
     # ローカル開発環境ではDockerのSeleniumを使用
@@ -24,7 +24,7 @@ Capybara.register_driver :remote_chrome do |app|
       app,
       browser: :remote,
       url: "http://chrome:4444/wd/hub",
-      capabilities: options
+      options: options
     )
   end
 end
@@ -41,7 +41,7 @@ RSpec.configure do |config|
 
   config.before(:each, type: :system, js: true) do
     driven_by :remote_chrome
-    
+
     if is_ci
       # CI環境の設定
       Capybara.server_host = '127.0.0.1'
