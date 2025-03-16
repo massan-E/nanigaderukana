@@ -26,6 +26,10 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      SELENIUM_REMOTE_HOST: localhost
+      CAPYBARA_APP_HOST: localhost
+
 
     services:
       postgres:
