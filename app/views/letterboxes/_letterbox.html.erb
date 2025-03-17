@@ -26,6 +26,10 @@
         <p class="mb-0"><%= markdown(letterbox.body) %></p>
       </div>
 
+      <% if current_user&.admin? || producer?(current_user, letterbox.program) %>
+        <%= link_to 'このお便り箱のお便り一覧', program_letters_path(letterbox.program, q: { letterbox_id_eq: letterbox.id }), method: :get %>
+      <% end %>
+
       <div class="flex-grow-1"></div>
       <div class="card-actions">
         <% unless action_name == "index" %>
@@ -38,6 +42,7 @@
           <% end %>
         <% end %>
       </div>
+
       <div class="d-flex gap-3 mt-4">
         <% if action_name == "index" %>
 
