@@ -85,13 +85,6 @@ class ProgramsController < ApplicationController
     redirect_to programs_path, status: :see_other
   end
 
-  def search
-    @programs = Program.where("title like ?", "%#{params[:q]}%").limit(6)
-    respond_to do |format|
-      format.js
-    end
-  end
-
   private
 
     def set_program

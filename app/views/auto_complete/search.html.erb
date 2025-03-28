@@ -1,0 +1,9 @@
+<% @objects.each do |object| %>
+  <li class="list-group-item d-flex align-items-center py-2 px-3 rounded text-secondary text-truncate"
+      role="option"
+      data-autocomplete-value="<%= display_value(object) %>"
+      data-autocomplete-label="<%= display_value(object) %>"
+      style="width: 20rem; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+    <%= display_value(object) %>
+  </li>
+<% end %>
