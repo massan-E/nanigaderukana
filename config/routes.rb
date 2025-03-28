@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       end
     end
     post "switch_publish", to: "object_publish#switch_publish"
+    get :search, on: :collection
   end
 
   resources :users, only: %i[ index show destroy ]
