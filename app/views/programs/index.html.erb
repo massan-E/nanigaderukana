@@ -19,18 +19,28 @@
     </div>
 
     <%= search_form_for @q, url: programs_path, 
-        class: "row g-3 align-items-end search-form" do |f| %>
-      <div data-controller="autocomplete" data-autocomplete-url-value=<%= "#{search_path(model_name: "Program")}" %> role="combobox">
-        <div class="col-md-5">
-          <%= f.search_field :title_or_body_or_user_name_cont, 
-              class: 'form-control',
-              placeholder: 'タイトル、本文、ユーザー名で検索...',
-              data: { autocomplete_target: 'input' } %>
-          <ul class="list-group" data-autocomplete-target="results"></ul>
+        class: "search-form" do |f| %>
+      
+      <!-- メイン検索エリア -->
+      <div class="row g-3 mb-4">
+        <div class="col-12 col-lg-8">
+          <div data-controller="autocomplete" 
+               data-autocomplete-url-value="<%= search_path(model_name: "Program") %>" 
+               role="combobox"
+               class="position-relative">
+            <%= f.search_field :title_or_body_or_user_name_cont, 
+                class: 'form-control',
+                placeholder: 'タイトル、本文、ユーザー名で検索...',
+                data: { autocomplete_target: 'input' } %>
+            <ul class="list-group position-absolute w-100 mt-1" 
+                data-autocomplete-target="results" 
+                style="z-index: 1000;"></ul>
+          </div>
         </div>
 
-        <div class="col-md-2">
-          <%= f.submit '検索', class: 'btn btn-primary w-50 rounded-pill hover-lift' %>
+        <!-- 検索ボタン -->
+        <div class="col-12 col-lg-2">
+          <%= f.submit '検索', class: 'btn btn-primary w-100 rounded-pill hover-lift' %>
         </div>
       </div>
     <% end %>
