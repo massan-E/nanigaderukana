@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_11_162521) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_31_102005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,6 +90,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_11_162521) do
     t.index ["user_id"], name: "index_programs_on_user_id"
   end
 
+  create_table "sns_credentials", force: :cascade do |t|
+    t.string "provider"
+    t.string "uid"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sns_credentials_on_user_id"
+  end
+
   create_table "user_participations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "program_id"
@@ -128,6 +137,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_11_162521) do
   add_foreign_key "letters", "users"
   add_foreign_key "program_rankings", "programs"
   add_foreign_key "programs", "users"
+  add_foreign_key "sns_credentials", "users"
   add_foreign_key "user_participations", "programs"
   add_foreign_key "user_participations", "users"
 end
