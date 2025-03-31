@@ -7,6 +7,8 @@ class Letter < ApplicationRecord
   belongs_to :letterbox
   belongs_to :program
 
+  scope :search, ->(q) { where("radio_name LIKE ?", "%#{q}%").limit(6) }
+
   def self.ransackable_attributes(auth_object = nil)
     [ "body", "letterbox_id", "is_read", "publish", "radio_name", "created_at" ]
   end

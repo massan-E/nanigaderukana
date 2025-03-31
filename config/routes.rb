@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     post "switch_publish", to: "object_publish#switch_publish"
   end
 
+  get "/search", to: "auto_complete#search"
+
   resources :users, only: %i[ index show destroy ]
 
   get "up" => "rails/health#show", as: :rails_health_check

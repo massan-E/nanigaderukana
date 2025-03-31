@@ -16,6 +16,8 @@ class Program < ApplicationRecord
 
   has_one :program_ranking, dependent: :destroy
 
+  scope :search, ->(q) { where("title LIKE ?", "%#{q}%").limit(6) }
+
   # ファイルの種類とサイズのバリデーション（gem ActiveStorage Validationを使用）
   ACCEPTED_CONTENT_TYPES = %w[image/jpeg image/png image/gif image/webp].freeze
   validates :image, content_type: ACCEPTED_CONTENT_TYPES,

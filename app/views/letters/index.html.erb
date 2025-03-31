@@ -17,9 +17,13 @@
         <!-- メイン検索エリア -->
         <div class="row g-3 mb-4">
           <div class="col-12 col-lg-8">
-            <%= f.search_field :body_or_user_name_or_radio_name_cont, 
-                class: 'form-control',
-                placeholder: '本文、ユーザー名、ラジオネームで検索...' %>
+            <div data-controller="autocomplete" data-autocomplete-url-value=<%= "#{search_path(model_name: "Letter", program_id: @program.id)}" %> role="combobox">
+              <%= f.search_field :body_or_user_name_or_radio_name_cont, 
+                  class: 'form-control',
+                  placeholder: '本文、ユーザー名、ラジオネームで検索...',
+                  data: { autocomplete_target: 'input' } %>
+              <ul class="list-group position-absolute w-100 mt-1" data-autocomplete-target="results" style="z-index: 1000;"></ul>
+            </div>
           </div>
           <div class="col-12 col-lg-4">
             <%= f.collection_select :letterbox_id_eq,

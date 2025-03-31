@@ -3,6 +3,7 @@ class Letterbox < ApplicationRecord
   validates :body, allow_nil: true, length: { maximum: 255 }
 
   scope :published, -> { where(publish: true) }
+  scope :search, ->(q) { where("title LIKE ?", "%#{q}%").limit(6) }
 
   belongs_to :program
   has_many :letters, dependent: :nullify
