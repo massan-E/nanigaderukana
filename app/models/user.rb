@@ -48,13 +48,7 @@ class User < ApplicationRecord
     def without_sns_data(auth)
       user = User.where(email: auth.info.email).first
 
-      if user.present?
-        sns = SnsCredential.create(
-          uid: auth.uid,
-          provider: auth.provider,
-          user_id: user.id
-        )
-      else   # User.newの記事があるが、newは保存までは行わないのでcreateで保存をかける
+      if user.blank?
         user = User.create(
           name: auth.info.name,    # デフォルトから追加したカラムがあれば記入
           email: auth.info.email,
@@ -62,12 +56,12 @@ class User < ApplicationRecord
           password: Devise.friendly_token(10),   # 10文字の予測不能な文字列を生成する
           confirmed_at: Time.current   # 確認済みの時間を現在の時間に設定
           )
-        sns = SnsCredential.create(
-          user_id: user.id,
-          uid: auth.uid,
-          provider: auth.provider
-          )
       end
+      sns = SnsCredential.create(
+        user_id: user.id,
+        uid: auth.uid,
+        provider: auth.provider
+        )
       { user:, sns: }   # ハッシュ形式で呼び出し元に返す
     end
 
@@ -92,12 +86,15 @@ class User < ApplicationRecord
       uid = auth.uid
       provider = auth.provider
       snscredential = SnsCredential.where(uid:, provider:).first
+
       if snscredential.present?
         user = with_sns_data(auth, snscredential)[:user]
         sns = snscredential
       else
-        user = without_sns_data(auth)[:user]
-        sns = without_sns_data(auth)[:sns]
+        # without_sns_dataの結果を1回だけ取得して使い回す
+        result = without_sns_data(auth)
+        user = result[:user]
+        sns = result[:sns]
       end
       { user:, sns: }
     end

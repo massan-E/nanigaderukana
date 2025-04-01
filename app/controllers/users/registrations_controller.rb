@@ -78,4 +78,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     super(resource)
   end
+
+  # ユーザー情報編集時にパスワードを入力しなくても更新できるようにする
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 end
