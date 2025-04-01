@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
   root "static_page#top"
+  get "privacy_policy", to: "static_page#privacy_policy"
+  get "terms", to: "static_page#terms"
 
   resources :programs do
     resources :letterboxes, only: %i[ index new create edit update destroy ]
