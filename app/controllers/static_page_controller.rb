@@ -4,4 +4,8 @@ class StaticPageController < ApplicationController
     @letterboxes = Letterbox.includes(:program).order(created_at: :desc).limit(3)
     @rankings = ProgramRanking.all.includes(:program)
   end
+
+  def privacy_policy; end
+
+  def terms; end
 end

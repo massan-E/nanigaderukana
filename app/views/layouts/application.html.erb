@@ -31,13 +31,13 @@
       gtag('config', 'G-4NDY041WD6');
     </script>
   </head>
-
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <div class="background-animation">
       <%= inline_svg_tag "night_sky_background.svg" %>
     </div>
     <%= render 'shared/header' %>
     <%= yield %>
+    <%= render 'shared/footer' %>
     <script>
       window.copy = function(e) {
         // クリックしたボタンに紐づくコードの範囲の定義
