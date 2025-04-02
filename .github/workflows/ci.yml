@@ -74,6 +74,7 @@ jobs:
       - name: Setup Database
         run: |
           cp -v config/database.yml.ci config/database.yml
+          bundle exec rails assets:precompile
           bundle exec rails db:create
           bundle exec rails db:schema:load
         env:
