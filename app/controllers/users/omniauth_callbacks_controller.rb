@@ -42,7 +42,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # capitalizeは文字列の先頭を大文字に、それ以外は小文字に変更して返すメソッド
       set_flash_message(:notice, :success, kind: provider.to_s.capitalize) if is_navigational_format?
     else
-      session["devise.#{provider}_data"] = request.env["omniauth.auth"].except(:extra)
+      session["devise.#{provider}_data"] = @omniauth.except(:extra)
       set_flash_message(:alert, :failure, kind: provider.to_s.capitalize, reason: @user.errors.full_messages.join("\n")) if is_navigational_format?
       redirect_to new_user_registration_url
     end
