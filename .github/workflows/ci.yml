@@ -3,7 +3,7 @@ name: Run rspec, rubocop
 on:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   lint:
@@ -60,7 +60,7 @@ jobs:
         run: gem install bundler
 
       - name: Cache gems
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
