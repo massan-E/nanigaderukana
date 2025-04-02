@@ -3,6 +3,7 @@ require 'selenium-webdriver'
 
 Capybara.register_driver :remote_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
+  url = ENV['SELENIUM_DRIVER_URL']
 
   options.add_argument('--headless')
   options.add_argument('--no-sandbox')
@@ -12,7 +13,7 @@ Capybara.register_driver :remote_chrome do |app|
   Capybara::Selenium::Driver.new(
     app,
     browser: :remote,
-    url: "http://chrome:4444/wd/hub",
+    url: url,
     options: options
   )
 end
@@ -23,8 +24,12 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    driven_by :remote_chrome
-    Capybara.server_host = "web"
-    Capybara.app_host = "http://web"
+    if ENV['SELENIUM_DRIVER_URL']
+      driven_by :remote_chrome
+      Capybara.server_host = "web"
+      Capybara.app_host = "http://web"
+    else
+      driven_by :selenium_chrome_headless
+    end
   end
 end

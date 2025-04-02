@@ -37,6 +37,9 @@ jobs:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
 
+    env:
+      RAILS_ENV: test
+
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
@@ -53,16 +56,29 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Run tests
+      - name: Setup bundler
+        run: gem install bundler
+
+      - name: Cache gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+
+      - name: Install gems
+        run: bundle install --path vendor/bundle --jobs 4
+
+      - name: Setup Database
+        run: |
+          cp -v config/database.yml.ci config/database.yml
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-        run: bin/rails db:test:prepare test test:system
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
 
-      - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
-          if-no-files-found: ignore
+      - name: Run tests
+        run: bundle exec rspec
