@@ -39,18 +39,16 @@
     </div>
   <% end %>
 
-  <% if Rails.env.development? %>
-    <%- if devise_mapping.omniauthable? %>
-      <%- resource_class.omniauth_providers.each do |provider| %>
-        <div class="mb-2">
-          <%= button_to omniauth_authorize_path(resource_name, provider),
-              class: "btn btn-outline-light rounded-pill px-4 hover-lift",
-              data: { turbo: false } do %>
-            <i class="bi bi-<%= provider.to_s.downcase %> me-2"></i>
-            <%= OmniAuth::Utils.camelize(provider) %>でログイン
-          <% end %>
-        </div>
-      <% end %>
+  <%- if devise_mapping.omniauthable? %>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <div class="mb-2">
+        <%= button_to omniauth_authorize_path(resource_name, provider),
+            class: "btn btn-outline-light rounded-pill px-4 hover-lift",
+            data: { turbo: false } do %>
+          <i class="bi bi-<%= provider.to_s.downcase %> me-2"></i>
+          <%= OmniAuth::Utils.camelize(provider) %>でログイン
+        <% end %>
+      </div>
     <% end %>
   <% end %>
 </div>
