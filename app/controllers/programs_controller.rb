@@ -4,7 +4,7 @@ class ProgramsController < ApplicationController
   before_action :email_registered_user, only: %i[ new create edit update destroy ]
 
   def index
-    @q = Program.includes(:user).all.order(created_at: :desc).ransack(params[:q])
+    @q = Program.includes(:user).where(publish: true).order(created_at: :desc).ransack(params[:q])
     @programs = @q.result(distinct: true).page(params[:page]).per(6)
     authorize @programs
   end
