@@ -49,7 +49,7 @@ gem "active_storage_validations"
 gem "cloudinary"
 
 # 検索機能
-gem "ransack", "4.2.1"
+gem "ransack", "4.3.0"
 
 # svgの表示
 gem "inline_svg"
