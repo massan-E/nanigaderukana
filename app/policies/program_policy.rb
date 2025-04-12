@@ -4,7 +4,7 @@ class ProgramPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    record.publish? || user&.admin? || program_producer?
   end
 
   def create?

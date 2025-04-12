@@ -3,12 +3,14 @@ namespace :ranking do
   task update_ranking: :environment do
     ProgramRanking.delete_all
 
-    rankings = Letter.where(created_at: 2.weeks.ago..)
-                      .where.not(program_id: nil)
-                      .group(:program_id)
-                      .select("program_id, COUNT(id) as letters_count")
-                      .order("letters_count DESC")
-                      .limit(10)
+    rankings = Letter.joins(:program)
+                     .where(created_at: 2.weeks.ago..)
+                     .where(programs: { publish: true })
+                     .where.not(program_id: nil)
+                     .group(:program_id)
+                     .select("program_id, COUNT(letters.id) as letters_count")
+                     .order("letters_count DESC")
+                     .limit(10)
 
     ActiveRecord::Base.transaction do
       rankings.each do |result|

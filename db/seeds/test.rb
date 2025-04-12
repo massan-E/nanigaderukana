@@ -12,9 +12,12 @@
 
 if Rails.env.development? || Rails.env.test?
   31.times do
-    User.create!(name: Faker::Games::Overwatch.unique.hero,
-                password: "password",
-                password_confirmation: "password")
+    User.create!(
+      name: Faker::Games::Overwatch.unique.hero,
+      password: "password",
+      password_confirmation: "password",
+      confirmed_at: Time.current
+    )
   end
 
   user_ids = User.ids
@@ -42,10 +45,12 @@ if Rails.env.development? || Rails.env.test?
   # letters
   100.times do |index|
     letterbox = Letterbox.find(letterbox_ids.sample)
-    letterbox.letters.create!(title: "letterタイトル#{index}",
-                              body: "letter本文#{Faker::Games::Overwatch.quote}",
-                              user_id: user_ids.sample,
-                              radio_name: Faker::Name.unique.first_name,
-                              program_id: letterbox.program.id)
+    letterbox.letters.create!(
+      title: "letterタイトル#{index}",
+      body: "letter本文#{Faker::Games::Overwatch.quote}",
+      user_id: user_ids.sample,
+      radio_name: "ラジオネーム#{index}", # Fakerの代わりに連番を使用
+      program_id: letterbox.program.id
+    )
   end
 end

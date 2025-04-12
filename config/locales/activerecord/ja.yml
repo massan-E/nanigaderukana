@@ -16,15 +16,18 @@ ja:
         title: タイトル
         body: 番組の説明
         image: 画像
+        publish: 公開設定
       letterbox:
         title: タイトル
         body: お便り箱の説明
+        publish: 公開設定
       letter:
         radio_name: ラジオネーム
         letterbox_id: お便り箱
         title: タイトル
         body: 本文
         letterbox: お便り箱
+        publish: 公開設定
       program_ranking:
         program_id: "番組ID"
         letters_count: "お便り数"

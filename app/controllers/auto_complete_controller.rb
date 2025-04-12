@@ -5,7 +5,7 @@ class AutoCompleteController < ApplicationController
 
     @objects = case @model.to_s
     when "Program"
-      Program.search(params[:q])
+      Program.where(publish: true).search(params[:q])
     when "Letterbox"
       @program.letterboxes.search(params[:q])
     when "Letter"
