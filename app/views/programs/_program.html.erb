@@ -10,6 +10,13 @@
           </h4>
         </div>
 
+        <% unless program.publish? %>
+          <div class="unpublished-program-badge mb-4">
+            <i class="bi bi-eye-slash me-2"></i>
+            非公開の番組です
+          </div>
+        <% end %>
+
         <% if action_name == "index" %>
           <p class="text-gradient mb-3"><%= "総お便り数：#{program.letters.count} 件"%></p>
         <% end %>

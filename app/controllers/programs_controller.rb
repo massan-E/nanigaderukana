@@ -92,7 +92,7 @@ class ProgramsController < ApplicationController
     end
 
     def program_params
-      params.require(:program).permit(:title, :body, :image)
+      params.require(:program).permit(:title, :body, :image, :publish)
     end
 
     def process_and_transform_image(image_io)

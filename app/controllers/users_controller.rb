@@ -9,7 +9,11 @@ class UsersController < ApplicationController
 
   def show
     authorize @user
-    @programs = @user.joined_programs.order(created_at: :desc).page(params[:page]).per(6)
+    if @user == current_user
+      @programs = @user.joined_programs.order(created_at: :desc).page(params[:page]).per(6)
+    else
+      @programs = @user.joined_programs.where(publish: true).order(created_at: :desc).page(params[:page]).per(6)
+    end
     @letters = @user.letters.includes(:program).page(params[:page]).per(10)
   end
 
