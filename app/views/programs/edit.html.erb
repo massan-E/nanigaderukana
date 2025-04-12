@@ -27,11 +27,11 @@
             <div class="glass-morphism p-4 mb-4">
         <div class="d-flex justify-content-between align-items-center">
           <h2 class="text-gradient h4 mb-0">
-            <i class="bi bi-person-plus me-2"></i>
+            <i class="bi bi-eye-fill"></i>
             この番組の公開設定
           </h2>
           <div class="d-flex justify-content-end align-items-center mt-3">
-            <div class="d-flex align-items-center gap-3 text-white-50">
+            <div class="d-flex align-items-center text-white-50">
               <%= render "shared/publish_buttons", object: @program, program: @program %>
             </div>
           </div>
@@ -79,9 +79,9 @@
     <% end %>
 
     <div class="mt-4 d-flex gap-3">
-      <%= link_to 'javascript:history.back()', class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
+      <%= link_to @program, class: "btn btn-outline-light rounded-pill px-4 hover-lift" do %>
           <i class="bi bi-arrow-left me-2"></i>
-          戻る
+          番組詳細へ戻る
       <% end %>
     </div>
   </div>
