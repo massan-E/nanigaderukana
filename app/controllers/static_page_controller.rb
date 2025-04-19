@@ -8,4 +8,6 @@ class StaticPageController < ApplicationController
   def privacy_policy; end
 
   def terms; end
+
+  def usage; end  # 追加
 end
