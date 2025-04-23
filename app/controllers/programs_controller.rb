@@ -55,27 +55,68 @@ class ProgramsController < ApplicationController
 
   def update
     # まず属性の更新のみを行う
+
+    # ロガー
+    # logger.swim("assin_attributes前　ActiveStorage::Attachment.count : #{ActiveStorage::Attachment.count}")
+    # ロガー
+
     @program.assign_attributes(program_params)
-    logger.swim(program_params)
-    logger.swim(@program.image.class)
-    logger.swim(@program.image.inspect)
+
+    # ロガー
+    # logger.swim("assin_attributes後　ActiveStorage::Attachment.count : #{ActiveStorage::Attachment.count}")
+    # logger.swim(program_params)
+    # logger.swim(@program.image.class)
+    # logger.swim(@program.image.inspect)
+    # ロガー
+
     authorize @program
 
     if @program.valid?
+
+    # ロガー
+    # logger.swim("@program.valid?後　ActiveStorage::Attachment.count : #{ActiveStorage::Attachment.count}")
+    # ロガー
+
       # 画像処理が必要な場合のみ実行
+
       if params[:program][:image].present?
-        logger.swim("params[:program][:image].class: #{params[:program][:image].class}")
-        logger.swim("params[:program][:image].inspect: #{params[:program][:image].inspect}")
-        logger.swim "利用可能なメソッド: #{params[:program][:image].methods.sort}"
-        process_and_transform_image(params[:program][:image])
-        @program.image = params[:program][:image]
-        logger.swim("params content_type : #{params[:program][:image].content_type}, @program content_type : #{@program.image.content_type}")
+        processed_image = nil
+        begin
+          # ロガー
+          # logger.swim("params[:program][:image].class: #{params[:program][:image].class}")
+          # logger.swim("params[:program][:image].inspect: #{params[:program][:image].inspect}")
+          # logger.swim "利用可能なメソッド: #{params[:program][:image].methods.sort}"
+          # ロガー
+
+          processed_image = process_and_transform_image(params[:program][:image])
+          @program.image = processed_image
+
+          # ロガー
+          # logger.swim(@program.image.class)
+          # logger.swim(@program.image.inspect)
+          # logger.swim("params content_type : #{params[:program][:image].content_type}, @program content_type : #{@program.image.content_type}")
+          # ロガー
+
+        rescue => e
+          flash.now[:danger] = "画像の処理中にエラーが発生しました: #{e.message}"
+          return render :edit, status: :unprocessable_entity
+        # ensure
+        #   # 処理が終わったら一時ファイルをクローズ・削除
+        #   if processed_image&.tempfile && !processed_image.tempfile.closed?
+        #     processed_image.tempfile.close
+        #     processed_image.tempfile.unlink
+        #   end
+        end
       end
 
-      # バリデーションが通った場合のみ保存
       if @program.save
+
+        # ロガー
+        # logger.swim("@program.save後　ActiveStorage::Attachment.count : #{ActiveStorage::Attachment.count}")
+        # logger.swim(@program.image.content_type)
+        # ロガー
+
         flash[:notice] = "番組を編集しました"
-        logger.swim(@program.image.content_type)
         redirect_to @program
       else
         flash.now[:danger] = "番組を編集できませんでした、番組編集フォームを確認してください"
@@ -133,11 +174,34 @@ class ProgramsController < ApplicationController
         new_tempfile.rewind
 
         # 元のUploadedFileオブジェクトの属性を更新
-        image_io.tempfile = new_tempfile
-        image_io.original_filename = "#{File.basename(image_io.original_filename, '.*')}.webp"
-        image_io.content_type = "image/webp"
+        # image_io.tempfile = new_tempfile
+        # image_io.original_filename = "#{File.basename(image_io.original_filename, '.*')}.webp"
+        # image_io.content_type = "image/webp"
+
+        # ロガー
+        # logger.swim("tempfile: #{new_tempfile.path}")
+        # logger.swim("content_type: image/webp")
+        # logger.swim("headers: #{image_io.headers}")
+        # ロガー
+
+        # 新しいUploadedFileオブジェクトを作成して返す
+        result = ActionDispatch::Http::UploadedFile.new(
+          tempfile: new_tempfile,
+          type: "image/webp",
+          filename: "#{File.basename(image_io.original_filename, '.*')}.webp",
+        )
+
+        # 作成されたオブジェクトを確認
+        # ロガー
+        # logger.swim("Created UploadedFile: #{result.inspect}")
+        # logger.swim("Content type: #{result.content_type}")
+        # logger.swim("Original filename: #{result.original_filename}")
+        # logger.swim result.inspect
+        # ロガー
+
+        return result
       rescue => e
-        Rails.logger.error "Image processing error: #{e.message}"
+        logger.swim "Image processing error: #{e.message}"
         raise e
       end
     end
