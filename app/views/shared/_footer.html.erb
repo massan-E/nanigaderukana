@@ -3,7 +3,9 @@
     <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
       <%= link_to "利用規約", terms_path, class: "text-white-50 text-decoration-none hover-lift" %>
       <%= link_to "プライバシーポリシー", privacy_policy_path, class: "text-white-50 text-decoration-none hover-lift" %>
-      <p class="text-white-50 text-decoration-none">お問い合わせ：<%= mail_to ENV['SUPPORT_EMAIL'], nil, class: 'text-decoration-none' %></p>
+      <% if false %>
+        <p class="text-white-50 text-decoration-none">お問い合わせ：<%= mail_to ENV['SUPPORT_EMAIL'], nil, class: 'text-decoration-none' %></p>
+      <% end %>
     </div>
     <p class="text-center text-white-50 mt-3 mb-0">&copy; 2024 Music Hour</p>
   </div>
