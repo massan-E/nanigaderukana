@@ -36,14 +36,11 @@ class ProgramsController < ApplicationController
 
     if @program.valid?
       if params[:program][:image].present?
-        processed_image = nil
         begin
-          processed_image = process_and_transform_image(params[:program][:image])
-          @program.image = processed_image
-
+          @program.image = process_and_transform_image(params[:program][:image])
         rescue => e
           flash.now[:danger] = "画像の処理中にエラーが発生しました: #{e.message}"
-          return render :edit, status: :unprocessable_entity
+          return render :new, status: :unprocessable_entity
         end
       end
 
@@ -71,11 +68,8 @@ class ProgramsController < ApplicationController
       # 画像処理が必要な場合のみ実行
 
       if params[:program][:image].present?
-        processed_image = nil
         begin
-          processed_image = process_and_transform_image(params[:program][:image])
-          @program.image = processed_image
-
+          @program.image = process_and_transform_image(params[:program][:image])
         rescue => e
           flash.now[:danger] = "画像の処理中にエラーが発生しました: #{e.message}"
           return render :edit, status: :unprocessable_entity
@@ -120,15 +114,14 @@ class ProgramsController < ApplicationController
         input_image = Vips::Image.new_from_buffer(image_io.tempfile.read, "")
         image_io.tempfile.rewind
 
+        processed_image = input_image.thumbnail_image(
         # アスペクト比を維持しながらリサイズ
-        processed_image = input_image.thumbnail_image(854,
+          854,
           height: 480,
           size: :down,
           crop: :none,
-        )
-
-        # WebPフォーマットに変換
-        output_buffer = processed_image.webpsave_buffer(
+        ).webpsave_buffer(
+          # WebPフォーマットに変換
           Q: 80,
           effort: 4,
           reduction_effort: 2
@@ -137,7 +130,7 @@ class ProgramsController < ApplicationController
         # 新しい一時ファイルを作成して処理済み画像を書き込む
         new_tempfile = Tempfile.new([ "processed", ".webp" ])
         new_tempfile.binmode
-        new_tempfile.write(output_buffer)
+        new_tempfile.write(processed_image)
         new_tempfile.rewind
 
         # 新しいUploadedFileオブジェクトを作成して返す
