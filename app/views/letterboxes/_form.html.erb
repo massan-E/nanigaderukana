@@ -20,6 +20,11 @@
     <%= form.text_area :body, class: "form-control glass-input", rows: 5 %>
   </div>
 
+  <div class="mb-4">
+    <%= form.label :publish, class: "form-label card-text" %>
+    <%= form.check_box :publish, class: "form-check-input" %>
+  </div>
+
   <div class="text-end mt-4">
     <%= form.submit class: "btn btn-primary rounded-pill px-4 hover-lift" %>
   </div>

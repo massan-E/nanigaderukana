@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   root "static_page#top"
   get "privacy_policy", to: "static_page#privacy_policy"
   get "terms", to: "static_page#terms"
+  get "usage", to: "static_page#usage"
 
   resources :programs do
     resources :letterboxes, only: %i[ index new create edit update destroy ]
