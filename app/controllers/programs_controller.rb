@@ -115,7 +115,7 @@ class ProgramsController < ApplicationController
         image_io.tempfile.rewind
 
         processed_image = input_image.thumbnail_image(
-        # アスペクト比を維持しながらリサイズ
+          # アスペクト比を維持しながらリサイズ
           854,
           height: 480,
           size: :down,
