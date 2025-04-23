@@ -36,7 +36,15 @@ class ProgramsController < ApplicationController
 
     if @program.valid?
       if params[:program][:image].present?
-        process_and_transform_image(params[:program][:image])
+        processed_image = nil
+        begin
+          processed_image = process_and_transform_image(params[:program][:image])
+          @program.image = processed_image
+
+        rescue => e
+          flash.now[:danger] = "画像の処理中にエラーが発生しました: #{e.message}"
+          return render :edit, status: :unprocessable_entity
+        end
       end
 
       if @program.save
@@ -56,15 +64,24 @@ class ProgramsController < ApplicationController
   def update
     # まず属性の更新のみを行う
     @program.assign_attributes(program_params)
+
     authorize @program
 
     if @program.valid?
       # 画像処理が必要な場合のみ実行
+
       if params[:program][:image].present?
-        process_and_transform_image(params[:program][:image])
+        processed_image = nil
+        begin
+          processed_image = process_and_transform_image(params[:program][:image])
+          @program.image = processed_image
+
+        rescue => e
+          flash.now[:danger] = "画像の処理中にエラーが発生しました: #{e.message}"
+          return render :edit, status: :unprocessable_entity
+        end
       end
 
-      # バリデーションが通った場合のみ保存
       if @program.save
         flash[:notice] = "番組を編集しました"
         redirect_to @program
@@ -123,12 +140,16 @@ class ProgramsController < ApplicationController
         new_tempfile.write(output_buffer)
         new_tempfile.rewind
 
-        # 元のUploadedFileオブジェクトの属性を更新
-        image_io.tempfile = new_tempfile
-        image_io.original_filename = "#{File.basename(image_io.original_filename, '.*')}.webp"
-        image_io.content_type = "image/webp"
+        # 新しいUploadedFileオブジェクトを作成して返す
+        result = ActionDispatch::Http::UploadedFile.new(
+          tempfile: new_tempfile,
+          type: "image/webp",
+          filename: "#{File.basename(image_io.original_filename, '.*')}.webp",
+        )
+
+        result
       rescue => e
-        Rails.logger.error "Image processing error: #{e.message}"
+        logger.swim "Image processing error: #{e.message}"
         raise e
       end
     end
