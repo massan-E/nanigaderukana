@@ -56,17 +56,26 @@ class ProgramsController < ApplicationController
   def update
     # まず属性の更新のみを行う
     @program.assign_attributes(program_params)
+    logger.swim(program_params)
+    logger.swim(@program.image.class)
+    logger.swim(@program.image.inspect)
     authorize @program
 
     if @program.valid?
       # 画像処理が必要な場合のみ実行
       if params[:program][:image].present?
+        logger.swim("params[:program][:image].class: #{params[:program][:image].class}")
+        logger.swim("params[:program][:image].inspect: #{params[:program][:image].inspect}")
+        logger.swim "利用可能なメソッド: #{params[:program][:image].methods.sort}"
         process_and_transform_image(params[:program][:image])
+        @program.image = params[:program][:image]
+        logger.swim("params content_type : #{params[:program][:image].content_type}, @program content_type : #{@program.image.content_type}")
       end
 
       # バリデーションが通った場合のみ保存
       if @program.save
         flash[:notice] = "番組を編集しました"
+        logger.swim(@program.image.content_type)
         redirect_to @program
       else
         flash.now[:danger] = "番組を編集できませんでした、番組編集フォームを確認してください"
