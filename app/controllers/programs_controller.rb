@@ -147,7 +147,7 @@ class ProgramsController < ApplicationController
           filename: "#{File.basename(image_io.original_filename, '.*')}.webp",
         )
 
-        return result
+        result
       rescue => e
         logger.swim "Image processing error: #{e.message}"
         raise e
