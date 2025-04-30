@@ -89,7 +89,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "faker", "~> 3.5", ">= 3.5.1"
-  gem "rspec-rails", "~> 7.0.0"
+  gem "rspec-rails", "~> 8.0.0"
   gem "factory_bot_rails"
 end
 
