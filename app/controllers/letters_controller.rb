@@ -16,9 +16,9 @@ class LettersController < ApplicationController
     authorize @letter, policy_class: LetterPolicy
     if @letter.letterbox.letters_visible?
       ogp_image_url = @letter.generate_ogp_image_url
-      set_meta_tags(og: { image: ogp_image_url }, twitter: { image: ogp_image_url })
+      set_meta_tags(og: { title: "To：#{@letter.letterbox.title}", image: ogp_image_url }, twitter: { image: ogp_image_url })
     else
-      set_meta_tags(og: {url: program_url(@program) })
+      set_meta_tags(og: { url: program_url(@program) })
     end
   end
 

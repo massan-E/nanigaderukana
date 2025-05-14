@@ -6,7 +6,7 @@
       <% if letter.letterbox&.letters_visible %>
         <% if producer?(current_user, letter.program) || current_user.admin? %>
           <div class="col align-self-end gap-3">
-            <%= link_to "https://twitter.com/share?url=#{letter_url(letter)}",
+            <%= link_to "https://twitter.com/share?url=#{letter_url(letter)}&text=お便りの続きはMusic Hourで！",
                 target: '_blank',
                 class: "share-link float-end me-2",
                 data: { toggle: "tooltip", placement: "bottom", turbo_prefetch: false, turbo: false },
