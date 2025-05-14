@@ -1,6 +1,6 @@
 class LettersController < ApplicationController
   before_action :set_letter, only: %i[ show destroy ]
-  before_action :set_program, only: %i[ index show new create ]
+  before_action :set_program, only: %i[ index new create ]
   before_action :authenticate_user!, only: %i[ index show destroy ]
   before_action :email_registered_user, only: %i[ index ]
 
@@ -13,6 +13,8 @@ class LettersController < ApplicationController
 
   def show
     authorize @program, policy_class: LetterPolicy
+    ogp_image_url = @letter.set_ogp_image
+    set_meta_tags(og: { image: ogp_image_url }, twitter: { image: ogp_image_url })
   end
 
   def new
