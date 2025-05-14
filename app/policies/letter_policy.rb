@@ -4,7 +4,7 @@ class LetterPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || program_producer? || record.user == user || record.letterbox.letters_visible?
+    user&.admin? || program_producer? || record&.user == user || record.letterbox.letters_visible?
   end
 
   def create?
