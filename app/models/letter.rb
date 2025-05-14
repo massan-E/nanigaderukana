@@ -22,7 +22,7 @@ class Letter < ApplicationRecord
     letters.update_all(is_read: false)
   end
 
-  def set_ogp_image
+  def generate_ogp_image_url
     url_removed_body = self.body.to_s.gsub(/https?:\/\/[\S]+/, "(URL)") # URLを削除
     trimmed_body = url_removed_body.gsub(/\R/, " ").gsub(/ /, "%20").truncate(300, omission: "...")
     "https://res.cloudinary.com/dvwsh79oq/image/upload/l_text:Sawarabi%20Gothic_45:#{CGI.escape(trimmed_body)},co_rgb:9aa5ce,y_-33,w_1010,h_400,c_fit/v1747177181/letter_ogp_back_s5ldoc.png"

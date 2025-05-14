@@ -4,7 +4,7 @@ class LetterPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || program_producer? || owner?
+    user.admin? || program_producer? || record.user == user || record.letterbox.letters_visible?
   end
 
   def create?
@@ -12,6 +12,6 @@ class LetterPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.admin? || program_producer?(record.program) || owner?
+    user.admin? || program_producer?(record.program) || record.user == user
   end
 end

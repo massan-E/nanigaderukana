@@ -12,12 +12,18 @@ class LettersController < ApplicationController
   end
 
   def show
-    authorize @program, policy_class: LetterPolicy
-    ogp_image_url = @letter.set_ogp_image
-    set_meta_tags(og: { image: ogp_image_url }, twitter: { image: ogp_image_url })
+    @program = @letter.program
+    authorize @letter, policy_class: LetterPolicy
+    if @letter.letterbox.letters_visible?
+      ogp_image_url = @letter.generate_ogp_image_url
+      set_meta_tags(og: { image: ogp_image_url }, twitter: { image: ogp_image_url })
+    else
+      set_meta_tags(og: {url: program_url(@program) })
+    end
   end
 
   def new
+    @program = Program.find(@letter.program_id)
     authorize @program, policy_class: LetterPolicy
     @letter = Letter.new
     @letter.radio_name = current_user&.name
@@ -39,7 +45,7 @@ class LettersController < ApplicationController
   end
 
   def destroy
-    authorize @program, policy_class: LetterPolicy
+    authorize @letter, policy_class: LetterPolicy
     @letter.destroy!
     flash[:notice]= "お便りを削除しました"
     redirect_to letters_path, status: :see_other

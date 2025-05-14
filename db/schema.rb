@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_31_102005) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_14_014106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_31_102005) do
     t.text "body"
     t.bigint "program_id"
     t.boolean "publish", default: true
+    t.boolean "letters_visible", default: false
     t.index ["program_id"], name: "index_letterboxes_on_program_id"
   end
 

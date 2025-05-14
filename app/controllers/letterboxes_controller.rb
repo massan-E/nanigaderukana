@@ -57,6 +57,6 @@ class LetterboxesController < ApplicationController
     end
 
     def letterbox_params
-      params.require(:letterbox).permit(:title, :body)
+      params.require(:letterbox).permit(:title, :body, :publish, :letters_visible)
     end
 end

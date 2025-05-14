@@ -3,8 +3,23 @@
     <div class="d-flex align-items-center mb-3">
       <i class="bi bi-person-circle fs-4 me-3 text-gradient"></i>
       <h2 class="h5 mb-0 text-gradient"><%= letter.radio_name %></h2>
+      <% if letter.letterbox&.letters_visible %>
+        <% if producer?(current_user, letter.program) || current_user.admin? %>
+          <div class="col align-self-end gap-3">
+            <%= link_to "https://twitter.com/share?url=#{letter_url(letter)}",
+                target: '_blank',
+                class: "share-link float-end me-2",
+                data: { toggle: "tooltip", placement: "bottom", turbo_prefetch: false, turbo: false },
+                title: "Xで回答する" do %>
+              <i class="bi bi-twitter-x"></i>
+              <span>で回答する</span>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-    
+
+
     <div class="letter-body p-3 rounded">
       <p class="mb-0 card-text"><%= markdown(letter.body) %></p>
     </div>
@@ -12,9 +27,9 @@
     <div class="d-flex justify-content-end align-items-center mt-3 text-white-50">
       <div class="d-flex align-items-center gap-3">
         <span class="text-gradient-subtle">To：</span>
-          <% if action_name == "show" %>
-            <%= link_to letter.program&.title, letter.program, class: "top-nav-link nav-hover", data: { turbo: false }  %>
-          <% end %>
+        <% if action_name == "show" %>
+          <%= link_to letter.program&.title, letter.program, class: "top-nav-link nav-hover", data: { turbo: false }  %>
+        <% end %>
         <span class="text-gradient text-gradient-subtle nav-hover m-0"><%= letter.letterbox&.title %></span>
       </div>
     </div>
@@ -22,10 +37,13 @@
     <% if action_name == "index" %>
       <div class="d-flex justify-content-end align-items-center mt-3">
         <div class="d-flex align-items-center gap-3 text-white-50">
+          <%= link_to letter_path(letter),
+            class: "btn btn-outline-light hover-lift", data: { turbo: false } do %>
+            <i class="bi bi-chat-right-text"></i>
+            公開用ページ
+          <% end %>
           <%= render "shared/publish_buttons", object: letter, program: letter.program %>
-          
           <%= render "read_buttons", letter: letter %>
-          
         </div>
       </div>
     <% end %>
@@ -42,7 +60,7 @@
           <% end %>
         </span>
       <% end %>
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center gap-3">
         <span>
           <i class="bi bi-clock me-2"></i>
           <%= letter.created_at.strftime("%Y-%m-%d")%>
