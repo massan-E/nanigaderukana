@@ -111,6 +111,12 @@ header {
   -webkit-text-fill-color: transparent;
 }
 
+.text-info-subtle {
+  color: #7dcfff;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
 // グラスモーフィズム
 .glass-morphism {
   background: rgba(26, 27, 38, 0.7);
@@ -845,4 +851,20 @@ footer {
   margin-bottom: 1rem;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+}
+
+.badge.bg-gradient-info {
+  background: linear-gradient(120deg, #7aa2f7, #2ac3de);
+  border: none;
+  color: #f8f8ff;
+  padding: 0.5em 0.8em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: $transition-base;
+  box-shadow: 0 2px 8px rgba(122, 162, 247, 0.2);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(122, 162, 247, 0.3);
+  }
 }
