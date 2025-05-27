@@ -17,6 +17,7 @@ ja:
         body: 番組の説明
         image: 画像
         publish: 公開設定
+        url: URL
       letterbox:
         title: タイトル
         body: お便り箱の説明

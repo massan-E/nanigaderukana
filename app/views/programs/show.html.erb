@@ -56,17 +56,19 @@
     </div>
   </div>
 
-  <div class="glass-morphism p-4 mb-5">
-    <h2 class="text-gradient h4 mb-4">
-      <i class="bi bi-link-45deg"></i>
-      リンク
-    </h2>
-    <div class="iframely-embed">
-      <div class="iframely-responsive">
-        <a data-iframely-url href="https://school.runteq.jp/v2/runteq_events/1362"></a>
+  <% if @program.url.present? %>
+    <div class="glass-morphism p-4 mb-5">
+      <h2 class="text-gradient h4 mb-4">
+        <i class="bi bi-link-45deg"></i>
+        リンク
+      </h2>
+      <div class="iframely-embed">
+        <div class="iframely-responsive">
+          <a data-iframely-url href="<%= @program.url %>"></a>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <% if (producer?(current_user, @program) || current_user&.admin?) %>
     <div class="glass-morphism p-4 mb-5">
