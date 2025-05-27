@@ -72,10 +72,15 @@ gem "devise-i18n-views"
 gem "redcarpet"
 gem "rouge"
 
+# 認可機能
 gem "pundit"
 
+# google認証用
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
+
+# URLバリデーション
+gem "validate_url"
 
 # デバック用ロガー（やまさかなさん作）
 gem "swimming_fish", "~> 0.2.2"

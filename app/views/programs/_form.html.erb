@@ -39,6 +39,14 @@
       </small>
     </div>
 
+    <div class="mb-4">
+      <%= form.label :url, class: "form-label" %>
+      <%= form.text_field :url, class: "form-control" %>
+      <small class="form-text text-white-50">
+        ※ YouTube、Twitch、RUNTEQ のURLが許可されています
+      </small>
+    </div>
+
     <div class="text-end mt-4">
       <%= form.submit class: "btn btn-primary rounded-pill px-4 mx-2 hover-lift" %>
       <%= link_to "キャンセル", 'javascript:history.back()', class: "btn btn-outline-light rounded-pill px-4 hover-lift" %>

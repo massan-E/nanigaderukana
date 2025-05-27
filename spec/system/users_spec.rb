@@ -19,8 +19,17 @@ RSpec.describe 'Users', type: :system do
     context '不正な入力の場合' do
       it 'エラーメッセージが表示されること', js: true do
         visit new_user_registration_path
+
+        # フォームが表示されるのを待つ
+        expect(page).to have_selector('form')
+
+        # 何も入力せずに登録ボタンをクリック
         click_button '登録する'
-        expect(page).to have_content 'ユーザー名を入力してください'
+
+        # エラーメッセージが表示されるまで待機
+        using_wait_time(10) do
+          expect(page).to have_content('ユーザー名を入力してください')
+        end
       end
     end
   end
