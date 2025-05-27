@@ -23,6 +23,17 @@ class Program < ApplicationRecord
   validates :image, content_type: ACCEPTED_CONTENT_TYPES,
                     size: { less_than_or_equal_to: 5.megabytes }
 
+  # 許可するドメインのリスト
+  ALLOWED_DOMAINS = [
+    "www.youtube.com", "youtube.com", "youtu.be",   # YouTube
+    "school.runteq.jp",                             # RUNTEQ
+    "www.twitch.tv",                                # Twitch
+  ].freeze
+
+  # URLバリデーション
+  validates :url, url: { allow_blank: true }
+  validate :validate_url_domain, if: -> { url.present? }
+
   def self.ransackable_associations(auth_object = nil)
     [ "letter", "letterbox", "user" ]
   end
@@ -48,5 +59,16 @@ class Program < ApplicationRecord
 
   def expiration_time
     (send_invitation_at + 3.days).strftime("%Y年%m月%d日 %H:%M")
+  end
+
+  private
+
+  def validate_url_domain
+    uri = URI.parse(url)
+    unless ALLOWED_DOMAINS.include?(uri.host)
+      errors.add(:url, "このドメインは許可されていません。YouTube、Twitch、RUNTEQイベントページのURLを入力してください。")
+    end
+  rescue URI::InvalidURIError
+    errors.add(:url, "無効なURLの形式です")
   end
 end

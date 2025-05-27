@@ -62,6 +62,9 @@ ja:
             image:
               content_type_invalid: "はJPEG、PNG、GIF、WebP形式のみアップロード可能です"
               file_size_not_less_than_or_equal_to: "は %{max}以下にしてください (現在のサイズは %{file_size})"
+            url:
+              url: "有効なURLを入力してください"
+              domain: "このドメインは許可されていません"
         letterbox:
           attributes:
             title:
