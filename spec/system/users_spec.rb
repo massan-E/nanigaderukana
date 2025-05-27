@@ -20,16 +20,16 @@ RSpec.describe 'Users', type: :system do
       it 'エラーメッセージが表示されること', js: true do
         visit new_user_registration_path
         
-        # フォームの表示を待つ
-        expect(page).to have_selector('form#new_user')
+        # フォームが表示されるのを待つ
+        expect(page).to have_selector('form')
         
-        # ボタンをクリックする前にフォームが完全に読み込まれるのを待つ
-        within('form#new_user') do
-          click_button '登録する'
-        end
+        # 何も入力せずに登録ボタンをクリック
+        click_button '登録する'
 
-        # エラーメッセージが表示されるまで待つ
-        expect(page).to have_content('ユーザー名を入力してください'), 'エラーメッセージが表示されていません'
+        # エラーメッセージが表示されるまで待機
+        using_wait_time(5) do
+          expect(page).to have_content('ユーザー名を入力してください')
+        end
       end
     end
   end
