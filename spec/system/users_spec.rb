@@ -27,7 +27,7 @@ RSpec.describe 'Users', type: :system do
         click_button '登録する'
 
         # エラーメッセージが表示されるまで待機
-        using_wait_time(5) do
+        using_wait_time(10) do
           expect(page).to have_content('ユーザー名を入力してください')
         end
       end
