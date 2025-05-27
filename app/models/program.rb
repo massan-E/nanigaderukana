@@ -27,7 +27,7 @@ class Program < ApplicationRecord
   ALLOWED_DOMAINS = [
     "www.youtube.com", "youtube.com", "youtu.be",   # YouTube
     "school.runteq.jp",                             # RUNTEQ
-    "www.twitch.tv",                                # Twitch
+    "www.twitch.tv"                                # Twitch
   ].freeze
 
   # URLバリデーション

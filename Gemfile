@@ -80,7 +80,7 @@ gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
 # URLバリデーション
-gem 'validate_url'
+gem "validate_url"
 
 # デバック用ロガー（やまさかなさん作）
 gem "swimming_fish", "~> 0.2.2"
