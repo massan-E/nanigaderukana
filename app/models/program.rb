@@ -31,7 +31,7 @@ class Program < ApplicationRecord
   ].freeze
 
   # URLバリデーション
-  validates :url, url: { allow_blank: true }
+  validates :url, url: { allow_blank: true }, length: { maximum: 2000 }
   validate :validate_url_domain, if: -> { url.present? }
 
   def self.ransackable_associations(auth_object = nil)
