@@ -7,6 +7,8 @@ class Letter < ApplicationRecord
   belongs_to :letterbox
   belongs_to :program
 
+  validates :star, inclusion: { in: 0..5 }
+
   scope :search, ->(q) { where("radio_name LIKE ?", "%#{q}%").limit(6) }
 
   def self.ransackable_attributes(auth_object = nil)

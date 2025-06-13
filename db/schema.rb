@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_27_114017) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_12_090920) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_27_114017) do
     t.bigint "user_id"
     t.string "radio_name", default: "loving rabbit", null: false
     t.bigint "program_id"
+    t.integer "star", default: 0
     t.index ["letterbox_id"], name: "index_letters_on_letterbox_id"
     t.index ["program_id"], name: "index_letters_on_program_id"
     t.index ["user_id"], name: "index_letters_on_user_id"

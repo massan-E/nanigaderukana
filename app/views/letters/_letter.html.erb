@@ -48,6 +48,78 @@
       </div>
     <% end %>
 
+    <div class="rating-container">
+      <%= form_with model: letter, class: "star-form" do |f| %>
+        <div class="range-group" id="range-group-<%= letter.id %>">
+          <%= f.hidden_field :star, class: "input-range" %>
+          <%# 星のアイコンはJSで動的に生成 %>
+        </div>
+      <% end %>
+    </div>
+
+    <style>
+      .rating-container {
+        position: relative;
+        width: 200px;
+      }
+
+      .range-group {
+        display: flex;
+        gap: 2px;
+      }
+
+      .range-group a {
+        font-size: 24px;
+        color: #ddd;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .range-group a::before {
+        content: '\F586';  /* Bootstrap Iconsの星のUnicode */
+        font-family: "bootstrap-icons";
+      }
+
+      .range-group a.on {
+        color: #ffd700;
+      }
+    </style>
+
+    <script>
+      document.addEventListener('turbo:load', () => {
+        // 特定のrange-groupのみを取得
+        const group = document.getElementById('range-group-<%= letter.id %>');
+        if (!group) return; // 要素が見つからない場合は処理を終了
+        
+        // 星アイコンの生成
+        for (let i = 0; i < 5; i++) {
+          const star = document.createElement('a');
+          group.appendChild(star);
+        }
+
+        // 初期値の設定
+        const inputRange = group.querySelector('.input-range');
+        const stars = group.querySelectorAll('a');
+        const initialValue = parseInt(inputRange.value || 0);
+        
+        stars.forEach((star, index) => {
+          if (index < initialValue) star.classList.add('on');
+        });
+
+        // クリックイベントの設定
+        stars.forEach((star, index) => {
+          star.addEventListener('click', () => {
+            stars.forEach(s => s.classList.remove('on'));
+            for (let i = 0; i <= index; i++) {
+              stars[i].classList.add('on');
+            }
+            inputRange.value = index + 1;
+            // 必要に応じてここでフォームのsubmitを実行
+          });
+        });
+      });
+    </script>
+
     <div class="d-flex align-items-center justify-content-between text-white-50 mt-3">
       <% if action_name == "index" %>
         <span>
