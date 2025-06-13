@@ -6,4 +6,12 @@ class LetterStatusPolicy < ApplicationPolicy
   def unread?
     read?
   end
+
+  def add_star?
+    read?
+  end
+
+  def commit_star?
+    read?
+  end
 end

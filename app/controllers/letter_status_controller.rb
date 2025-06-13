@@ -15,20 +15,21 @@ class LetterStatusController < ApplicationController
 
   def add_star
     @letter = Letter.find(params[:letter_id])
+    authorize @letter.program, policy_class: LetterStatusPolicy
     @letter.assign_attributes(star: params[:star])
-    # @letter.update(star: params[:star])
 
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream { render 'star' }
     end
   end
 
   def commit_star
     @letter = Letter.find(params[:letter_id])
+    authorize @letter.program, policy_class: LetterStatusPolicy
     @letter.update(star: params[:star])
 
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream { render 'star' }
     end
   end
 

@@ -896,3 +896,47 @@ footer {
 //     max-width: 100%; // モバイルでは幅いっぱいに
 //   }
 // }
+
+// 追加: レーティングスタイル
+.rating-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.star-link {
+  font-size: 1.2rem; // ほかのボタンと同じぐらいのサイズに
+  color: #e4e4e4;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  .bi-star-fill {
+    color: #ffd700;
+    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3));
+  }
+
+  .bi-star {
+    &:hover {
+      color: #ffd700;
+      opacity: 0.7;
+    }
+  }
+}
+
+.star-commit-link {
+  @extend .btn;
+  @extend .btn-outline-warning;
+  @extend .btn-sm;
+  @extend .ms-3;
+
+  &:hover {
+    background-color: #ffd700;
+    border-color: #ffd700;
+    color: #000;
+  }
+}

@@ -1,14 +1,34 @@
 <%= turbo_frame_tag dom_id(letter, :rating) do %>
-  <div class="rating-group">
-    <% 5.times do |i| %>
-      <%= link_to letter_add_star_path(letter, star: i + 1),
-          data: { turbo_method: :patch },
-          class: "star-link" do %>
-        <i class="bi <%= i < letter.star ? 'bi-star-fill' : 'bi-star' %>"></i>
-      <% end %>
-    <% end %>
-  </div>
-  <%= link_to letter_commit_star_path(letter, star: letter.star ) ,data: { turbo_method: :patch }, class: "star-commit-link" do %>
-    <i class="bi bi-check"></i> 確定
+  <% if producer?(current_user, letter.program) || current_user&.admin? %>
+    <div class="d-flex justify-content-end align-items-center mt-3">
+      <div class="d-flex align-items-center gap-3 text-white-50">
+        <div class="rating-group">
+          <% 5.times do |i| %>
+            <%= link_to letter_add_star_path(letter, star: i + 1),
+                data: { turbo_method: :patch },
+                class: "star-link" do %>
+              <i class="bi <%= i < letter.star ? 'bi-star-fill' : 'bi-star' %>"></i>
+            <% end %>
+          <% end %>
+          <%= link_to letter_commit_star_path(letter, star: letter.star),
+              data: { turbo_method: :patch },
+              class: "btn btn-primary hover-lift ms-3" do %>
+            <i class="bi bi-check"></i> 確定
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="d-flex justify-content-end align-items-center mt-3">
+      <div class="d-flex align-items-center gap-3 text-white-50">
+        <div class="rating-group">
+          <% 5.times do |i| %>
+            <span class="star-link">
+              <i class="bi <%= i < letter.star ? 'bi-star-fill' : 'bi-star' %>"></i>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
 <% end %>

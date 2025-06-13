@@ -34,6 +34,8 @@
       </div>
     </div>
 
+    <%= render 'letters/rating', letter: letter %>
+
     <% if action_name == "index" %>
       <div class="d-flex justify-content-end align-items-center mt-3">
         <div class="d-flex align-items-center gap-3 text-white-50">
@@ -48,7 +50,6 @@
       </div>
     <% end %>
 
-    <%= render 'letters/rating', letter: letter %>
 
     <div class="d-flex align-items-center justify-content-between text-white-50 mt-3">
       <% if action_name == "index" %>
