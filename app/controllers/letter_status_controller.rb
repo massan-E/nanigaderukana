@@ -13,6 +13,25 @@ class LetterStatusController < ApplicationController
     @letter.update(is_read: false)
   end
 
+  def add_star
+    @letter = Letter.find(params[:letter_id])
+    @letter.assign_attributes(star: params[:star])
+    # @letter.update(star: params[:star])
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
+  def commit_star
+    @letter = Letter.find(params[:letter_id])
+    @letter.update(star: params[:star])
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   private
 
     def set_letter

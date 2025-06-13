@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     resources :letters, only: %i[ show index new create destroy ], shallow: true do
       post "/read", to: "letter_status#read"
       post "/unread", to: "letter_status#unread"
+
+      patch "/add_star", to: "letter_status#add_star"
+      patch "/commit_star", to: "letter_status#commit_star"
     end
     resources :invitations, only: %i[ show new create edit update ]
     resource :random_letters, only: %i[ show ] do
