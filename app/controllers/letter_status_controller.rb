@@ -1,7 +1,7 @@
 class LetterStatusController < ApplicationController
-  before_action :set_letter, only: %i[ read unread]
-  before_action :authenticate_user!, only: %i[ read unread ]
-  before_action :email_registered_user, only: %i[ read unread ]
+  before_action :set_letter, only: %i[ read unread update_star ]
+  before_action :authenticate_user!, only: %i[ read unread update_star ]
+  before_action :email_registered_user, only: %i[ read unread update_star ]
 
   def read
     authorize @letter.program, policy_class: LetterStatusPolicy
@@ -14,7 +14,6 @@ class LetterStatusController < ApplicationController
   end
 
   def update_star
-    @letter = Letter.find(params[:letter_id])
     authorize @letter.program, policy_class: LetterStatusPolicy
     @letter.update(star: params[:star])
   end
