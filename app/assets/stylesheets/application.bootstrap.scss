@@ -896,3 +896,56 @@ footer {
 //     max-width: 100%; // モバイルでは幅いっぱいに
 //   }
 // }
+
+// 追加: レーティングスタイル
+.evaluation input[type="radio"] {
+  display: none;
+}
+
+.evaluation label {
+  color: #e4e4e4;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.evaluation label:hover,
+.evaluation label:hover ~ label,
+.evaluation input[type="radio"]:checked ~ label {
+  color: #ffd700;
+  background: linear-gradient(45deg, #ffd700, #ffeb3b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.2),
+    0 0 30px rgba(255, 215, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.evaluation input[type="radio"]:checked ~ label ::before {
+  content: "\f586"; /* bi-star-fill のUnicode */
+}
+.evaluation input[type="radio"]:checked ~ label {
+  animation: starShine 0.5s ease;
+}
+
+@keyframes starShine {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+  }
+  100% {
+    transform: scale(1.1) rotate(360deg);
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.6));
+  }
+}
+
+@media (max-width: 992px) {
+  .me-0 {
+    margin-right: 0 !important;
+  }
+}

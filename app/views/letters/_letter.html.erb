@@ -34,19 +34,28 @@
       </div>
     </div>
 
+    <div class="d-flex justify-content-end align-items-center mt-3">
+      <div class="d-flex align-items-center gap-3">
+        <%= render 'letters/rating', letter: letter %>
+      </div>
+    </div>
+
     <% if action_name == "index" %>
       <div class="d-flex justify-content-end align-items-center mt-3">
         <div class="d-flex align-items-center gap-3 text-white-50">
-          <%= link_to letter_path(letter),
-            class: "btn btn-outline-light hover-lift", data: { turbo: false } do %>
-            <i class="bi bi-chat-right-text"></i>
-            公開用ページ
+          <% if letter.letterbox&.letters_visible %>
+            <%= link_to letter_path(letter),
+              class: "btn btn-outline-light hover-lift", data: { turbo: false } do %>
+              <i class="bi bi-chat-right-text"></i>
+              公開用ページ
+            <% end %>
           <% end %>
           <%= render "shared/publish_buttons", object: letter, program: letter.program %>
           <%= render "read_buttons", letter: letter %>
         </div>
       </div>
     <% end %>
+
 
     <div class="d-flex align-items-center justify-content-between text-white-50 mt-3">
       <% if action_name == "index" %>
