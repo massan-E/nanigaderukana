@@ -7,11 +7,7 @@ class LetterStatusPolicy < ApplicationPolicy
     read?
   end
 
-  def add_star?
-    read?
-  end
-
-  def commit_star?
+  def update_star?
     read?
   end
 end

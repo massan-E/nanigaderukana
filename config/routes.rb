@@ -18,8 +18,7 @@ Rails.application.routes.draw do
       post "/read", to: "letter_status#read"
       post "/unread", to: "letter_status#unread"
 
-      patch "/add_star", to: "letter_status#add_star"
-      patch "/commit_star", to: "letter_status#commit_star"
+      patch "/update_star", to: "letter_status#update_star"
     end
     resources :invitations, only: %i[ show new create edit update ]
     resource :random_letters, only: %i[ show ] do

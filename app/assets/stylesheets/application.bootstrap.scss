@@ -898,45 +898,51 @@ footer {
 // }
 
 // 追加: レーティングスタイル
-.rating-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
+      .evaluation input[type='radio'] {
+        display: none;
+      }
 
-.star-link {
-  font-size: 1.2rem; // ほかのボタンと同じぐらいのサイズに
-  color: #e4e4e4;
-  text-decoration: none;
-  transition: all 0.3s ease;
+      .evaluation label {
+        color: #e4e4e4;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
 
-  &:hover {
-    transform: scale(1.1);
-  }
+      .evaluation label:hover,
+      .evaluation label:hover ~ label,
+      .evaluation input[type='radio']:checked ~ label {
+        color: #ffd700;
+        background: linear-gradient(45deg, #ffd700, #ffeb3b);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
+        text-shadow: 
+          0 0 10px rgba(255, 215, 0, 0.3),
+          0 0 20px rgba(255, 215, 0, 0.2),
+          0 0 30px rgba(255, 215, 0, 0.1);
+        transform: scale(1.1);
+      }
 
-  .bi-star-fill {
-    color: #ffd700;
-    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3));
-  }
+      .evaluation input[type='radio']:checked ~ label ::before {
+        content: "\f586"; /* bi-star-fill のUnicode */
+      }
+      .evaluation input[type='radio']:checked ~ label {
+        animation: starShine 0.5s ease;
+      }
 
-  .bi-star {
-    &:hover {
-      color: #ffd700;
-      opacity: 0.7;
-    }
-  }
-}
-
-.star-commit-link {
-  @extend .btn;
-  @extend .btn-outline-warning;
-  @extend .btn-sm;
-  @extend .ms-3;
-
-  &:hover {
-    background-color: #ffd700;
-    border-color: #ffd700;
-    color: #000;
-  }
-}
+      @keyframes starShine {
+        0% {
+          transform: scale(1) rotate(0deg);
+          filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
+        }
+        50% {
+          transform: scale(1.2) rotate(180deg);
+          filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+        }
+        100% {
+          transform: scale(1.1) rotate(360deg);
+          filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.6));
+        }
+      }
+// レーティングのスタイルend
