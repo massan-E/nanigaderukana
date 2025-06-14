@@ -2,7 +2,7 @@
   <%= form_with(url: letter_update_star_path(letter), method: :patch) do |f| %>
     <div class="evaluation d-flex flex-row-reverse align-items-end">
       <% if producer?(current_user, letter.program) || current_user&.admin? %>
-        <%= f.submit "確定", class: "btn btn-primary hover-lift ms-3" do %>
+        <%= f.submit "確定", class: "btn btn-primary hover-lift ms-lg-3 ms-0" do %>
           <i class="bi bi-check"></i>
         <% end %>
       <% end %>
@@ -12,7 +12,7 @@
           id: "star#{i}_#{letter.id}",
           checked: (letter.star == i) ,
           disabled: !(producer?(current_user, letter.program) || current_user&.admin?)%>
-        <%= f.label "star_#{i}", for: "star#{i}_#{letter.id}", class: "me-3" do %>
+        <%= f.label "star_#{i}", for: "star#{i}_#{letter.id}", class: "me-lg-3 me-0" do %>
           <i class="bi bi-star fs-2"></i>
         <% end %>
       <% end %>
